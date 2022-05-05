@@ -1,10 +1,18 @@
-import './App.css';
-import PhoneEnabledOutlinedIcon from '@mui/icons-material/PhoneEnabledOutlined';
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/home/Home";
 
 function App() {
   return (
     <div className="App">
-      <PhoneEnabledOutlinedIcon />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/">
+            <Route index element={<Home />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+      ,
     </div>
   );
 }

@@ -1,0 +1,16 @@
+
+.number {
+  color: #ea666c;
+  font-size: 46px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.span {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.text {
+  text-align: center;
+}
