@@ -1,6 +1,5 @@
 import styles from "./DataList.module.css";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
-import DataCard from "../dataCard/DataCard";
 
 const DataList = () => {
   const datas = [

@@ -1,0 +1,99 @@
+.container {
+  height: calc(900px - 100px);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 80%;
+  margin: 0 auto;
+  padding: 50px;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.textsWrapper {
+  width: 400px;
+  display: flex;
+  margin: 25px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.iconWrapper {
+  width: 60px;
+  height: 60px;
+  padding: 25px;
+  padding-top: 0;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  background-color: #ea666c;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.texts {
+}
+
+.title {
+  margin-bottom: 25px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.text {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.modalWrapper {
+  /* background-color: #999; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.modal {
+  width: 50%;
+  height: 330px;
+  background-color: #f09196;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.modal .textModal {
+    font-size: 20px;
+    color: #fff;
+    padding: 30px 20px;
+}
+
+.button {
+    padding: 10px 50px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    transition: 0.3s;
+    color: #ee8186;
+    background-color: #fff;
+    outline: none;
+    margin-left: 20px;
+  }
+  .button:hover {
+    background-color: #ea666c;
+    color: #fff;
+  }
