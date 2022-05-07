@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "alias": {
+          //example: import Header from '~/components/Header/Header.jsx'
+          "~": "./src"
+        }
+      }
+    ]
+  ]
+}
