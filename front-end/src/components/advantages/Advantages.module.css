@@ -32,6 +32,9 @@
   height: 60px;
   padding: 25px;
   padding-top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .icon {
@@ -60,11 +63,12 @@
   /* background-color: #999; */
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: 150px;
 }
 
 .modal {
-  width: 50%;
+  width: 60%;
   height: 330px;
   background-color: #f09196;
   margin-top: 0;
@@ -75,25 +79,25 @@
 }
 
 .modal .textModal {
-    font-size: 20px;
-    color: #fff;
-    padding: 30px 20px;
+  font-size: 20px;
+  color: #fff;
+  padding: 30px 20px;
 }
 
 .button {
-    padding: 10px 50px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 700;
-    border: none;
-    transition: 0.3s;
-    color: #ee8186;
-    background-color: #fff;
-    outline: none;
-    margin-left: 20px;
-  }
-  .button:hover {
-    background-color: #ea666c;
-    color: #fff;
-  }
+  padding: 10px 50px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  transition: 0.3s;
+  color: #ee8186;
+  background-color: #fff;
+  outline: none;
+  margin-left: 20px;
+}
+.button:hover {
+  background-color: #ea666c;
+  color: #fff;
+}

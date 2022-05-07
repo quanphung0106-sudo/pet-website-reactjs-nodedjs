@@ -70,7 +70,6 @@
   }
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 
@@ -82,11 +81,10 @@
 @keyframes scaleImg {
   from {
     opacity: 0;
-    transform: scale(0.1);
+    transform: rotate(90deg) scale(0.1);
   }
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 
@@ -99,7 +97,7 @@
 }
 
 .ul .li::before {
-  content: "✓";
+  content: '✓';
   color: #ea666c;
   font-weight: bold;
   margin-right: 10px;
@@ -126,8 +124,8 @@
 .modalWrapper {
   display: flex;
   flex-direction: column;
-  max-width: 300px;
-  height: 320px;
+  max-width: 350px;
+  height: 420px;
   background-color: #f09196;
   padding: 50px 40px;
   z-index: 10;

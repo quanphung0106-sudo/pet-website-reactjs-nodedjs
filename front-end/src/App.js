@@ -1,15 +1,20 @@
-import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/home/Home";
+import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { publicRoutes } from '~/routes/Routes';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/">
-            <Route index element={<Home />} />
-          </Route>
+          {publicRoutes.map((route, index) => {
+            const Page = route.component;
+            return (
+              <Route path={route.path} key={index}>
+                <Route index element={<Page />} />
+              </Route>
+            );
+          })}
         </Routes>
       </BrowserRouter>
     </div>

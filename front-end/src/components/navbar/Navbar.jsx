@@ -1,6 +1,7 @@
-import styles from "./Navbar.module.css";
-import PhoneEnabledIcon from "@mui/icons-material/PhoneEnabled";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import styles from './Navbar.module.css';
+import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -16,15 +17,21 @@ const Navbar = () => {
       </div>
       <div className={styles.item}>
         <ul className={styles.ul}>
-          <li className={styles.li}>Homepage</li>
-          <li className={styles.li}>Pet</li>
+          <Link to="/">
+            <li className={styles.li}>Homepage</li>
+          </Link>
+          <Link to="/products">
+            <li className={styles.li}>Pet</li>
+          </Link>
           <li className={styles.li}>Menu</li>
           <img className={styles.img} src="/img/logo.png" alt="" />
           {/* <div className={styles.imgContainer}>
           </div> */}
           <li className={styles.li}>Events</li>
           <li className={styles.li}>Blog</li>
-          <li className={styles.li}>Contact</li>
+          <a>
+            <li className={styles.li}>Contact</li>
+          </a>
         </ul>
       </div>
       <div className={styles.item}>
