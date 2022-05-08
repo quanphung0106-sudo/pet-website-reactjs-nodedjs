@@ -1,0 +1,44 @@
+.totalWrapper {
+  width: 100%;
+  height: 100%;
+  background-color: #f09196;
+  padding: 50px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.totalText {
+  margin-bottom: 5px;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.totalTextTitle {
+  font-size: 24px;
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.button {
+  padding: 10px 50px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  transition: 0.3s;
+  color: #ee8186;
+  background-color: #fff;
+  outline: none;
+  margin-top: 55px;
+}
+.button:hover {
+  background-color: #ea666c;
+  color: #fff;
+}

@@ -1,0 +1,54 @@
+.container {
+  min-height: calc(100vh - 100px);
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  background-color: #f2f2f2;
+}
+
+.wrapper {
+  width: 90%;
+  height: calc(100vh- 100px);
+  display: flex;
+}
+
+.left {
+  flex: 2;
+  height: 100%;
+  /* background-color: #777; */
+}
+
+.right {
+  flex: 1;
+  height: 100%;
+  background-color: #888;
+  max-height: 400px;
+}
+
+.table {
+  width: 100%;
+  text-align: center;
+  border-spacing: 30px;
+}
+
+.tdImg {
+  width: 80px;
+}
+
+.imgContainer,
+.img {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img {
+  text-align: center;
+}
+
+.total,
+.name {
+  font-weight: bold;
+}

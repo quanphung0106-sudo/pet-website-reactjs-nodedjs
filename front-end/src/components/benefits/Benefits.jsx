@@ -6,7 +6,7 @@ const Benefits = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY >= 930 && window.scrollY < 1521) {
+      if (window.scrollY >= 890 && window.scrollY < 1521) {
         document.getElementsByClassName(styles.topItem);
         document.getElementsByClassName(styles.img);
         document.getElementsByClassName(styles.img2);

@@ -35,10 +35,12 @@ const Navbar = () => {
         </ul>
       </div>
       <div className={styles.item}>
-        <div className={styles.cart}>
-          <ShoppingCartIcon className={styles.cartIcon} />
-          <div className={styles.counter}>2</div>
-        </div>
+        <Link to="/cart">
+          <div className={styles.cart}>
+            <ShoppingCartIcon className={styles.cartIcon} />
+            <div className={styles.counter}>2</div>
+          </div>
+        </Link>
       </div>
     </div>
   );
