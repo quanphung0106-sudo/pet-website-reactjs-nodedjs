@@ -6,6 +6,7 @@
   color: #fff;
   display: flex;
   flex-direction: column;
+  border-radius: 5px;
 }
 
 .title {
@@ -25,7 +26,7 @@
   font-weight: 600;
 }
 
-.button {
+/* .button {
   padding: 10px 50px;
   border-radius: 5px;
   cursor: pointer;
@@ -41,4 +42,15 @@
 .button:hover {
   background-color: #ea666c;
   color: #fff;
+} */
+
+.link {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 55px;
 }

@@ -3,11 +3,12 @@ import Navbar from '~/components/navbar/Navbar';
 import styles from './Detail.module.css';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Detail = () => {
   const [quantity, setQuantity] = useState(1);
-  const [checked, setChecked] = useState(false);
-  const [types, setTypes] = useState([]);
+  const [types, setTypes] = useState();
+  const [check, setCheck] = useState({});
 
   const checkboxes = [
     {
@@ -32,26 +33,11 @@ const Detail = () => {
     },
   ];
 
-  console.log(types);
-
-  const handleCheck = (e, checkbox) => {
-    let checked = e.target.checked;
-    if (checked) {
-      setTypes([checkbox]);
-      [checkbox].filter((item) => {
-        //remove all checkboxes except the currently selected checkbox
-        if (item.id === checkbox.id) {
-        }
-        console.log(checked, item.id, checkbox.id);
-      });
-    } else {
-      setTypes(types.filter((type) => type.id !== checkbox.id));
-    }
-  };
-
   const handleOnchange = (e) => {
     if (e.target.value <= 20) {
-      setQuantity(parseInt(e.target.value));
+      if (e.target.value !== NaN) {
+        setQuantity(parseInt(e.target.value));
+      }
     }
   };
 
@@ -62,6 +48,34 @@ const Detail = () => {
       setQuantity(quantity + 1);
     }
   };
+
+  const handleChecked = (checkbox) => {
+    console.log(checkbox);
+    setCheck(checkbox);
+  };
+
+  console.log(check);
+
+  // const handleChecked = (e, checkbox) => {
+  //   let checked = e.target.checked;
+  //   console.log(checked);
+  //   if (checked === true) {
+  //     checkboxes.filter((item) => {
+  //       if (item.id === checkbox.id) {
+  //         console.log(item.id, checkbox.id, check);
+  //         return setTypes([checkbox]) && setCheck(false);
+  //       } else {
+  //         setCheck(true);
+  //       }
+  //     });
+  //     setCheck(false);
+  //     console.log(check);
+  //   } else {
+  //     setTypes(types.filter((type) => type.id !== checkbox.id));
+  //     setCheck(false);
+  //     console.log(checked, 'Bye');
+  //   }
+  // };
 
   return (
     <>
@@ -98,8 +112,9 @@ const Detail = () => {
                 {checkboxes.map((checkbox) => (
                   <div className={styles.extra} key={checkbox.id}>
                     <input
-                      onClick={(e) => handleCheck(e, checkbox)}
+                      onChange={() => handleChecked(checkbox)}
                       type="checkbox"
+                      checked={check.id === checkbox.id}
                       id={checkbox.id}
                       className={styles.option}
                     ></input>
@@ -108,13 +123,17 @@ const Detail = () => {
                 ))}
               </section>
               <div className={styles.payment}>
-                <button className={styles.button}>
-                  <ShoppingCartIcon />
-                  <p className={styles.p}>Add to cart</p>
-                </button>
-                <button className={styles.button}>
-                  <p className={styles.p}>Buy now!</p>
-                </button>
+                <Link to="/cart">
+                  <button className={styles.addToCartButton}>
+                    <ShoppingCartIcon />
+                    <p className={styles.p}>Add to cart</p>
+                  </button>
+                </Link>
+                <Link to="/cart">
+                  <button className={styles.button}>
+                    <p className={styles.p}>Buy now!</p>
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

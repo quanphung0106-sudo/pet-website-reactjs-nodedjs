@@ -21,16 +21,115 @@
 }
 
 .right {
+  margin-left: 25px;
   flex: 1;
   height: 100%;
   /* background-color: #888; */
   max-height: 400px;
 }
 
+.buttonWrapper {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+}
+
+.goBackButton {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #ee8186;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  transition: 0.3s;
+  outline: none;
+  display: flex;
+  border: 1px solid #ee81869a;
+}
+
+.goBackButton:hover {
+  background-color: #ea666c;
+  color: #fff;
+}
+
+.tableWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .table {
   width: 100%;
+  height: 100%;
+}
+
+.head,
+.body {
+  display: flex;
+}
+
+.head {
+  align-items: center;
+}
+
+.column {
+  flex: 1;
+}
+
+.tableHead {
+  flex: 1;
+  width: 100%;
   text-align: center;
-  border-spacing: 30px;
+  background-color: #f09196;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #fff;
+  font-size: 20px;
+}
+
+.tableHead .head {
+  height: 100%;
+  padding: 10px 0;
+}
+
+.tableBody {
+  width: 100%;
+  flex: 10;
+  font-weight: 500;
+  text-align: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.tableBody .table {
+  padding: 25px 0;
+}
+.tableBody .column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tableBody .body {
+  width: 100%;
+  margin-bottom: 25px;
+  transition: 0.1s;
+  height: 60px;
+}
+
+.quantity {
+  font-weight: bold;
+}
+
+.tableBody .body:nth-child(even) {
+  background-color: #f0919623;
 }
 
 .delivery {
@@ -83,4 +182,21 @@
 }
 .text {
   margin: 3px 0;
+}
+
+.orderButton {
+  width: 256px;
+  padding: 10px 50px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  transition: 0.3s;
+  color: #fff;
+  background-color: rgba(0, 128, 0, 0.795);
+  outline: none;
+}
+
+.orderButton:disabled {
+  opacity: 0.9;
 }

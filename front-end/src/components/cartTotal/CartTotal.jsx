@@ -1,9 +1,10 @@
-import styles from './Cart.module.css';
+import { Link } from 'react-router-dom';
+import styles from './CartTotal.module.css';
 
-const CartTotal = () => {
+const CartTotal = (props) => {
   return (
     <div className={styles.totalWrapper}>
-      <h2 className={styles.title}>CART TOTAL</h2>
+      <h2 className={styles.title}>{props.title}</h2>
       <div className={styles.totalText}>
         <b className={styles.totalTextTitle}>Subtotal:</b>$30.00
       </div>
@@ -13,7 +14,11 @@ const CartTotal = () => {
       <div className={styles.totalText}>
         <b className={styles.totalTextTitle}>Total:</b>$30.00
       </div>
-      <button className={styles.button}>CHECKOUT NOW!</button>
+      <Link className={styles.link} to="/orders">
+        <button disabled={props.disabled} className={props.typeOfButton}>
+          {props.button}
+        </button>
+      </Link>
     </div>
   );
 };

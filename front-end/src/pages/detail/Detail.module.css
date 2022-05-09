@@ -151,7 +151,7 @@
   gap: 15px;
 }
 
-.payment .button:first-child {
+.payment .addToCartButton:first-child {
   padding: 10px 50px;
   border-radius: 5px;
   background-color: #fff;
@@ -166,11 +166,11 @@
   border: 1px solid #ee81869a;
 }
 
-.payment .button:first-child:hover {
+.payment .addToCartButton:hover {
   background-color: #ea666c;
   color: #fff;
 }
-.payment .button:last-child {
+.payment .button {
   padding: 10px 25px;
   border-radius: 5px;
   cursor: pointer;
@@ -184,6 +184,6 @@
   color: #fff;
 }
 
-.payment .button:last-child:hover {
-  opacity: 0.8;
+.payment .button:hover {
+  opacity: 0.9;
 }
