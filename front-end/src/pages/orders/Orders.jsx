@@ -5,6 +5,7 @@ import Navbar from '~/components/navbar/Navbar';
 import Footer from '~/components/footer/Footer';
 import CartTotal from '~/components/cartTotal/CartTotal';
 import { Link } from 'react-router-dom';
+import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 
 const Orders = (props) => {
   const status = 0;
@@ -132,6 +133,7 @@ const Orders = (props) => {
           </div>
         </div>
       </div>
+      <ScrollToTop />
       <Footer />
     </>
   );

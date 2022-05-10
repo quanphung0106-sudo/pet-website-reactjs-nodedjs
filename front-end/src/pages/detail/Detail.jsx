@@ -2,13 +2,18 @@ import Footer from '~/components/footer/Footer';
 import Navbar from '~/components/navbar/Navbar';
 import styles from './Detail.module.css';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 
 const Detail = () => {
   const [quantity, setQuantity] = useState(1);
   const [types, setTypes] = useState();
   const [check, setCheck] = useState({});
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const checkboxes = [
     {
@@ -139,6 +144,7 @@ const Detail = () => {
           </div>
         </div>
       </div>
+      <ScrollToTop />
       <Footer />
     </>
   );

@@ -38,15 +38,15 @@
 }
 
 .activeTopItem {
-  animation: openWidth 0.8s ease-in-out;
+  animation: openWidth 1s ease-in-out;
 }
 
 .activeImg {
-  animation: zoom 0.8s ease-in-out;
+  animation: zoom 1s ease-in-out;
 }
 
 .activeImg2 {
-  animation: scaleImg 0.8s ease-in-out;
+  animation: scaleImg 1s ease-in-out;
 }
 
 @keyframes openWidth {
@@ -132,7 +132,7 @@
 }
 
 .activeModalWrapper {
-  animation: flexItem 0.8s ease-in-out;
+  animation: flexItem 1s ease-in-out;
   animation-direction: alternate;
 }
 
@@ -157,7 +157,7 @@
 }
 
 .activeTextWrapper {
-  animation: flexText 0.8s ease-in-out;
+  animation: flexText 1s ease-in-out;
   animation-direction: alternate;
 }
 

@@ -1,20 +1,28 @@
-
 .scroll {
-    position: fixed;
-    z-index: 1000;
-    transform: rotate(90deg);
-    right: 50px;
-    bottom: 100px;
-    background-color: #fff;
-    color: rgba(17,17,17,1);
-    border-radius: 50%;
-    padding: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  z-index: 1000;
+  right: 50px;
+  bottom: 100px;
+  background-color: #fff;
+  color: rgba(17, 17, 17, 1);
+  border-radius: 50%;
+  padding: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  animation: scrollButton 0.5s ease alternate infinite;
+}
+
+@keyframes scrollButton {
+  from {
+    transform: rotate(90deg) translateX(2px);
+  }
+  to {
+    transform: rotate(90deg) translateX(-1px);
+  }
 }
 
 .scroll:hover {
-    cursor: pointer;
-    background-color: rgba(17,17,17,0.75);
-    color: #fff;
-    transition: 0.3s;
+  cursor: pointer;
+  background-color: rgba(17, 17, 17, 0.75);
+  color: #fff;
+  transition: 0.3s;
 }

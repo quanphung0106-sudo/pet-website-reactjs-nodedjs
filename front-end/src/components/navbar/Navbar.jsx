@@ -29,9 +29,7 @@ const Navbar = () => {
           </div> */}
           <li className={styles.li}>Events</li>
           <li className={styles.li}>Blog</li>
-          <a>
-            <li className={styles.li}>Contact</li>
-          </a>
+          <li className={styles.li}>Contact</li>
         </ul>
       </div>
       <div className={styles.item}>

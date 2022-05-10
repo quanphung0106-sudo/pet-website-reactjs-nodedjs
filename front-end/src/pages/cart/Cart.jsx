@@ -1,9 +1,14 @@
+import { useEffect } from 'react';
 import CartTotal from '~/components/cartTotal/CartTotal';
 import Footer from '~/components/footer/Footer';
 import Navbar from '~/components/navbar/Navbar';
+import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 import styles from './Cart.module.css';
 
 const Cart = (props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Navbar />
@@ -104,6 +109,7 @@ const Cart = (props) => {
           </div>
         </div>
       </div>
+      <ScrollToTop />
       <Footer />
     </>
   );

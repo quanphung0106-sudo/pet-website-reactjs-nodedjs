@@ -40,10 +40,10 @@
 }
 
 .activeImg {
-  animation: show 0.5s ease-in-out;
+  animation: show 1s ease-in-out;
 }
 .activeText {
-  animation: showText 0.5s ease-in-out;
+  animation: showText 1s ease-in-out;
 }
 
 @keyframes show {

@@ -1,6 +1,7 @@
 import styles from './Benefits.module.css';
 import { useState, useEffect } from 'react';
-const Benefits = () => {
+
+const Benefits = (props) => {
   const [scrollY, setScrollY] = useState(false);
   const [show, setShow] = useState(false);
 

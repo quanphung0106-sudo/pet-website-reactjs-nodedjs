@@ -1,5 +1,6 @@
 import Footer from '~/components/footer/Footer';
 import Navbar from '~/components/navbar/Navbar';
+import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 import styles from './MyItems.module.css';
 
 const MyItem = () => {
@@ -98,6 +99,7 @@ const MyItem = () => {
           </div>
         </div>
       </div>
+      <ScrollToTop />
       <Footer />
     </>
   );

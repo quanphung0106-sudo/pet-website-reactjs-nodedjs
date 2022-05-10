@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Featured.module.css";
+import React, { useEffect, useState } from 'react';
+import styles from './Featured.module.css';
 const Featured = () => {
   const [scrollY, setScrollY] = useState(false);
   const [show, setShow] = useState(false);
@@ -16,10 +16,10 @@ const Featured = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   });
 
@@ -28,20 +28,13 @@ const Featured = () => {
       <div className={styles.imgContainer}>
         <img className={styles.img} src="/img/background.png" alt="" />
         {show && (
-          <img
-            className={`${styles.subImg} ${scrollY ? styles.activeImg : ""}`}
-            src="/img/kiss-pet.png"
-            alt=""
-          />
+          <img className={`${styles.subImg} ${scrollY ? styles.activeImg : ''}`} src="/img/kiss-pet.png" alt="" />
         )}
         {show && (
-          <div
-            className={`${styles.texts} ${scrollY ? styles.activeText : ""}`}
-          >
+          <div className={`${styles.texts} ${scrollY ? styles.activeText : ''}`}>
             <h1 className={styles.text}>We make pets pretty!</h1>
             <p className={styles.text}>
-              They were very nice to Russy and he enjoyed getting his hair cut
-              together with the other dogs.
+              They were very nice to Russy and he enjoyed getting his hair cut together with the other dogs.
             </p>
             <button className={styles.button}>READ MORE</button>
           </div>

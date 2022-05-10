@@ -1,26 +1,26 @@
-import styles from "./Advantages.module.css";
+import styles from './Advantages.module.css';
 
 const Advantages = () => {
   const datas = [
     {
       id: 1,
-      img: "/img/advantages-1.png",
-      title: "Dog Trainings",
+      img: '/img/advantages-1.png',
+      title: 'Dog Trainings',
     },
     {
       id: 2,
-      img: "/img/advantages-2.png",
-      title: "Advanced Training",
+      img: '/img/advantages-2.png',
+      title: 'Advanced Training',
     },
     {
       id: 3,
-      img: "/img/advantages-3.png",
-      title: "Health Checks",
+      img: '/img/advantages-3.png',
+      title: 'Health Checks',
     },
     {
       id: 4,
-      img: "/img/advantages-4.png",
-      title: "Dog Tricks",
+      img: '/img/advantages-4.png',
+      title: 'Dog Tricks',
     },
   ];
 
@@ -35,9 +35,8 @@ const Advantages = () => {
             <div className={styles.texts}>
               <div className={styles.title}>{data.title}</div>
               <div className={styles.text}>
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                dolor in reprehenderit in voluptate velit
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit
               </div>
             </div>
           </div>
@@ -46,14 +45,12 @@ const Advantages = () => {
       <div className={styles.modalWrapper}>
         <div className={styles.modal}>
           <div className={styles.textModal}>
-            Article evident arrived express highest men did boy. Mistress
-            sensible entirely am so. Quick can manor smart money hopes worth
-            too. Comfort produce husband boy her had hearing. Law others theirs
-            passed but wishes. You day real less till dear read. Considered use
-            dispatched melancholy sympathize discretion led. Oh feel if up to
-            till like. He an thing rapid these after going drawn or.
+            Article evident arrived express highest men did boy. Mistress sensible entirely am so. Quick can manor smart
+            money hopes worth too. Comfort produce husband boy her had hearing. Law others theirs passed but wishes. You
+            day real less till dear read. Considered use dispatched melancholy sympathize discretion led. Oh feel if up
+            to till like. He an thing rapid these after going drawn or.
           </div>
-          <button className={styles.button}>READMORE</button>
+          <button className={styles.button}>READ MORE</button>
         </div>
       </div>
     </div>
