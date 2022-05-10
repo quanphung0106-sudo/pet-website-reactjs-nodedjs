@@ -8,7 +8,6 @@ import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 
 const Detail = () => {
   const [quantity, setQuantity] = useState(1);
-  const [types, setTypes] = useState();
   const [check, setCheck] = useState({});
 
   useEffect(() => {
@@ -40,11 +39,13 @@ const Detail = () => {
 
   const handleOnchange = (e) => {
     if (e.target.value <= 20) {
-      if (e.target.value !== NaN) {
+      if (e.target.value !== isNaN()) {
         setQuantity(parseInt(e.target.value));
       }
     }
   };
+
+  console.log(quantity);
 
   const handleQuantity = (count) => {
     if (quantity >= 2 && count === 'left') {

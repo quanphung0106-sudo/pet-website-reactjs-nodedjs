@@ -16,17 +16,6 @@ const Products = () => {
       <div className={styles.container}>
         <div className={styles.wrapper}>
           <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
         </div>
       </div>
       <ScrollToTop />
