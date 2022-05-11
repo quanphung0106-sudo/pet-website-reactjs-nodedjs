@@ -20,7 +20,7 @@ const ItemDetail = () => {
 
   useEffect(() => {
     const getItemById = async () => {
-      const res = await axios.get(`http://localhost:8800/api/items/${params.id}`);
+      const res = await axios.get(`https://pet-website-reactjs-nodejs.herokuapp.com/api/items/${params.id}`);
       // res && Object.keys(res).length === 0 && Object.getPrototypeOf(res) === Object.prototype;
       if (Object.keys(res).length === 0 && res.constructor === Object) {
         console.log('false');
