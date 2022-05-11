@@ -7,13 +7,10 @@ const helmet = require('helmet');
 const route = require('./src/routes/index');
 
 dotenv.config();
-const port = 8800;
+const port = process.env.PORT || 8800;
 
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URL)
   .then(() => {
     console.log('Connected to the MongoDB!');
   })
