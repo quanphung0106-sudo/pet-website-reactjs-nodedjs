@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const port = 8800;
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
@@ -8,6 +7,7 @@ const helmet = require('helmet');
 const route = require('./src/routes/index');
 
 dotenv.config();
+const port = process.env.PORT || 8800;
 
 mongoose
   .connect(process.env.MONGO_URL, {
