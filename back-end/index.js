@@ -7,7 +7,7 @@ const helmet = require('helmet');
 const route = require('./src/routes/index');
 
 dotenv.config();
-const port = process.env.PORT || 8800;
+const port = 8800;
 
 mongoose
   .connect(process.env.MONGO_URL, {
