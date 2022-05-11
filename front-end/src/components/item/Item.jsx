@@ -14,12 +14,10 @@ const Item = () => {
     getDatas();
   }, []);
 
-  console.log(datas);
-
   return datas.map((data) => (
     <div className={styles.container} key={data._id}>
       <div className={styles.top}>
-        <Link to="/products/:productId">
+        <Link to={`/products/${data._id}`}>
           <div className={styles.imgContainer}>
             <img className={styles.img} src={data.img} alt="" />
           </div>
@@ -30,11 +28,19 @@ const Item = () => {
         <h3 className={styles.title}>{data.title}</h3>
 
         <div className={styles.prices}>
-          {data.sellItem !== 0 ? <del className={styles.price}>${data.sellItem}</del> : ''} $
-          {data.typeOfOtions[0].price} - ${data.typeOfOtions[1].price}
+          {data.sellItem !== 0 ? (
+            <>
+              <del className={styles.price}>
+                ${data.typeOfOptions[0].price} - {data.typeOfOptions[1].price}
+              </del>
+              ${data.typeOfOptions[0].price - (data.typeOfOptions[0].price * data.sellItem) / 100}-
+              {data.typeOfOptions[1].price - (data.typeOfOptions[1].price * data.sellItem) / 100}
+            </>
+          ) : (
+            `$${data.typeOfOptions[0].price} - ${data.typeOfOptions[1].price}`
+          )}
         </div>
-
-        <Link to="/products/:productId">
+        <Link to={`/products/${data._id}`}>
           <button className={styles.button}>View options</button>
         </Link>
       </div>

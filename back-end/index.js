@@ -10,12 +10,15 @@ const route = require('./src/routes/index');
 dotenv.config();
 
 mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => {
-    console.log('Connected to MongoDB');
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   })
-  .catch((err) => {
-    console.log('Cannot connect to MongoDB', err);
+  .then(() => {
+    console.log('Connected to the MongoDB!');
+  })
+  .catch((error) => {
+    console.log(`Can not connect to database, ${error}`);
   });
 
 //midleware

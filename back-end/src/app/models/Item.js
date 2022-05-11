@@ -30,7 +30,7 @@ const ItemSchema = new Schema(
       type: Number,
       default: 0,
     },
-    typeOfOtions: {
+    typeOfOptions: {
       type: [
         {
           title: {

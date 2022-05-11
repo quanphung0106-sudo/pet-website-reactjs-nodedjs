@@ -22,6 +22,21 @@ const getItems = async (req, res) => {
   }
 };
 
+//get an item
+//[GET]: /api/item/:id
+const getItem = async (req, res) => {
+  try {
+    const items = await Item.findById({ _id: req.params.id });
+    if (!items) {
+      res.status(404).json('Lỗi');
+    } else {
+      res.status(200).json(items);
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 //delete all items
 //[DELETE]: /api/items
 const deleteAllItems = async (req, res) => {
@@ -37,4 +52,5 @@ module.exports = {
   createItem,
   getItems,
   deleteAllItems,
+  getItem,
 };
