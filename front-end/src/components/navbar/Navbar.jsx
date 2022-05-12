@@ -2,8 +2,11 @@ import styles from './Navbar.module.css';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
+
   return (
     <div className={styles.container}>
       <div className={styles.item}>
@@ -36,7 +39,7 @@ const Navbar = () => {
         <Link to="/cart">
           <div className={styles.cart}>
             <ShoppingCartIcon className={styles.cartIcon} />
-            <div className={styles.counter}>2</div>
+            <div className={styles.counter}>{quantity}</div>
           </div>
         </Link>
       </div>

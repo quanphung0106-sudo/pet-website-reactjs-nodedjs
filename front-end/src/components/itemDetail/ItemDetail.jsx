@@ -2,7 +2,9 @@ import styles from './ItemDetail.module.css';
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { addProduct } from '~/redux/cartSlice';
 
 const ItemDetail = () => {
   const [quantity, setQuantity] = useState(1);
@@ -10,6 +12,8 @@ const ItemDetail = () => {
   const [datas, setDatas] = useState({});
   const [price, setPrice] = useState(0);
   const [sell, setSell] = useState(0);
+
+  const dispatch = useDispatch();
 
   // Cách 1: Get ID from URL
   const params = useParams();
@@ -20,8 +24,7 @@ const ItemDetail = () => {
 
   useEffect(() => {
     const getItemById = async () => {
-      const res = await axios.get(`http://localhost:8800/api/items/${params.id}`);
-      // res && Object.keys(res).length === 0 && Object.getPrototypeOf(res) === Object.prototype;
+      const res = await axios.get(`http://localhost:8801/api/items/${params.id}`);
       if (Object.keys(res).length === 0 && res.constructor === Object) {
         console.log('false');
       } else {
@@ -36,26 +39,47 @@ const ItemDetail = () => {
   }, []);
 
   const handleOnchange = (e) => {
-    if (e.target.value <= 20) {
-      if (e.target.value !== isNaN()) {
-        setQuantity(parseInt(e.target.value));
-      }
+    let data = e.target.value;
+    let toNum = +data;
+    if (toNum <= 20) {
+      setQuantity(toNum);
+      console.log(toNum);
     }
   };
 
   const handleQuantity = (count) => {
     if (quantity >= 2 && count === 'left') {
-      setQuantity(quantity - 1);
+      let number = quantity - 1;
+      setQuantity(number);
+      console.log(number);
     } else if (quantity < 20 && count === 'right') {
-      setQuantity(quantity + 1);
+      let number = quantity + 1;
+      setQuantity(number);
+      console.log(number);
     }
   };
 
   const handleChecked = (option) => {
-    const sellPrice = option.price - (option.price * datas.sellItem) / 100;
     setCheck(option);
-    setSell(sellPrice);
-    setPrice(option.price);
+
+    if (datas.sellItem !== 0) {
+      const sellPrice = option.price - (option.price * datas.sellItem) / 100;
+      setSell(sellPrice);
+      setPrice(sellPrice);
+    } else {
+      setPrice(option.price);
+    }
+  };
+
+  const handleClick = () => {
+    dispatch(
+      addProduct({
+        ...datas,
+        price,
+        quantity,
+        check,
+      }),
+    );
   };
 
   return (
@@ -71,7 +95,8 @@ const ItemDetail = () => {
           <div className={styles.prices}>
             {datas.sellItem !== 0 ? (
               <>
-                <del className={styles.price}>${price}</del> ${sell}
+                <div className={styles.sellNum}>-{datas.sellItem}%</div>
+                {/* <del className={styles.price}>${price}</del>  */}${price}
               </>
             ) : (
               <>${price}</>
@@ -103,12 +128,10 @@ const ItemDetail = () => {
             ))}
           </section>
           <div className={styles.payment}>
-            <Link to="/cart">
-              <button className={styles.addToCartButton}>
-                <ShoppingCartIcon />
-                <p className={styles.p}>Add to cart</p>
-              </button>
-            </Link>
+            <button onClick={handleClick} className={styles.addToCartButton}>
+              <ShoppingCartIcon />
+              <p className={styles.p}>Add to cart</p>
+            </button>
             <Link to="/cart">
               <button className={styles.button}>
                 <p className={styles.p}>Buy now!</p>
