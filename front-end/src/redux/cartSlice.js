@@ -3,21 +3,24 @@ import { createSlice } from '@reduxjs/toolkit';
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
-    product: [],
+    products: [],
     quantity: 0,
     total: 0,
   },
   reducers: {
     addProduct: (state, action) => {
-      state.product.push(action.payload);
+      state.products.push(action.payload);
       state.quantity += 1;
-      state.total += action.payload * action.payload.quantity;
+      state.total += action.payload.price * action.payload.quantity;
+    },
+    deleteItem: (state, action) => {
+      state.products = action.payload;
     },
     reset: (state) => {
-      state = initialState;
+      return state;
     },
   },
 });
 
-export const { addProduct, reset } = cartSlice.actions;
+export const { addProduct, reset, deleteItem } = cartSlice.actions;
 export default cartSlice.reducer;

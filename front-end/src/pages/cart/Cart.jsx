@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import CartTotal from '~/components/cartTotal/CartTotal';
 import Footer from '~/components/footer/Footer';
 import Navbar from '~/components/navbar/Navbar';
@@ -6,6 +8,15 @@ import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 import styles from './Cart.module.css';
 
 const Cart = (props) => {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+
+  const handleDeleteItem = (id) => {
+    // const item = useSelector((state) => state.cart.products.filter((item) => item.id !== id));
+    console.log(id);
+    // dispatch(deleteItem(id));
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -26,6 +37,7 @@ const Cart = (props) => {
                       <th className={styles.column}>Price</th>
                       <th className={styles.column}>Quantity</th>
                       <th className={styles.column}>Total</th>
+                      <th className={styles.column}>Edit</th>
                     </tr>
                   </thead>
                 </table>
@@ -33,79 +45,42 @@ const Cart = (props) => {
               <div className={styles.tableBody}>
                 <table className={styles.table}>
                   <tbody className={styles.tbody}>
-                    <tr className={styles.body}>
-                      <td className={styles.column}>
-                        <div className={styles.imgContainer}>
-                          <img className={styles.img} src="/img/pets.jpg" alt="" />
-                        </div>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.name}>Adorable Dog</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.type}>White Coat</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.price}>$15.00</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.quantity}>2</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.total}>$30.00</span>
-                      </td>
-                    </tr>
-                    <tr className={styles.body}>
-                      <td className={styles.column}>
-                        <div className={styles.imgContainer}>
-                          <img className={styles.img} src="/img/pets.jpg" alt="" />
-                        </div>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.name}>Adorable Dog</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.type}>White Coat</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.price}>$15.00</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.quantity}>2</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.total}>$30.00</span>
-                      </td>
-                    </tr>
-                    <tr className={styles.body}>
-                      <td className={styles.column}>
-                        <div className={styles.imgContainer}>
-                          <img className={styles.img} src="/img/pets.jpg" alt="" />
-                        </div>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.name}>Adorable Dog</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.type}>White Coat</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.price}>$15.00</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.quantity}>2</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.total}>$30.00</span>
-                      </td>
-                    </tr>
+                    {cart.products.map((product) => (
+                      <tr className={styles.body} key={product._id}>
+                        <td className={styles.column}>
+                          <div className={styles.imgContainer}>
+                            <img className={styles.img} src={product.img} alt="" />
+                          </div>
+                        </td>
+                        <td className={styles.column}>
+                          <span className={styles.name}>{product.title}</span>
+                        </td>
+                        <td className={styles.column}>
+                          <span className={styles.type}>{product.check.title}</span>
+                        </td>
+                        <td className={styles.column}>
+                          <span className={styles.price}>${product.price}</span>
+                        </td>
+                        <td className={styles.column}>
+                          <span className={styles.quantity}>{product.quantity}</span>
+                        </td>
+                        <td className={styles.column}>
+                          <span className={styles.total}>${product.price * product.quantity}</span>
+                        </td>
+                        <td className={styles.column}>
+                          <button onClick={() => handleDeleteItem(product._id)} className={styles.deleteItem}>
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
           <div className={styles.right}>
-            <CartTotal disabled={false} typeOfButton={styles.cartButton} title="CART TOTAL" button="CHECKOUT NOW!" />
+            <CartTotal cart={cart} disabled={false} typeOfButton={styles.cartButton} button="CHECKOUT NOW!" />
           </div>
         </div>
       </div>

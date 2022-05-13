@@ -25,11 +25,7 @@ const ItemDetail = () => {
   useEffect(() => {
     const getItemById = async () => {
       const res = await axios.get(`http://localhost:8801/api/items/${params.id}`);
-      if (Object.keys(res).length === 0 && res.constructor === Object) {
-        console.log('false');
-      } else {
-        setDatas(res.data);
-      }
+      setDatas(res.data);
     };
     getItemById();
   }, []);
@@ -43,7 +39,6 @@ const ItemDetail = () => {
     let toNum = +data;
     if (toNum <= 20) {
       setQuantity(toNum);
-      console.log(toNum);
     }
   };
 
@@ -51,11 +46,9 @@ const ItemDetail = () => {
     if (quantity >= 2 && count === 'left') {
       let number = quantity - 1;
       setQuantity(number);
-      console.log(number);
     } else if (quantity < 20 && count === 'right') {
       let number = quantity + 1;
       setQuantity(number);
-      console.log(number);
     }
   };
 
