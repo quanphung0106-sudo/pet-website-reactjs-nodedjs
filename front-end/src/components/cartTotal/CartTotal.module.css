@@ -26,23 +26,33 @@
   font-weight: 600;
 }
 
-/* .button {
-  padding: 10px 50px;
+.payment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cash,
+.paypal {
+  height: 40px;
+  padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   border: none;
   transition: 0.3s;
-  color: #ee8186;
+  color: #ea666c;
   background-color: #fff;
   outline: none;
-  margin-top: 55px;
+  margin-top: 30px;
 }
-.button:hover {
+.cash:hover,
+.paypal:hover {
   background-color: #ea666c;
   color: #fff;
-} */
+}
 
 .link {
   margin: 0;

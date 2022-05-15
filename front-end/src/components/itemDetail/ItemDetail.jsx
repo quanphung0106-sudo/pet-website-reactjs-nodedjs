@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { addProduct } from '~/redux/cartSlice';
+import { v4 as uuidv4 } from 'uuid';
 
 const ItemDetail = () => {
   const [quantity, setQuantity] = useState(1);
@@ -12,6 +13,7 @@ const ItemDetail = () => {
   const [datas, setDatas] = useState({});
   const [price, setPrice] = useState(0);
   const [sell, setSell] = useState(0);
+  const [blockAdd, setBlockAdd] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -54,6 +56,7 @@ const ItemDetail = () => {
 
   const handleChecked = (option) => {
     setCheck(option);
+    setBlockAdd(false);
 
     if (datas.sellItem !== 0) {
       const sellPrice = option.price - (option.price * datas.sellItem) / 100;
@@ -67,6 +70,7 @@ const ItemDetail = () => {
   const handleClick = () => {
     dispatch(
       addProduct({
+        idItem: uuidv4(),
         ...datas,
         price,
         quantity,
@@ -121,15 +125,13 @@ const ItemDetail = () => {
             ))}
           </section>
           <div className={styles.payment}>
-            <button onClick={handleClick} className={styles.addToCartButton}>
+            <button disabled={blockAdd} onClick={handleClick} className={styles.addToCartButton}>
               <ShoppingCartIcon />
               <p className={styles.p}>Add to cart</p>
             </button>
-            <Link to="/cart">
-              <button className={styles.button}>
-                <p className={styles.p}>Buy now!</p>
-              </button>
-            </Link>
+            <button className={styles.button} disabled={blockAdd}>
+              <p className={styles.p}>Buy now!</p>
+            </button>
           </div>
         </div>
       </div>

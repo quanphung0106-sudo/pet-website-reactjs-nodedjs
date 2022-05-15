@@ -27,7 +27,7 @@ const publicRoutes = [
     component: MyItem,
   },
   {
-    path: '/orders',
+    path: `/orders/:id`,
     component: Orders,
   },
 ];

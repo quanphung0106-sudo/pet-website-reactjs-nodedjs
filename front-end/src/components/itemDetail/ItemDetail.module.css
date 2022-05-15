@@ -159,7 +159,6 @@
   border-radius: 5px;
   background-color: #fff;
   color: #ee8186;
-  cursor: pointer;
   font-size: 18px;
   font-weight: 700;
   border: none;
@@ -172,11 +171,11 @@
 .payment .addToCartButton:hover {
   background-color: #ea666c;
   color: #fff;
+  cursor: pointer;
 }
 .payment .button {
   padding: 10px 25px;
   border-radius: 5px;
-  cursor: pointer;
   font-size: 18px;
   font-weight: 700;
   border: none;
@@ -188,5 +187,12 @@
 }
 
 .payment .button:hover {
+  cursor: pointer;
   opacity: 0.9;
+}
+
+:disabled {
+  cursor: default;
+  opacity: 0.4;
+  pointer-events: none;
 }

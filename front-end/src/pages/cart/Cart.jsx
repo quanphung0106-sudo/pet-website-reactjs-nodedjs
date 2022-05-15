@@ -5,16 +5,18 @@ import CartTotal from '~/components/cartTotal/CartTotal';
 import Footer from '~/components/footer/Footer';
 import Navbar from '~/components/navbar/Navbar';
 import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
+import { deleteItem } from '~/redux/cartSlice';
 import styles from './Cart.module.css';
 
 const Cart = (props) => {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
 
-  const handleDeleteItem = (id) => {
-    // const item = useSelector((state) => state.cart.products.filter((item) => item.id !== id));
-    console.log(id);
-    // dispatch(deleteItem(id));
+  const cart = useSelector((state) => state.cart);
+  // const item = useSelector((state) => state.cart.products.filter((item) => item.id));
+
+  const handleDeleteItem = (idItem, price, quantity) => {
+    console.log('idItem', idItem);
+    dispatch(deleteItem({ idItem, price, quantity }));
   };
 
   useEffect(() => {
@@ -68,7 +70,10 @@ const Cart = (props) => {
                           <span className={styles.total}>${product.price * product.quantity}</span>
                         </td>
                         <td className={styles.column}>
-                          <button onClick={() => handleDeleteItem(product._id)} className={styles.deleteItem}>
+                          <button
+                            onClick={() => handleDeleteItem(product.idItem, product.price, product.quantity)}
+                            className={styles.deleteItem}
+                          >
                             Delete
                           </button>
                         </td>
@@ -80,7 +85,7 @@ const Cart = (props) => {
             </div>
           </div>
           <div className={styles.right}>
-            <CartTotal cart={cart} disabled={false} typeOfButton={styles.cartButton} button="CHECKOUT NOW!" />
+            <CartTotal disabled={false} typeOfButton={styles.cartButton} button="CHECKOUT NOW!" />
           </div>
         </div>
       </div>

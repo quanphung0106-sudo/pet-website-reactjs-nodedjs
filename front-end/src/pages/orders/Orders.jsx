@@ -1,14 +1,33 @@
 import styles from './Order.module.css';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import Navbar from '~/components/navbar/Navbar';
 import Footer from '~/components/footer/Footer';
 import CartTotal from '~/components/cartTotal/CartTotal';
-import { Link } from 'react-router-dom';
 import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 
-const Orders = (props) => {
-  const status = 0;
+const Orders = () => {
+  const params = useParams();
+  const cart = useSelector((state) => state.cart);
+  const amount = cart.total;
+  const [data, setData] = useState({});
+
+  const status = data.status;
+
+  useEffect(() => {
+    const getItemById = async () => {
+      const res = await axios.get(`http://localhost:8801/api/orders/${params.id}`);
+      setData(res.data);
+    };
+    getItemById();
+  }, []);
+
+  console.log(data);
 
   const statusClass = (index) => {
     if (index - status < 1) return styles.done;
@@ -64,10 +83,11 @@ const Orders = (props) => {
                 <table className={styles.table}>
                   <thead>
                     <tr className={styles.head}>
-                      <th className={styles.column}>Order ID</th>
-                      <th className={styles.column}>Customer</th>
-                      <th className={styles.column}>Address</th>
-                      <th className={styles.column}>Total</th>
+                      <th className={styles.column}>Product</th>
+                      <th className={styles.column}>Name</th>
+                      <th className={styles.column}>Type</th>
+                      <th className={styles.column}>Quantity</th>
+                      <th className={styles.column}>Price</th>
                     </tr>
                   </thead>
                 </table>
@@ -75,61 +95,52 @@ const Orders = (props) => {
               <div className={styles.tableBody}>
                 <table className={styles.table}>
                   <tbody className={styles.tbody}>
-                    <tr className={styles.body}>
-                      <td className={styles.column}>
-                        <span className={styles.name}>1231231231</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.type}>Quan Phung</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.price}>52 Nguyen Xuan Huu, Da Nang</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.quantity}>$30.00</span>
-                      </td>
-                    </tr>
-                    <tr className={styles.body}>
-                      <td className={styles.column}>
-                        <span className={styles.name}>1231231231</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.type}>Quan Phung</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.price}>52 Nguyen Xuan Huu, Da Nang</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.quantity}>$30.00</span>
-                      </td>
-                    </tr>
-                    <tr className={styles.body}>
-                      <td className={styles.column}>
-                        <span className={styles.name}>1231231231</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.type}>Quan Phung</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.price}>52 Nguyen Xuan Huu, Da Nang</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.quantity}>$30.00</span>
-                      </td>
-                    </tr>
+                    {data.products?.map((item) => (
+                      <tr className={styles.body} key={item._id}>
+                        <td className={styles.column}>
+                          <div className={styles.imgContainer}>
+                            <img className={styles.img} src={item.img} alt="" />
+                          </div>
+                        </td>
+                        <td className={styles.column}>
+                          <span className={styles.name}>{item.title}</span>
+                        </td>
+                        <td className={styles.column}>
+                          <span className={styles.type}>{item.check.title}</span>
+                        </td>
+                        <td className={styles.column}>
+                          <span className={styles.quantity}>4</span>
+                        </td>
+                        <td className={styles.column}>
+                          <span className={styles.price}>$100</span>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
           <div className={styles.right}>
-            <CartTotal
-              link={'/orders'}
-              disabled={true}
-              typeOfButton={styles.orderButton}
-              title="CART TOTAL"
-              button="PAID!"
-            />
+            <div className={styles.totalWrapper}>
+              <h2 className={styles.title}>Order Information</h2>
+              <div className={styles.totalText}>
+                <b className={styles.totalTextTitle}>OrderID:</b>
+                {data._id}
+              </div>
+              <div className={styles.totalText}>
+                <b className={styles.totalTextTitle}>Customer:</b>
+                {data.customer}
+              </div>
+              <div className={styles.totalText}>
+                <b className={styles.totalTextTitle}>Address:</b>
+                {data.address}
+              </div>
+              <div className={styles.totalText}>
+                <b className={styles.totalTextTitle}>Total:</b>${data.total}
+              </div>
+              <button className={styles.orderButton}>PAID!</button>
+            </div>
           </div>
         </div>
       </div>
