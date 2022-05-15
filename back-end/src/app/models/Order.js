@@ -48,9 +48,12 @@ const OrderSchema = new Schema(
           title: {
             type: String,
           },
-          // totalPrice: {
-          //   type: Number,
-          // },
+          totalItem: {
+            type: Number,
+          },
+          quantityItem: {
+            type: Number,
+          },
           img: {
             type: String,
           },

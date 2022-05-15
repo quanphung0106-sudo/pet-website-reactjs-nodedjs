@@ -109,10 +109,10 @@ const Orders = () => {
                           <span className={styles.type}>{item.check.title}</span>
                         </td>
                         <td className={styles.column}>
-                          <span className={styles.quantity}>4</span>
+                          <span className={styles.quantity}>{item.quantityItem}</span>
                         </td>
                         <td className={styles.column}>
-                          <span className={styles.price}>$100</span>
+                          <span className={styles.price}>${item.totalItem}</span>
                         </td>
                       </tr>
                     ))}

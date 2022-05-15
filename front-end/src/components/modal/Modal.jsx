@@ -5,6 +5,10 @@ import { useSelector } from 'react-redux';
 
 const Modal = ({ total, setShowModal, createOrder }) => {
   const cartProducts = useSelector((state) => state.cart.products);
+  // const cartQuantityOfProduct = useSelector((state) => {
+  //   state.cart.products.map((product) => console.log(product.quantity));
+  // });
+  // const cartTotalOfProduct = useSelector((state) => state.products.totalItem);
 
   const [customer, setCustomer] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -18,6 +22,8 @@ const Modal = ({ total, setShowModal, createOrder }) => {
       check: product.check,
       img: product.img,
       title: product.title,
+      quantityItem: product.quantity,
+      totalItem: product.totalItem,
     }));
     createOrder({
       products,
