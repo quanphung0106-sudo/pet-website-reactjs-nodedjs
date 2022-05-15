@@ -1,11 +1,12 @@
 import styles from './Order.module.css';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import { reset } from '~/redux/cartSlice';
 import Navbar from '~/components/navbar/Navbar';
 import Footer from '~/components/footer/Footer';
 import CartTotal from '~/components/cartTotal/CartTotal';
@@ -13,6 +14,7 @@ import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 
 const Orders = () => {
   const params = useParams();
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const amount = cart.total;
   const [data, setData] = useState({});
@@ -23,6 +25,7 @@ const Orders = () => {
     const getItemById = async () => {
       const res = await axios.get(`http://localhost:8801/api/orders/${params.id}`);
       setData(res.data);
+      dispatch(reset());
     };
     getItemById();
   }, []);

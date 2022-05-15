@@ -12,10 +12,12 @@ const Cart = (props) => {
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
-  // const item = useSelector((state) => state.cart.products.filter((item) => item.id));
+  const items = useSelector((state) => state.cart.products);
 
   const handleDeleteItem = (idItem, price, quantity) => {
+    const filter = items.filter((item) => item.itemId !== idItem);
     console.log('idItem', idItem);
+    console.log('filter', filter);
     dispatch(deleteItem({ idItem, price, quantity }));
   };
 
@@ -39,7 +41,7 @@ const Cart = (props) => {
                       <th className={styles.column}>Price</th>
                       <th className={styles.column}>Quantity</th>
                       <th className={styles.column}>Total</th>
-                      <th className={styles.column}>Edit</th>
+                      {/* <th className={styles.column}>Edit</th> */}
                     </tr>
                   </thead>
                 </table>
@@ -70,12 +72,12 @@ const Cart = (props) => {
                           <span className={styles.total}>${product.price * product.quantity}</span>
                         </td>
                         <td className={styles.column}>
-                          <button
+                          {/* <button
                             onClick={() => handleDeleteItem(product.idItem, product.price, product.quantity)}
                             className={styles.deleteItem}
                           >
                             Delete
-                          </button>
+                          </button> */}
                         </td>
                       </tr>
                     ))}

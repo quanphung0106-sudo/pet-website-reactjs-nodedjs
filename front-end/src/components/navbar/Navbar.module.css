@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 50px;
-  z-index: 1000;
+  z-index: 100;
 }
 
 a {
@@ -15,8 +15,21 @@ a {
   color: black;
 }
 
+.avatarContainer {
+  width: 40px;
+  height: 40px;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
 .item {
   display: flex;
+  align-items: center;
 }
 
 .item:first-child {
@@ -73,6 +86,7 @@ a {
 }
 
 .cart {
+  margin-top: 8px;
   position: relative;
   cursor: pointer;
 }
@@ -99,4 +113,72 @@ a {
   justify-content: center;
   padding: 2px;
   font-weight: 700;
+}
+
+.item:nth-child(3) {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.listItem {
+  width: 100%;
+  background-color: #f1bdbf;
+  color: #fff;
+  gap: 15px;
+}
+
+.listItem .item {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.listItem .item:hover {
+  cursor: pointer;
+  background-color: #fff;
+  color: #f1bdbf;
+}
+
+.link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.login {
+  padding: 5px 10px;
+  border: none;
+  background-color: #f09196;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 18px;
+  border: 3px solid #fff;
+  font-weight: bold;
+}
+
+.login:hover {
+  border: 3px solid #f09196;
+  background-color: #fff;
+  color: #f09196;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.register {
+  border: none;
+  padding: 5px 10px;
+  border: 3px solid #fff;
+  font-size: 18px;
+  margin-right: -5px;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.register:hover {
+  cursor: pointer;
+  opacity: 0.9;
+  border-bottom: 3px solid black;
+  transition: 0.4s;
 }

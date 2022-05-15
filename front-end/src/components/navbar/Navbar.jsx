@@ -3,9 +3,15 @@ import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Tippy from '@tippyjs/react/headless';
+import { useState } from 'react';
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
+
+  const [visible, setVisible] = useState(false);
+  const show = () => setVisible(true);
+  const hide = () => setVisible(false);
 
   return (
     <div className={styles.container}>
@@ -42,6 +48,30 @@ const Navbar = () => {
             <div className={styles.counter}>{quantity}</div>
           </div>
         </Link>
+        <button className={styles.register}>Register</button>
+        <Link to="/login">
+          <button className={styles.login}>Login</button>
+        </Link>
+        {/* <Tippy
+          render={(attrs) => (
+            <div {...attrs}>
+              <ul className={styles.listItem}>
+                <Link className={styles.link} to="/my-items">
+                  <li className={styles.item}>Thông tin giỏ hàng</li>
+                </Link>
+                <li className={styles.item}>Log out</li>
+              </ul>
+            </div>
+          )}
+          interactive={true}
+          visible={visible}
+          onClickOutside={hide}
+          placement="bottom-start"
+        >
+          <div className={styles.avatarContainer}>
+            <img onClick={visible ? hide : show} className={styles.avatar} src="/img/my-avatar.jpg" alt="" />
+          </div>
+        </Tippy> */}
       </div>
     </div>
   );

@@ -1,30 +1,43 @@
 .container {
   min-height: calc(100vh - 100px);
-  padding: 50px;
   display: flex;
   justify-content: center;
+  padding: 50px;
 }
 
 .wrapper {
   width: 90%;
-  height: calc(100vh- 100px);
+  height: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.left {
-  flex: 2;
-  height: 100%;
-  /* background-color: #777; */
+.searchWrapper {
+  display: flex;
+  width: 320px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 10px;
+  border: 2px solid black;
+  margin-bottom: 30px;
+  border-radius: 5px;
 }
 
-.right {
-  position: sticky;
-  top: 100px;
-  flex: 1;
-  height: 100%;
-  max-height: 400px;
-  margin-left: 25px;
-  z-index: 0;
+.search {
+  width: 320px;
+  padding-left: 5px;
+  outline: none;
+  border: none;
+  font-size: 18px;
+}
+
+.searchIcon {
+}
+
+.searchIcon:hover {
+  cursor: pointer;
+  opacity: 0.9;
 }
 
 .tableWrapper {
@@ -53,26 +66,8 @@
   flex: 1;
 }
 
-.column:nth-child(1) {
-  flex: 2;
-}
-.column:nth-child(2) {
-  flex: 1.5;
-}
-
-.deleteItem {
-  background-color: crimson;
-  width: 50px;
-  height: 30px;
-  border: none;
-  outline: none;
-  color: #fff;
-  border-radius: 3px;
-}
-
-.deleteItem:hover {
-  opacity: 0.8;
-  cursor: pointer;
+.tableBody .column {
+  height: 80px;
 }
 
 .tableHead {
@@ -130,25 +125,10 @@
   height: 120px;
   object-fit: contain;
 }
-
 .total {
   font-weight: bold;
 }
 
-.cartButton {
-  padding: 10px 50px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: 700;
-  border: none;
-  transition: 0.3s;
-  color: #ee8186;
-  background-color: #fff;
-  outline: none;
-  margin-top: 55px;
-}
-.cartButton:hover {
-  background-color: #ea666c;
-  color: #fff;
+.imgContainer {
+  margin: 5px 0;
 }

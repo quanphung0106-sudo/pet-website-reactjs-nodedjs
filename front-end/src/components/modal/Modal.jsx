@@ -1,7 +1,8 @@
 import styles from './Modal.module.css';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { reset } from '~/redux/cartSlice';
 
 const Modal = ({ total, setShowModal, createOrder }) => {
   const cartProducts = useSelector((state) => state.cart.products);
@@ -9,6 +10,7 @@ const Modal = ({ total, setShowModal, createOrder }) => {
   //   state.cart.products.map((product) => console.log(product.quantity));
   // });
   // const cartTotalOfProduct = useSelector((state) => state.products.totalItem);
+  const dispatch = useDispatch();
 
   const [customer, setCustomer] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -39,7 +41,9 @@ const Modal = ({ total, setShowModal, createOrder }) => {
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <CloseOutlinedIcon onClick={() => setShowModal(false)} fontSize="large" className={styles.icon} />
-        <h1 className={styles.title}>You will pay $13 after devivery.</h1>
+        <h1 className={styles.title}>
+          You will pay <span className={styles.total}>${total}</span> after devivery.
+        </h1>
         <div className={styles.item}>
           <label className={styles.label} htmlFor="">
             Your name
@@ -73,7 +77,7 @@ const Modal = ({ total, setShowModal, createOrder }) => {
           <textarea
             onChange={(e) => setAddress(e.target.value)}
             className={styles.input}
-            rows={4}
+            rows={2}
             placeholder="50 Nguyen Xuan Huu, Da Nang"
           />
         </div>

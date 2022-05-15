@@ -39,6 +39,10 @@
   flex: 1;
 }
 
+.tableBody .column {
+  height: 80px;
+}
+
 .tableHead {
   flex: 1;
   width: 100%;

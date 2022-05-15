@@ -1,0 +1,35 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const UserSchema = new Schema(
+  {
+    idAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    username: {
+      type: String,
+      max: 30,
+      unique: true,
+    },
+    email: {
+      type: String,
+      max: 50,
+      unique: true,
+    },
+    password: {
+      type: String,
+    },
+    photos: {
+      type: String,
+    },
+    acctiveAccount: {
+      type: Boolean,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
+
+module.exports = mongoose.models.User || mongoose.model('User', UserSchema);

@@ -7,10 +7,10 @@
   height: 100%;
   background-color: rgba(119, 119, 119, 0.224);
   position: fixed;
-  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 200;
 }
 
 .wrapper {
@@ -24,6 +24,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-top: 100px;
 }
 
 .icon {
@@ -34,6 +35,11 @@
   color: #fff;
   border-radius: 50px;
   padding: 5px;
+  z-index: 200;
+}
+
+.total {
+  font-weight: bold;
 }
 
 .icon:hover {

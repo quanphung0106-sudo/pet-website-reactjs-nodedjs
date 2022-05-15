@@ -1,9 +1,29 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Footer from '~/components/footer/Footer';
 import Navbar from '~/components/navbar/Navbar';
 import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 import styles from './MyItems.module.css';
 
 const MyItem = () => {
+  const [data, setData] = useState([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getAllOrders = async () => {
+      const res = await axios.get('http://localhost:8801/api/orders');
+      setData(res.data);
+    };
+    getAllOrders();
+  });
+
+  const navigateToDetailItem = (id) => {
+    navigate(`/orders/${id}`);
+  };
+
   return (
     <>
       <Navbar />
@@ -14,11 +34,9 @@ const MyItem = () => {
               <table className={styles.table}>
                 <thead>
                   <tr className={styles.head}>
-                    <th className={styles.column}>Product</th>
-                    <th className={styles.column}>Name</th>
-                    <th className={styles.column}>Type</th>
-                    <th className={styles.column}>Price</th>
-                    <th className={styles.column}>Quantity</th>
+                    <th className={styles.column}>Order ID</th>
+                    <th className={styles.column}>Customer</th>
+                    <th className={styles.column}>Address</th>
                     <th className={styles.column}>Total</th>
                   </tr>
                 </thead>
@@ -27,72 +45,22 @@ const MyItem = () => {
             <div className={styles.tableBody}>
               <table className={styles.table}>
                 <tbody className={styles.tbody}>
-                  <tr className={styles.body}>
-                    <td className={styles.column}>
-                      <div className={styles.imgContainer}>
-                        <img className={styles.img} src="/img/pets.jpg" alt="" />
-                      </div>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.name}>Adorable Dog</span>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.type}>White Coat</span>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.price}>$15.00</span>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.quantity}>2</span>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.total}>$30.00</span>
-                    </td>
-                  </tr>
-                  <tr className={styles.body}>
-                    <td className={styles.column}>
-                      <div className={styles.imgContainer}>
-                        <img className={styles.img} src="/img/pets.jpg" alt="" />
-                      </div>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.name}>Adorable Dog</span>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.type}>White Coat</span>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.price}>$15.00</span>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.quantity}>2</span>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.total}>$30.00</span>
-                    </td>
-                  </tr>
-                  <tr className={styles.body}>
-                    <td className={styles.column}>
-                      <div className={styles.imgContainer}>
-                        <img className={styles.img} src="/img/pets.jpg" alt="" />
-                      </div>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.name}>Adorable Dog</span>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.type}>White Coat</span>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.price}>$15.00</span>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.quantity}>2</span>
-                    </td>
-                    <td className={styles.column}>
-                      <span className={styles.total}>$30.00</span>
-                    </td>
-                  </tr>
+                  {data.map((order) => (
+                    <tr onClick={() => navigateToDetailItem(order._id)} className={styles.body} key={order._id}>
+                      <td className={styles.column}>
+                        <span className={styles.orderId}>{order._id}</span>
+                      </td>
+                      <td className={styles.column}>
+                        <span className={styles.customer}>{order.customer}</span>
+                      </td>
+                      <td className={styles.column}>
+                        <span className={styles.address}>{order.address}</span>
+                      </td>
+                      <td className={styles.column}>
+                        <span className={styles.total}>${order.total}</span>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
