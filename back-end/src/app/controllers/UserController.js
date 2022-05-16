@@ -22,7 +22,19 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+//delete all users
+//[DELETE]: /api/users/
+const deleteAllUsers = async (req, res) => {
+  try {
+    const users = await User.remove();
+    res.status(200).json('Deleted all users');
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
+  deleteAllUsers,
 };

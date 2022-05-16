@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema(
   {
-    idAdmin: {
+    isAdmin: {
       type: Boolean,
       default: false,
     },

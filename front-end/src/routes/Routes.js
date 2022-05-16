@@ -1,3 +1,4 @@
+import Admin from '~/pages/admin/Admin';
 import Cart from '~/pages/cart/Cart';
 import Detail from '~/pages/detail/Detail';
 import Home from '~/pages/home/Home';
@@ -39,6 +40,10 @@ const publicRoutes = [
 ];
 
 const privateRoutes = [
+  {
+    path: '/admin',
+    component: Admin,
+  },
   {
     path: '/my-items',
     component: MyItem,
