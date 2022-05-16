@@ -26,7 +26,7 @@ const ItemDetail = () => {
 
   useEffect(() => {
     const getItemById = async () => {
-      const res = await axios.get(`http://localhost:8801/api/items/${params.id}`);
+      const res = await axios.get(`https://pet-website-reactjs-nodejs.herokuapp.com/api/items/${params.id}`);
       setDatas(res.data);
     };
     getItemById();

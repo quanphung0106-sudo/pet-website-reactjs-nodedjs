@@ -23,7 +23,7 @@ const Orders = () => {
 
   useEffect(() => {
     const getItemById = async () => {
-      const res = await axios.get(`http://localhost:8801/api/orders/${params.id}`);
+      const res = await axios.get(`https://pet-website-reactjs-nodejs.herokuapp.com/api/orders/${params.id}`);
       setData(res.data);
       dispatch(reset());
     };
