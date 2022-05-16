@@ -71,14 +71,14 @@ const Cart = (props) => {
                         <td className={styles.column}>
                           <span className={styles.total}>${product.price * product.quantity}</span>
                         </td>
-                        <td className={styles.column}>
-                          {/* <button
+                        {/* <td className={styles.column}>
+                          <button
                             onClick={() => handleDeleteItem(product.idItem, product.price, product.quantity)}
                             className={styles.deleteItem}
                           >
                             Delete
-                          </button> */}
-                        </td>
+                          </button>
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>
