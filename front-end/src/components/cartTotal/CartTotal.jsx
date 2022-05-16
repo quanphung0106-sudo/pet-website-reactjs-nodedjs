@@ -15,7 +15,7 @@ const CartTotal = ({ typeOfButton, button }) => {
   const [showModal, setShowModal] = useState(false);
 
   const createOrder = async (data) => {
-    const res = await axios.post('https://pet-website-reactjs-nodejs.herokuapp.com/api/orders', data);
+    const res = await axios.post('http://localhost:8801/api/orders', data);
     res.status === 201 && navigate(`/orders/${res.data._id}`);
   };
 
