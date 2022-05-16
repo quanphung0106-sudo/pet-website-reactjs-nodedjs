@@ -45,7 +45,7 @@ const Orders = () => {
         <div className={styles.wrapper}>
           <div className={styles.left}>
             <div className={styles.buttonWrapper}>
-              <Link to="/my-items">
+              <Link to="/stranger-items">
                 <button className={styles.goBackButton}>
                   <ArrowBackOutlinedIcon className={styles.icon} />
                   <span>Quay lại danh sách đơn hàng</span>
