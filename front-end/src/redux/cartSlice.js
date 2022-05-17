@@ -8,6 +8,7 @@ const cartSlice = createSlice({
       products: [],
       quantity: 0,
       total: 0,
+      isFetching: false,
     },
   reducers: {
     addProduct: (state, action) => {
@@ -15,6 +16,12 @@ const cartSlice = createSlice({
       state.quantity += 1;
       state.total += action.payload.price * action.payload.quantity;
       // localStorage.setItem('item', JSON.stringify(state));
+    },
+    fetchData: (state) => {
+      state.products = [];
+      state.quantity = 0;
+      state.total = 0;
+      state.isFetching = true;
     },
     deleteItem: (state, action) => {
       state.products = action.payload.idItem;
@@ -29,5 +36,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addProduct, deleteItem, reset } = cartSlice.actions;
+export const { addProduct, fetchData, deleteItem, reset } = cartSlice.actions;
 export default cartSlice.reducer;
