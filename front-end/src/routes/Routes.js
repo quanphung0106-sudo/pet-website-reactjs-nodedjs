@@ -41,13 +41,15 @@ const publicRoutes = [
 
 const privateRoutes = [
   {
-    path: '/admin',
-    component: Admin,
-  },
-  {
     path: '/my-items',
     component: MyItem,
   },
 ];
+const adminRoutes = [
+  {
+    path: '/admin',
+    component: Admin,
+  },
+];
 
-export { publicRoutes, privateRoutes };
+export { publicRoutes, privateRoutes, adminRoutes };

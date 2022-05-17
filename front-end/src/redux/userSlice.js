@@ -22,7 +22,7 @@ const userSlice = createSlice({
       state.error = false;
       //   state.admin = action.payload.isAdmin;
     },
-    loginFailure: (state) => {
+    loginFail: (state) => {
       state.user = null;
       state.isFetching = false;
       state.error = true;
@@ -32,10 +32,11 @@ const userSlice = createSlice({
       state.user = null;
       state.isFetching = false;
       state.error = false;
+      localStorage.clear();
       //   state.admin = false;
     },
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout } = userSlice.actions;
+export const { loginStart, loginSuccess, loginFail, logout } = userSlice.actions;
 export default userSlice.reducer;

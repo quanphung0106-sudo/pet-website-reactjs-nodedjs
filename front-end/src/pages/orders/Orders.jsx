@@ -1,7 +1,7 @@
 import styles from './Order.module.css';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -13,13 +13,16 @@ import CartTotal from '~/components/cartTotal/CartTotal';
 import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 
 const Orders = () => {
-  const params = useParams();
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
-  const amount = cart.total;
   const [data, setData] = useState({});
 
+  const params = useParams();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const cart = useSelector((state) => state.cart);
+  const amount = cart.total;
   const status = data.status;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getItemById = async () => {
@@ -38,6 +41,14 @@ const Orders = () => {
     if (index - status > 1) return styles.undone;
   };
 
+  const handleclick = () => {
+    if (user) {
+      navigate('/my-items');
+    } else {
+      navigate('/stranger-items');
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -45,12 +56,10 @@ const Orders = () => {
         <div className={styles.wrapper}>
           <div className={styles.left}>
             <div className={styles.buttonWrapper}>
-              <Link to="/stranger-items">
-                <button className={styles.goBackButton}>
-                  <ArrowBackOutlinedIcon className={styles.icon} />
-                  <span>Quay lại danh sách đơn hàng</span>
-                </button>
-              </Link>
+              <button onClick={handleclick} className={styles.goBackButton}>
+                <ArrowBackOutlinedIcon className={styles.icon} />
+                <span>Quay lại danh sách đơn hàng</span>
+              </button>
             </div>
             <div className={styles.delivery}>
               <div className={statusClass(0)}>

@@ -14,7 +14,7 @@ const MyItem = () => {
 
   useEffect(() => {
     const getAllOrders = async () => {
-      const res = await axios.get('http://localhost:8801/api/orders');
+      const res = await axios.get('http://localhost:8808/api/orders');
       setData(res.data);
     };
     getAllOrders();

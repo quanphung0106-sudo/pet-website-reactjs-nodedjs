@@ -122,13 +122,14 @@ a {
 }
 
 .listItem {
-  width: 100%;
+  width: 140px;
   background-color: #f1bdbf;
   color: #fff;
   gap: 15px;
 }
 
-.listItem .item {
+.listItem .accountItem {
+  list-style: none;
   width: 100%;
   padding: 15px;
   font-size: 18px;
@@ -136,7 +137,7 @@ a {
   transition: 0.3s;
 }
 
-.listItem .item:hover {
+.listItem .accountItem:hover {
   cursor: pointer;
   background-color: #fff;
   color: #f1bdbf;

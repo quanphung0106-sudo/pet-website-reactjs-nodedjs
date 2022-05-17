@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { privateRoutes, publicRoutes } from '~/routes/Routes';
+import { adminRoutes, privateRoutes, publicRoutes } from '~/routes/Routes';
 import { useSelector } from 'react-redux';
 import Login from './pages/login/Login';
 import Admin from './pages/admin/Admin';
@@ -22,8 +22,14 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/">
+          {/* <Route path="/" element={<Home />} />
+          <Route path="/admin" element={isAdmin === true ? <Admin /> : <Login />} />
+          <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} /> */}
+
+          {/* <Route path="/">
             <Route index element={<Home />} />
+            <Route path="admin" element={<Admin />} />
+            <Route path="login" element={<Login />} />
             <Route path="products">
               <Route index element={<Products />} />
               <Route path=":id" element={<Detail />} />
@@ -34,17 +40,13 @@ function App() {
             <Route path="orders">
               <Route path=":id" element={<Orders />} />
             </Route>
-            {user ? (
-              <Route path="/my-items" element={<MyItem />} />
-            ) : (
-              <Route path="/stranger-items" element={<ItemsNotLogin />} />
-            )}
-          </Route>
+            {user && <Route path="my-items" element={<MyItem />} />}
+            <Route path="stranger-items" element={<ItemsNotLogin />} />
+          </Route> */}
 
-          {/* <Route path="/admin" element={user && isAdmin === true ? <Admin /> : <Login />} />
-          <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} /> */}
+          {/* <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} /> */}
 
-          {/* {publicRoutes.map((route, index) => {
+          {publicRoutes.map((route, index) => {
             const Page = route.component;
             return (
               <Route path={route.path} key={index}>
@@ -52,14 +54,26 @@ function App() {
               </Route>
             );
           })}
-          {privateRoutes.map((route, index) => {
-            const Page = route.component;
-            return (
-              <Route path={route.path} key={index}>
-                <Route index element={<Page />} />
-              </Route>
-            );
-          })} */}
+          {user &&
+            privateRoutes.map((route, index) => {
+              const Page = route.component;
+              return (
+                <Route path={route.path} key={index}>
+                  <Route index element={<Page />} />
+                </Route>
+              );
+            })}
+          {user &&
+            isAdmin !== undefined &&
+            isAdmin === true &&
+            adminRoutes.map((route, index) => {
+              const Page = route.component;
+              return (
+                <Route path={route.path} key={index}>
+                  <Route index element={<Page />} />
+                </Route>
+              );
+            })}
         </Routes>
       </BrowserRouter>
     </div>

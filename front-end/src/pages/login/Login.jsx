@@ -3,13 +3,13 @@ import classNames from 'classnames/bind';
 import styles from './Login.module.scss';
 
 import { Button, Container, Row, Col, Form, InputGroup } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { CircularProgress } from '@mui/material';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { loginStart, loginSuccess } from '~/redux/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginStart, loginSuccess, loginFail } from '~/redux/userSlice';
 // import GitHubIcon from "@mui/icons-material/GitHub";
 
 const cx = classNames.bind(styles);
@@ -19,6 +19,12 @@ export default function Login() {
   const [loginFailure, setLoginFailure] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user.user);
+  const isAdmin = user !== null && user.isAdmin;
+
+  console.log(isAdmin);
 
   const username = useRef();
   const password = useRef();
@@ -37,9 +43,13 @@ export default function Login() {
     try {
       const res = await axios.post('http://localhost:8808/api/auth/login', userInfo);
       dispatch(loginSuccess(res.data));
+      if (res.data.isAdmin === true) {
+        navigate('/admin');
+      }
     } catch (err) {
-      dispatch(loginFailure(err));
+      dispatch(loginFail(err));
       console.log(err);
+      alert('Thông tin đăng nhập không chính xác');
     }
   };
 
