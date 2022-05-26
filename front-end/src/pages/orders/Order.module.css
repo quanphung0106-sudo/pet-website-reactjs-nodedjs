@@ -33,9 +33,15 @@
   width: 100%;
   height: 40px;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
   margin-bottom: 15px;
+  gap: 5px;
+}
+
+.buttonWrapper > h4 {
+  color: red;
 }
 
 .goBackButton {

@@ -11,6 +11,13 @@
   display: flex;
 }
 
+.textWrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .left {
   flex: 2;
   height: 100%;

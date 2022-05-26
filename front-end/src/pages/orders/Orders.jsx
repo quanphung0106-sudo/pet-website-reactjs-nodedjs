@@ -60,6 +60,7 @@ const Orders = () => {
                 <ArrowBackOutlinedIcon className={styles.icon} />
                 <span>Quay lại danh sách đơn hàng</span>
               </button>
+              <h4>*Chú ý: Bạn nên lưu Order ID phía bên phải để check thông tin đơn hàng.</h4>
             </div>
             <div className={styles.delivery}>
               <div className={statusClass(0)}>

@@ -65,7 +65,7 @@ const Navbar = () => {
         <Link to="/cart">
           <div className={styles.cart}>
             <ShoppingCartIcon className={styles.cartIcon} />
-            <div className={styles.counter}>{quantity}</div>
+            {quantity === 0 ? '' : <div className={styles.counter}>{quantity}</div>}
           </div>
         </Link>
         {user ? (
