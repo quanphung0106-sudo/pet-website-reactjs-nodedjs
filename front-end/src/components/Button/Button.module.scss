@@ -1,0 +1,69 @@
+.Href {
+  width: fit-content;
+}
+
+@mixin maxSize {
+  max-width: max-content;
+  max-height: max-content;
+  @content;
+}
+
+@mixin baseButton {
+  border-radius: 0.5rem;
+  font-weight: 800;
+  box-shadow: var(--btnShadow-color);
+  @content;
+}
+
+.BaseButton {
+  font-size: 1.6rem;
+  min-width: 10rem;
+  max-height: 4rem;
+
+  &.SizeSmall {
+    @include maxSize() {
+      padding: 0.4rem 1rem;
+    }
+  }
+
+  &.SizeMedium {
+    @include maxSize() {
+      padding: 0.6rem 1.6rem;
+    }
+  }
+
+  &.SizeLarge {
+    @include maxSize() {
+      padding: 0.8rem 5rem;
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  &.primary {
+    @include baseButton() {
+      background-color: var(--pink_100);
+      color: var(--white);
+
+      &:hover {
+        background-color: var(--white);
+        color: var(--pink_100);
+      }
+    }
+  }
+
+  &.ghost {
+    @include baseButton() {
+      background-color: var(--white);
+      color: var(--pink_100);
+
+      &:hover {
+        background-color: var(--pink_100);
+        color: var(--white);
+      }
+    }
+  }
+}

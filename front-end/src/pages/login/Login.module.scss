@@ -1,70 +1,96 @@
-.container {
+.Login {
   height: 100vh;
-  position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
+  background-color: var(--pink_0);
+}
 
-  .imgContainer,
-  .backgroundImg {
-    height: 100vh;
+.Container {
+  width: 50%;
+  max-width: 85rem;
+  display: flex;
+  background-color: var(--white);
+  height: 60rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ImgContainer {
+  flex: 1;
+  position: relative;
+
+  .Overlay {
     width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(188, 184, 184, 0.04);
   }
 
-  .formWrapper {
-    position: absolute;
-    width: 350px;
-    height: 500px;
-    background-color: rgba(255, 255, 255, 0.8);
-    margin-right: 150px;
-    padding: 30px;
-    border-radius: 5px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-    .title {
+  .Texts {
+    display: flex;
+    padding: 4.5rem;
+    flex-direction: column;
+    position: absolute;
+    color: rgb(88, 83, 83);
+    font-weight: 650;
+    font-size: 1.8rem;
+    pointer-events: none;
+
+    h1 {
+      color: var(--pink_100);
+      font-weight: bold;
+      font-size: 6.5rem;
+      line-height: 8rem;
       margin-bottom: 50px;
-      font-size: 32px;
+    }
+    
+    p {
+      font-size: 1.8rem;
+      font-weight: bold;
     }
 
-    .texts {
-      margin-bottom: 25px;
+    p:nth-child(2) {
+      margin-bottom: 50px;
+    }
+
+    button {
+      pointer-events: all;
+      margin-top: 15px;
+    }
+  }
+}
+
+.Form {
+  flex: 1;
+  display: flex;
+  align-items: center;
+
+  .Texts {
+    padding: 4.5rem;
+    width: 100%;
+
+    h2 {
+      margin-bottom: 5rem;
+      font-size: 4.5rem;
+      font-weight: 700;
+      color: var(--pink_100);
+    }
+
+    h3 {
+      font-size: 2rem;
+    }
+
+    form {
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-
-      .label {
-        margin-bottom: 10px;
-        font-size: 18px;
-        font-weight: bold;
-      }
-
-      .input {
-        padding: 10px 15px;
-        outline: none;
-        font-size: 16px;
-        border: 1px solid #ced4da;
-        border-radius: 5px;
-
-        &:focus {
-          box-shadow: 0 0 6px #000 !important;
-        }
-      }
-    }
-
-    .button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      background-color: #c38161;
-      font-size: 18px;
-      border-radius: 5px;
-      margin-top: 5px;
-      color: #fff;
-
-      &:hover {
-        opacity: 0.9;
-        cursor: pointer;
-        transition: 0.4s;
-      }
+      gap: 20px;
     }
   }
 }

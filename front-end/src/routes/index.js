@@ -1,6 +1,9 @@
+import { createBrowserRouter } from 'react-router-dom';
+
 import Admin from '~/pages/admin/Admin';
 import Cart from '~/pages/cart/Cart';
 import Detail from '~/pages/detail/Detail';
+import Error from '~/pages/error/Error';
 import Home from '~/pages/home/Home';
 import MyItem from '~/pages/items/MyItems';
 import ItemsNotLogin from '~/pages/itemsNotLogin/ItemsNotLogin';
@@ -8,48 +11,47 @@ import Login from '~/pages/login/Login';
 import Orders from '~/pages/orders/Orders';
 import Products from '~/pages/products/Products';
 
-const publicRoutes = [
+export const routes = createBrowserRouter([
+  {
+    path: '/*',
+    element: <Error />,
+    errorElement: <Error />,
+  },
   {
     path: '/',
-    component: Home,
+    element: <Home />,
   },
   {
     path: '/login',
-    component: Login,
+    element: <Login />,
   },
   {
     path: '/products',
-    component: Products,
+    element: <Products />,
   },
   {
-    path: `/products/:id`,
-    component: Detail,
+    path: '/products/:id',
+    element: <Detail />,
   },
   {
     path: '/cart',
-    component: Cart,
+    element: <Cart />,
   },
   {
     path: '/stranger-items',
-    component: ItemsNotLogin,
+    element: <ItemsNotLogin />,
   },
   {
     path: `/orders/:id`,
-    component: Orders,
+    element: <Orders />,
   },
-];
-
-const privateRoutes = [
   {
     path: '/my-items',
-    component: MyItem,
+    element: <MyItem />,
   },
-];
-const adminRoutes = [
   {
     path: '/admin',
-    component: Admin,
+    element: <Admin />,
+    errorElement: <Error />,
   },
-];
-
-export { publicRoutes, privateRoutes, adminRoutes };
+]);
