@@ -60,12 +60,14 @@ export default function Login() {
             <Typography variant="body1">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil blanditiis nostrum quod, perspiciatis
               voluptatem nobis ducimus modi officiis fuga consequuntur voluptas esse, debitis perferendis
-              necessitatibus. Magni quod quae veritatis nostrum.
+              necessitatibus.
             </Typography>
-            <Typography variant="body2">Don't you have an account?</Typography>
-            <BaseButton to="/signup" ghost>
-              Register
-            </BaseButton>
+            <Grid xs={12}>
+              <Typography variant="body2">Don't you have an account?</Typography>
+              <BaseButton to="/signup" ghost>
+                Register
+              </BaseButton>
+            </Grid>
           </Grid>
           <img src={LoginImage} alt="login" />
         </Grid>

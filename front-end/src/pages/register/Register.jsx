@@ -19,12 +19,14 @@ export default function Register() {
             <Typography variant="body1">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil blanditiis nostrum quod, perspiciatis
               voluptatem nobis ducimus modi officiis fuga consequuntur voluptas esse, debitis perferendis
-              necessitatibus. Magni quod quae veritatis nostrum.
+              necessitatibus.
             </Typography>
+            <Grid xs={12}>
             <Typography variant="body2">Do you already have an account?</Typography>
             <BaseButton to="/signin" ghost>
               Sign in
             </BaseButton>
+            </Grid>
           </Grid>
           <img src={RegisterImage} alt="register" />
         </Grid>
