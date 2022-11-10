@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 import Admin from '~/pages/admin/Admin';
 import Cart from '~/pages/cart/Cart';
@@ -11,6 +11,21 @@ import Login from '~/pages/login/Login';
 import Register from '~/pages/register/Register';
 import Orders from '~/pages/orders/Orders';
 import Products from '~/pages/products/Products';
+import Navbar from '~/components/navbar/Navbar';
+import { Box, Grid } from '@mui/material';
+import Footer from '~/components/footer/Footer';
+
+const Layout = () => {
+  return (
+    <Box>
+      <Navbar />
+      <Grid>
+        <Outlet />
+      </Grid>
+      <Footer />
+    </Box>
+  );
+};
 
 export const routes = createBrowserRouter([
   {
@@ -20,7 +35,42 @@ export const routes = createBrowserRouter([
   },
   {
     path: '/',
-    element: <Home />,
+    element: <Layout />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: '/products',
+        element: <Products />,
+      },
+      {
+        path: '/products/:id',
+        element: <Detail />,
+      },
+      {
+        path: '/cart',
+        element: <Cart />,
+      },
+      {
+        path: '/stranger-items',
+        element: <ItemsNotLogin />,
+      },
+      {
+        path: `/orders/:id`,
+        element: <Orders />,
+      },
+      {
+        path: '/my-items',
+        element: <MyItem />,
+      },
+      {
+        path: '/admin',
+        element: <Admin />,
+        errorElement: <Error />,
+      },
+    ],
   },
   {
     path: '/signin',
@@ -29,34 +79,5 @@ export const routes = createBrowserRouter([
   {
     path: '/signup',
     element: <Register />,
-  },
-  {
-    path: '/products',
-    element: <Products />,
-  },
-  {
-    path: '/products/:id',
-    element: <Detail />,
-  },
-  {
-    path: '/cart',
-    element: <Cart />,
-  },
-  {
-    path: '/stranger-items',
-    element: <ItemsNotLogin />,
-  },
-  {
-    path: `/orders/:id`,
-    element: <Orders />,
-  },
-  {
-    path: '/my-items',
-    element: <MyItem />,
-  },
-  {
-    path: '/admin',
-    element: <Admin />,
-    errorElement: <Error />,
   },
 ]);

@@ -12,14 +12,12 @@ const Products = () => {
 
   return (
     <>
-      <Navbar />
       <div className={styles.container}>
         <div className={styles.wrapper}>
           <Item />
         </div>
       </div>
       <ScrollToTop />
-      <Footer />
     </>
   );
 };

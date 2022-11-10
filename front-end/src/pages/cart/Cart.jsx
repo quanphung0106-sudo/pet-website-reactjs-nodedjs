@@ -19,7 +19,6 @@ const Cart = (props) => {
   }, []);
   return (
     <>
-      <Navbar />
       <div className={styles.container}>
         {items.length !== 0 ? (
           <>
@@ -93,7 +92,6 @@ const Cart = (props) => {
         )}
       </div>
       <ScrollToTop />
-      <Footer />
     </>
   );
 };

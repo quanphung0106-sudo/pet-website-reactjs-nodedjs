@@ -1,17 +1,12 @@
-import { useRouteError } from 'react-router-dom';
+import { Box } from '@mui/material';
 import styles from './Error.module.scss';
+import ErrorImage from '~/assets/images/error.png'
 
 export default function Error() {
-  const error = useRouteError();
-  console.error(error);
 
   return (
-    <div className={styles.errorPage}>
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
-      <p>
-        <i>{error.statusText || error.message}</i>
-      </p>
-    </div>
+    <Box sx={{ flexGrow: 1 }} className={styles.Error}>
+      <img src={ErrorImage} alt="error" />
+    </Box>
   );
 }

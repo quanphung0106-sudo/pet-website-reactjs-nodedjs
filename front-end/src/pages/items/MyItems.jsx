@@ -26,7 +26,6 @@ const MyItem = () => {
 
   return (
     <>
-      <Navbar />
       <div className={styles.container}>
         <div className={styles.wrapper}>
           <div className={styles.tableWrapper}>
@@ -68,7 +67,6 @@ const MyItem = () => {
         </div>
       </div>
       <ScrollToTop />
-      <Footer />
     </>
   );
 };

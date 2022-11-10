@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 import { loginStart, loginSuccess, loginFail } from '~/redux/userSlice';
-import LoginImage from '~/assets/images/login1.jpg';
+import LoginImage from '~/assets/images/login.jpg';
 import { BaseButton } from '~/components/Button/Button';
 import { LineTextField } from '~/components/TextField/TextField';
 

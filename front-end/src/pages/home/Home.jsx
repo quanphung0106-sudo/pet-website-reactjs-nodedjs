@@ -10,14 +10,12 @@ import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 const Home = () => {
   return (
     <>
-      <Navbar />
       <Featured />
       <Benefits />
       <ScrollToTop />
       <DataList />
       <Advantages />
       <Contact />
-      <Footer />
     </>
   );
 };
