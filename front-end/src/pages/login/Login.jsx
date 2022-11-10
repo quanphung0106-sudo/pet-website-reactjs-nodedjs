@@ -1,20 +1,17 @@
 import React, { useRef, useState } from 'react';
-import { Box, Button, CardMedia, InputAdornment, Typography } from '@mui/material';
+import { Box, InputAdornment, Typography } from '@mui/material';
 import styles from './Login.module.scss';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Link, useNavigate } from 'react-router-dom';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { CircularProgress } from '@mui/material';
+import {  useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Visibility } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginStart, loginSuccess, loginFail } from '~/redux/userSlice';
-// import GitHubIcon from "@mui/icons-material/GitHub";
 
+
+import { loginStart, loginSuccess, loginFail } from '~/redux/userSlice';
 import LoginImage from '~/assets/images/login1.jpg';
 import { BaseButton } from '~/components/Button/Button';
-import { ContainedTextField, LineTextField } from '~/components/TextField/TextField';
-import { Visibility } from '@mui/icons-material';
+import { LineTextField } from '~/components/TextField/TextField';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -66,7 +63,7 @@ export default function Login() {
               necessitatibus. Magni quod quae veritatis nostrum.
             </Typography>
             <Typography variant="body2">Don't you have an account?</Typography>
-            <BaseButton to="/register" ghost>
+            <BaseButton to="/signup" ghost>
               Register
             </BaseButton>
           </Grid>
@@ -78,15 +75,9 @@ export default function Login() {
             <form>
               <LineTextField
                 label="Username"
+                type="text"
                 placeholder="Enter your username"
                 helperText="Wrong username. Check again!"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Visibility />
-                    </InputAdornment>
-                  ),
-                }}
                 required
               />
               <LineTextField
@@ -102,20 +93,6 @@ export default function Login() {
                   ),
                 }}
                 required
-              />
-              <ContainedTextField
-                label="Email"
-                type="email"
-                required
-                placeholder="Enter your password"
-                helperText="Wrong password. Check again!"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Visibility />
-                    </InputAdornment>
-                  ),
-                }}
               />
               <BaseButton primary>Sign in</BaseButton>
             </form>

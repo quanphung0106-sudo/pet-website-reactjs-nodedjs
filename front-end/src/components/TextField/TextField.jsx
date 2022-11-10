@@ -25,8 +25,6 @@ const FormHelperTextClasses = {
   root: styles.HelperTextRoot,
   error: styles.HelperTextError,
 };
-let _props;
-const { label, placeholder, type, id, name, error, required, InputProps, helperText, onChange, className } = _props;
 
 const BaseInputField = (props) => {
   const { variant, iconStart, iconEnd, InputPropClasses, ...others } = props;
@@ -40,7 +38,8 @@ const BaseInputField = (props) => {
   );
 };
 
-export const LineTextField = (..._props) => {
+export const LineTextField = (props) => {
+  const { label, placeholder, type, id, name, error, required, InputProps, helperText, onChange, className } = props;
   return (
     <BaseInputField
       variant="standard"
@@ -65,8 +64,9 @@ export const LineTextField = (..._props) => {
     />
   );
 };
-export const ContainedTextField = (..._props) => {
-  // const { label, placeholder, id, name, required, type, error, InputProps, helperText, onChange, className } = props;
+export const ContainedTextField = (props) => {
+  const { label, placeholder, id, name, required, type, error, InputProps, helperText, onChange, className } = props;
+  
   return (
     <BaseInputField
       variant="outlined"
@@ -78,10 +78,10 @@ export const ContainedTextField = (..._props) => {
         },
         ...InputProps,
       }}
-      helperText={error ? helperText : ''}
       placeholder={placeholder}
       label={label}
       error={error}
+      helperText={error ? helperText : ''}
       onChange={onChange}
       required={required}
       type={type}

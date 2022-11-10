@@ -8,7 +8,7 @@ import { ThemeProviderStyles } from './components/ThemeProvider';
 function App() {
   const theme = createTheme({
     typography: {
-      fontSize: '1.6rem',
+      htmlFontSize: 10,
       fontFamily: ['Nunito', 'sans-serif'].join(','),
     },
   });
