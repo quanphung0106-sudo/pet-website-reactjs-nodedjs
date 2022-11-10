@@ -1,20 +1,37 @@
+@mixin border-color($border_color) {
+  border-color: var($border_color);
+}
+
+@mixin border-bottom-color($border-bottom-color) {
+  border-bottom: 2px solid var($border-bottom-color);
+}
+
 .InputField {
   caret-color: var(--pink_light);
   margin-bottom: 15px;
 
-  &:hover .LabelRoot {
-    transition: 0.2s;
-    color: var(--pink_light);
+  // &:hover .LabelRoot {
+  //   transition: 0.2s;
+  //   color: var(--black_80);
+  // }
+
+  & input {
+    &::placeholder {
+      font-weight: 400;
+      font-size: 1.5rem;
+      color: var(--black_40);
+    }
   }
   // ---------------LABEL---------------
 
   & .LabelRoot {
     font-size: 2rem;
     font-weight: bold;
+    color: var(--black_60);
   }
 
   & .LabelFocused {
-    color: var(--pink_100) !important;
+    color: var(--pink_light) !important;
   }
 
   & .LabelDisabled {
@@ -33,15 +50,17 @@
     margin-bottom: 2px;
     width: 20px;
     height: 20px;
+    color: var(--black_40);
   }
 
   &:hover svg {
+    cursor: pointer;
     transition: 0.2s;
-    color: var(--pink_light);
+    // color: var(--pink_light);
   }
 
   &:focus-within svg {
-    color: var(--pink_100);
+    color: var(--pink_light);
   }
 
   // ---------------HELPER TEXT---------------
@@ -66,26 +85,30 @@
   & div {
     &:hover {
       &::after {
-        border-bottom: 2px solid var(--pink_100);
+        @include border-bottom-color(--pink_100);
       }
     }
   }
 
   & .InputBaseRoot {
+    &:before {
+      @include border-bottom-color(--black_20);
+    }
+
     &:after {
-      border-bottom: 2px solid var(--pink_light);
+      @include border-bottom-color(--pink_light);
     }
 
     &:hover {
       &::before {
-        border-bottom: 2px solid var(--pink_light);
+        @include border-bottom-color(--black_60);
       }
     }
   }
-
+  
   & .InputBaseFocused {
     &::after {
-      border-bottom: 2px solid var(--pink_100) !important;
+      border-bottom: 2px solid var(--pink_light) !important;
     }
   }
 
@@ -108,26 +131,30 @@
   }
 
   & .InputBaseRoot {
+    & .NoutchedOutline {
+      @include border-color(--black_10);
+    }
+
     &:hover .NoutchedOutline {
-      border-color: var(--pink_light);
+      @include border-color(--black_60);
     }
   }
-  
+
   & .InputBaseFocused {
     & .NoutchedOutline {
-      border-color: var(--pink_100) !important;
+      border-color: var(--pink_light) !important;
     }
   }
-  
+
   & .InputBaseDisabled {
   }
-  
+
   & .InputBaseError {
     & .NoutchedOutline {
       border-color: var(--error_dark) !important;
     }
   }
-  
+
   //remove the unnecessary line
   & .NoutchedOutline {
     top: 0;
@@ -136,5 +163,4 @@
       display: none;
     }
   }
-
 }
