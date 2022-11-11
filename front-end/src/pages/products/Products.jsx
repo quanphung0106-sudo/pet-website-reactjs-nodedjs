@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Footer from '~/components/footer/Footer';
 import Item from '~/components/item/Item';
-import Navbar from '~/components/navbar/Navbar';
+import Navbar from '~/components/Header/Header';
 import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 import styles from './Products.module.css';
 

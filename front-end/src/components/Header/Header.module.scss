@@ -1,0 +1,137 @@
+.Container {
+  position: sticky;
+  top: 0;
+  height: 100px;
+  background-color: var(--white);
+  display: flex;
+  align-items: center;
+  // justify-content: space-between;
+  padding: 0 5rem;
+  z-index: 100;
+
+  .Item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    .Texts {
+      .Text:first-child {
+        font-size: 1.4rem;
+      }
+
+      .Text:last-child {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+    }
+
+    &:nth-child(2) {
+      justify-content: space-around;
+
+      ul {
+        list-style: none;
+        display: flex;
+        align-items: center;
+      }
+
+      li {
+        margin-right: 10px;
+        margin-left: 10px;
+        font-weight: bold;
+        font-size: 2rem;
+        transition: 0.3s;
+      }
+
+      li:hover {
+        cursor: pointer;
+        opacity: 0.6;
+      }
+
+      img {
+        width: 24rem;
+        height: 8rem;
+        margin: 0 20px;
+        cursor: pointer;
+      }
+    }
+
+    &:last-child {
+      justify-content: flex-end;
+
+      .Cart {
+        margin-top: 8px;
+        margin-right: 5px;
+        position: relative;
+        cursor: pointer;
+
+        .CartIcon {
+          font-size: 2.6rem;
+        }
+
+        .Counter {
+          position: absolute;
+          top: -12px;
+          right: -10px;
+          background-color: gray;
+          color: #fff;
+          border-radius: 50%;
+          width: 2rem;
+          height: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 2px;
+          font-weight: 700;
+        }
+      }
+
+      .Cart:hover {
+        opacity: 0.9;
+      }
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+}
+
+.avatarContainer {
+  width: 40px;
+  height: 40px;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.listItem {
+  width: 140px;
+  background-color: #f1bdbf;
+  color: #fff;
+  gap: 15px;
+}
+
+.listItem .accountItem {
+  list-style: none;
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.listItem .accountItem:hover {
+  cursor: pointer;
+  background-color: #fff;
+  color: #f1bdbf;
+}
+
+.link {
+  color: #fff;
+  text-decoration: none;
+}

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import CartTotal from '~/components/cartTotal/CartTotal';
 import Footer from '~/components/footer/Footer';
-import Navbar from '~/components/navbar/Navbar';
+import Navbar from '~/components/Header/Header';
 import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 import { deleteItem } from '~/redux/cartSlice';
 import styles from './Cart.module.css';

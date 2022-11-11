@@ -13,6 +13,7 @@ export const BaseButton = (props) => {
     className,
     primary = false,
     ghost = false,
+    text = false,
     size,
     to,
     variant,
@@ -31,6 +32,7 @@ export const BaseButton = (props) => {
     [className]: className,
     primary,
     ghost,
+    text,
   });
 
   return (

@@ -1,5 +1,3 @@
-import Footer from '~/components/footer/Footer';
-import Navbar from '~/components/navbar/Navbar';
 import styles from './Detail.module.css';
 import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 import ItemDetail from '~/components/itemDetail/ItemDetail';
@@ -28,12 +26,10 @@ const Detail = () => {
 
   return (
     <>
-      <Navbar />
       <div className={styles.container}>
         <ItemDetail />
       </div>
       <ScrollToTop />
-      <Footer />
     </>
   );
 };

@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { reset } from '~/redux/cartSlice';
-import Navbar from '~/components/navbar/Navbar';
+import Navbar from '~/components/Header/Header';
 import Footer from '~/components/footer/Footer';
 import CartTotal from '~/components/cartTotal/CartTotal';
 import ScrollToTop from '~/components/scrollToTop/ScrollToTop';

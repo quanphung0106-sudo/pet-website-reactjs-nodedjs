@@ -11,14 +11,15 @@ import Login from '~/pages/login/Login';
 import Register from '~/pages/register/Register';
 import Orders from '~/pages/orders/Orders';
 import Products from '~/pages/products/Products';
-import Navbar from '~/components/navbar/Navbar';
 import { Box, Grid } from '@mui/material';
 import Footer from '~/components/footer/Footer';
+import Header from '~/components/Header/Header';
+import Test from '~/pages/Test/Test';
 
 const Layout = () => {
   return (
     <Box>
-      <Navbar />
+      <Header />
       <Grid>
         <Outlet />
       </Grid>
@@ -37,6 +38,10 @@ export const routes = createBrowserRouter([
     path: '/',
     element: <Layout />,
     children: [
+      {
+        path: '/test',
+        element: <Test />,
+      },
       {
         path: '/',
         element: <Home />,

@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import Footer from '~/components/footer/Footer';
-import Navbar from '~/components/navbar/Navbar';
+import Navbar from '~/components/Header/Header';
 import styles from './Admin.module.scss';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';

@@ -74,8 +74,10 @@ export default function Login() {
         <Grid className={styles.Form} xs={6}>
           <Grid className={styles.Texts} xs={12}>
             <Typography variant="h2">Login</Typography>
-            <form>
+            <form onSubmit={handleSubmit}>
               <LineTextField
+                id="username"
+                ref={username}
                 label="Username"
                 type="text"
                 placeholder="Enter your username"
@@ -83,6 +85,8 @@ export default function Login() {
                 required
               />
               <LineTextField
+                ref={password}
+                id="password"
                 label="Password"
                 type="password"
                 placeholder="Enter your password"

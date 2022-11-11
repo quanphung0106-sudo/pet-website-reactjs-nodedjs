@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 import Footer from '~/components/footer/Footer';
-import Navbar from '~/components/navbar/Navbar';
+import Navbar from '~/components/Header/Header';
 import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 import styles from './ItemsNotLogin.module.css';
 

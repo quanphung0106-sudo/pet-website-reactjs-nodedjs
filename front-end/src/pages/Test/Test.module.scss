@@ -1,0 +1,25 @@
+.Container {
+    background-color: #777;
+    height: 100vh;
+
+    .Box1 {
+        background-color: red;
+
+        .Box11 {
+            background-color: var(--black_80);
+        }
+        .Box12 {
+            background-color: var(--black_40);
+        }
+    }
+    .Box2 {
+        background-color: blue;
+    }
+    .Box3{
+        background-color: gray;
+    }
+    .Box4{
+        background-color: pink;
+
+    }
+}

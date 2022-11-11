@@ -1,5 +1,6 @@
 .Href {
   width: fit-content;
+  text-decoration: none;
 }
 
 @mixin maxSize {
@@ -8,8 +9,8 @@
   @content;
 }
 
-@mixin baseButton {
-  border-radius: 0.5rem;
+@mixin baseButton ($border_radius) {
+  border-radius: $border_radius;
   font-weight: 800;
   box-shadow: var(--btnShadow-color);
   @content;
@@ -44,7 +45,7 @@
   }
 
   &.primary {
-    @include baseButton() {
+    @include baseButton(0.5rem) {
       background-color: var(--pink_100);
       color: var(--white);
 
@@ -56,13 +57,27 @@
   }
 
   &.ghost {
-    @include baseButton() {
+    @include baseButton(0.5rem) {
       background-color: var(--white);
       color: var(--pink_100);
 
       &:hover {
         background-color: var(--pink_100);
         color: var(--white);
+      }
+    }
+  }
+  &.text {
+    @include baseButton(0) {
+      background-color: transparent;
+      box-shadow: none;
+      border-radius: none;
+      color: var(--black_60);
+      border-bottom: 2px solid var(--black_60);
+      
+      &:hover {
+        color: var(--pink_100);
+        border-bottom: 2px solid var(--pink_100);
       }
     }
   }
