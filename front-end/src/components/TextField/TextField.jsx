@@ -39,9 +39,11 @@ const BaseInputField = (props) => {
 };
 
 export const LineTextField = (props) => {
-  const { label, placeholder, type, id, name, error, required, InputProps, helperText, onChange, className } = props;
+  const { error, InputProps, helperText, className, ...others } = props;
+  
   return (
     <BaseInputField
+      {...others}
       variant="standard"
       className={clsx(styles.InputField, styles.LineTextField, className)}
       InputProps={{
@@ -52,23 +54,19 @@ export const LineTextField = (props) => {
         //ben ngoai truyen them "InputProps" => phai rai ...InputProps
         ...InputProps,
       }}
-      placeholder={placeholder}
-      label={label}
       error={error}
       helperText={error ? helperText : ''}
-      onChange={onChange}
-      required={required}
-      type={type}
-      id={id}
-      name={name}
     />
   );
 };
 export const ContainedTextField = (props) => {
-  const { label, placeholder, id, name, required, type, error, InputProps, helperText, onChange, className } = props;
-  
+  const { error, InputProps, helperText, className, ...others } = props;
+
+  console.log(error);
+
   return (
     <BaseInputField
+      {...others}
       variant="outlined"
       className={clsx(styles.InputField, styles.ContainedTextField, className)}
       InputProps={{
@@ -78,15 +76,8 @@ export const ContainedTextField = (props) => {
         },
         ...InputProps,
       }}
-      placeholder={placeholder}
-      label={label}
       error={error}
       helperText={error ? helperText : ''}
-      onChange={onChange}
-      required={required}
-      type={type}
-      id={id}
-      name={name}
     />
   );
 };

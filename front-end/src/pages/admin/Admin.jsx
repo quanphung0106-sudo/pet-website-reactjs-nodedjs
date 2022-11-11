@@ -1,6 +1,4 @@
 import { useSelector } from 'react-redux';
-import Footer from '~/components/footer/Footer';
-import Navbar from '~/components/Header/Header';
 import styles from './Admin.module.scss';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
@@ -47,7 +45,6 @@ const Admin = () => {
 
   return (
     <>
-      <Navbar />
       {isAdmin ? (
         <div className={cx('container')}>
           <div className={cx('left')}>
@@ -152,7 +149,6 @@ const Admin = () => {
       ) : (
         <Error />
       )}
-      <Footer />
     </>
   );
 };

@@ -1,52 +1,46 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, InputAdornment, Typography } from '@mui/material';
-import styles from './Login.module.scss';
 import Grid from '@mui/material/Unstable_Grid2';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { Visibility } from '@mui/icons-material';
-import { useDispatch, useSelector } from 'react-redux';
-
 
 import { loginStart, loginSuccess, loginFail } from '~/redux/userSlice';
 import LoginImage from '~/assets/images/login.jpg';
 import { BaseButton } from '~/components/Button/Button';
 import { LineTextField } from '~/components/TextField/TextField';
+import styles from './Login.module.scss';
 
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [loginFailure, setLoginFailure] = useState(false);
+  const [user, setUser] = useState({
+    username: '',
+    password: '',
+  });
+  const [error, setError] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.user.user);
-  const isAdmin = user !== null && user.isAdmin;
-
-  const username = useRef();
-  const password = useRef();
-  const hideOrShowPassword = () => {
-    setShowPassword(!showPassword);
+  const handleChange = (e) => {
+    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const userInfo = {
-      username: username.current.value,
-      password: password.current.value,
-    };
-
-    dispatch(loginStart());
+  const handleSubmit = async () => {
     try {
-      const res = await axios.post('http://localhost:8808/api/auth/login', userInfo);
+      dispatch(loginStart());
+      const res = await axios.post('/auth/login', user);
       dispatch(loginSuccess(res.data));
       if (res.data.isAdmin === true) {
         navigate('/admin');
+      } else {
+        navigate('/');
       }
     } catch (err) {
-      dispatch(loginFail(err));
-      console.log(err);
-      alert('Thông tin đăng nhập không chính xác');
+      if (err.status !== 200) {
+        dispatch(loginFail(err));
+        setError(err.response.data);
+      }
     }
   };
 
@@ -74,23 +68,23 @@ export default function Login() {
         <Grid className={styles.Form} xs={6}>
           <Grid className={styles.Texts} xs={12}>
             <Typography variant="h2">Login</Typography>
-            <form onSubmit={handleSubmit}>
+            <form>
               <LineTextField
-                id="username"
-                ref={username}
+                name="username"
                 label="Username"
                 type="text"
                 placeholder="Enter your username"
-                helperText="Wrong username. Check again!"
+                helperText={error}
                 required
+                onChange={handleChange}
+                error={error}
               />
               <LineTextField
-                ref={password}
-                id="password"
                 label="Password"
+                name="password"
                 type="password"
                 placeholder="Enter your password"
-                helperText="Wrong password. Check again!"
+                helperText={error}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -98,9 +92,13 @@ export default function Login() {
                     </InputAdornment>
                   ),
                 }}
+                onChange={handleChange}
+                error={error}
                 required
               />
-              <BaseButton primary>Sign in</BaseButton>
+              <BaseButton primary onClick={handleSubmit}>
+                Sign in
+              </BaseButton>
             </form>
           </Grid>
         </Grid>
