@@ -1,60 +1,51 @@
-import styles from "./Footer.module.css";
+import { Box, Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
+
+import styles from './Footer.module.scss';
 
 const Footer = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.left}>
-        <div className={styles.imgContainer}>
-          <img className={styles.img} src="/img/footer.jpg" alt="" />
-        </div>
-      </div>
-      <div className={styles.right}>
-        <div className={styles.texts}>
-          <h2 className={styles.h2}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod.
-          </h2>
-        </div>
-        <div className={styles.texts}>
-          <h3 className={styles.title}>find our shop</h3>
-          <div className={styles.textWrapper}>
-            <div className={styles.text}>50 Nguyễn Xuân Hữu, Đà Nẵng</div>
-            <div className={styles.text}>42 Cống Quỳnh, Cẩm Lệ, Đã Nẵng</div>
-            <div className={styles.text}>52 Cách Mạng Tháng 8, Đà Nẵng</div>
-          </div>
-          <div className={styles.textWrapper}>
-            <div className={styles.text}>Số 2/47, Nguyễn Khả Trạc, Hà Nội</div>
-            <div className={styles.text}>
-              Số nhà 88, ngõ 79 Cầu Giấy, Hà Nội
-            </div>
-            <div className={styles.text}>Số 7 Đại Lộ Thăng Long, Hà Nội</div>
-          </div>
-          <div className={styles.textWrapper}>
-            <div className={styles.text}>
-              Số 1 Công xã Paris, Quận 1, thành phố Hồ Chí Minh
-            </div>
-            <div className={styles.text}>
-              Số 135 đường Nam Kỳ Khởi Nghĩa, thành phố Hồ Chí Minh
-            </div>
-            <div className={styles.text}>
-              {" "}
-              Số 125 Công xã Paris, Bến Nghé, Quận 1
-            </div>
-          </div>
-        </div>
-        <div className={styles.texts}>
-          <h3 className={styles.title}>working hour</h3>
-          <div className={styles.textWrapper}>
-            <div className={styles.text}>MONDAY ULTI FRIDAY</div>
-            <div className={styles.text}>9:00 - 22:00</div>
-          </div>
-          <div className={styles.textWrapper}>
-            <div className={styles.text}>SATURDAY - SUNDAY</div>
-            <div className={styles.text}>12:00 - 24:00</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Box className={styles.Container}>
+      <Grid container className={styles.Left} lg={4}>
+        <Box className={styles.ImgContainer}>
+          <img src="/img/footer.jpg" alt="footer" />
+        </Box>
+      </Grid>
+      <Grid container className={styles.Right} lg={8}>
+        <Grid className={styles.Texts} lg={4}>
+          <Typography variant="h1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</Typography>
+        </Grid>
+        <Grid className={styles.Texts} lg={4}>
+          <Typography variant="h1">find our shop</Typography>
+          <Box className={styles.TextWrapper}>
+            <Typography variant="body1">50 Nguyễn Xuân Hữu, Đà Nẵng</Typography>
+            <Typography variant="body1">42 Cống Quỳnh, Cẩm Lệ, Đã Nẵng</Typography>
+            <Typography variant="body1">52 Cách Mạng Tháng 8, Đà Nẵng</Typography>
+          </Box>
+          <Box className={styles.TextWrapper}>
+            <Typography variant="body1">Số 2/47, Nguyễn Khả Trạc, Hà Nội</Typography>
+            <Typography variant="body1">Số nhà 88, ngõ 79 Cầu Giấy, Hà Nội</Typography>
+            <Typography variant="body1">Số 7 Đại Lộ Thăng Long, Hà Nội</Typography>
+          </Box>
+          <Box className={styles.TextWrapper}>
+            <Typography variant="body1">Số 1 Công xã Paris, Quận 1, thành phố Hồ Chí Minh</Typography>
+            <Typography variant="body1">Số 135 đường Nam Kỳ Khởi Nghĩa, thành phố Hồ Chí Minh</Typography>
+            <Typography variant="body1"> Số 125 Công xã Paris, Bến Nghé, Quận 1</Typography>
+          </Box>
+        </Grid>
+        <Grid className={styles.Texts} lg={4}>
+          <Typography variant="h1">working hour</Typography>
+          <Box className={styles.TextWrapper}>
+            <Typography variant="body1">MONDAY ULTI FRIDAY</Typography>
+            <Typography variant="body1">9:00 - 22:00</Typography>
+          </Box>
+          <Box className={styles.TextWrapper}>
+            <Typography variant="body1">SATURDAY - SUNDAY</Typography>
+            <Typography variant="body1">12:00 - 24:00</Typography>
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

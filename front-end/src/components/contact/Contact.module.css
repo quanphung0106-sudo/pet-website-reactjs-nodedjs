@@ -77,10 +77,6 @@
   transition: 0.2s;
 }
 
-a:hover {
-  opacity: 0.8;
-}
-
 .iconWrapper {
   display: flex;
   align-items: center;

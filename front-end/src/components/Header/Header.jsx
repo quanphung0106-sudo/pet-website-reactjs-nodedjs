@@ -76,16 +76,16 @@ const Header = () => {
           <Tippy
             render={(attrs) => (
               <div {...attrs}>
-                <ul className={styles.listItem}>
-                  <Link className={styles.link} to="/my-items">
-                    <li className={styles.accountItem}>My Order</li>
+                <ul className={styles.ListItem}>
+                  <Link className={styles.Link} to="/my-items">
+                    <li className={styles.AccountItem}>My Order</li>
                   </Link>
                   {isAdmin && (
-                    <li onClick={navigateToAdminPage} className={styles.accountItem}>
+                    <li onClick={navigateToAdminPage} className={styles.AccountItem}>
                       Manage
                     </li>
                   )}
-                  <li onClick={handleLogout} className={styles.accountItem}>
+                  <li onClick={handleLogout} className={styles.AccountItem}>
                     Log out
                   </li>
                 </ul>
@@ -96,19 +96,14 @@ const Header = () => {
             onClickOutside={hide}
             placement="bottom-start"
           >
-            <div className={styles.avatarContainer}>
-              <img onClick={visible ? hide : show} className={styles.avatar} src="/img/my-avatar.jpg" alt="" />
+            <div className={styles.AvatarContainer}>
+              <img onClick={visible ? hide : show} className={styles.Avatar} src="/img/my-avatar.jpg" alt="avatar" />
             </div>
           </Tippy>
         ) : (
-          <>
-            <BaseButton to="/signup" text>
-              Register
-            </BaseButton>
-            <BaseButton to="/signin" primary>
-              Login
-            </BaseButton>  
-          </>
+          <BaseButton to="/signin" primary>
+            Login
+          </BaseButton>
         )}
       </Grid>
     </Box>

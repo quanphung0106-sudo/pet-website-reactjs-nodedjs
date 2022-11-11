@@ -72,8 +72,8 @@
           position: absolute;
           top: -12px;
           right: -10px;
-          background-color: gray;
-          color: #fff;
+          background-color: var(--black_40);
+          color: var(--white);
           border-radius: 50%;
           width: 2rem;
           height: 2rem;
@@ -88,50 +88,49 @@
       .Cart:hover {
         opacity: 0.9;
       }
+
+      .AvatarContainer {
+        width: 4rem;
+        height: 4rem;
+      }
+
+      .Avatar {
+        border-radius: 50%;
+        width: 4rem;
+        height: 4rem;
+        object-fit: cover;
+      }
+
+      .ListItem {
+        width: 14rem;
+        background-color: var(--pink_light);
+        color: var(--white);
+        gap: 1.5rem;
+      }
+
+      .ListItem .AccountItem {
+        list-style: none;
+        width: 100%;
+        padding: 15px;
+        font-size: 1.8rem;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+
+      .ListItem .AccountItem:hover {
+        cursor: pointer;
+        background-color: var(--pink_70);
+      }
+
+      .Link {
+        color: var(--white);
+        text-decoration: none;
+      }
     }
 
     a {
       text-decoration: none;
-      color: black;
+      color: var(--black);
     }
   }
-}
-
-.avatarContainer {
-  width: 40px;
-  height: 40px;
-}
-
-.avatar {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-}
-
-.listItem {
-  width: 140px;
-  background-color: #f1bdbf;
-  color: #fff;
-  gap: 15px;
-}
-
-.listItem .accountItem {
-  list-style: none;
-  width: 100%;
-  padding: 15px;
-  font-size: 18px;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-.listItem .accountItem:hover {
-  cursor: pointer;
-  background-color: #fff;
-  color: #f1bdbf;
-}
-
-.link {
-  color: #fff;
-  text-decoration: none;
 }
