@@ -16,9 +16,7 @@ export const BaseButton = (props) => {
     text = false,
     size,
     to,
-    variant,
     children,
-    classes,
     onClick,
     disabled,
     ...others

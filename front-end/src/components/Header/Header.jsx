@@ -16,7 +16,6 @@ const Header = () => {
   const user = useSelector((state) => state.user.user);
   const isAdmin = user !== null && user.isAdmin;
 
-  console.log(isAdmin);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

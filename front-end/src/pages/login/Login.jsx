@@ -104,26 +104,5 @@ export default function Login() {
         </Grid>
       </Grid>
     </Box>
-    // <div className={cx('container')}>
-    //   <div className={cx('imgContainer')}>
-    //     <img src="/img/background-signin-signup.jpg" className={cx('backgroundImg')} alt="" />
-    //   </div>
-    //   <form className={cx('formWrapper')} onSubmit={handleSubmit} action="">
-    //     <h2 className={cx('title')}>Welcome back!</h2>
-    //     <div className={cx('texts')}>
-    //       <label htmlFor="username" className={cx('label')}>
-    //         Username
-    //       </label>
-    //       <input ref={username} className={cx('input')} type="text" id="username" placeholder="Your name" />
-    //     </div>
-    //     <div className={cx('texts')}>
-    //       <label htmlFor="password" className={cx('label')}>
-    //         Password
-    //       </label>
-    //       <input ref={password} className={cx('input')} type="text" id="password" placeholder="Your password" />
-    //     </div>
-    //     <button className={cx('button')}>Đăng nhập</button>
-    //   </form>
-    // </div>
   );
 }

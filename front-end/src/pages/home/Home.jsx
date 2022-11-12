@@ -1,9 +1,9 @@
 import Advantages from '~/components/advantages/Advantages';
 import Benefits from '~/components/benefits/Benefits';
 import Contact from '~/components/contact/Contact';
-import DataList from '~/components/datalist/DataList';
-import Featured from '~/components/featured/Featured';
+import Featured from '~/components/Featured/Featured';
 import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
+import ListData from '~/components/ListData/ListData';
 
 const Home = () => {
   return (
@@ -11,7 +11,7 @@ const Home = () => {
       <Featured />
       <Benefits />
       <ScrollToTop />
-      <DataList />
+      <ListData />
       <Advantages />
       <Contact />
     </>

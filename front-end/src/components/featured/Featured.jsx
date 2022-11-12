@@ -1,46 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import styles from './Featured.module.css';
+import React from 'react';
+import { Box, Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
+
+import styles from './Featured.module.scss';
+import HomeBackground from '~/assets/images/home-background.png';
+import KissPet from '~/assets/images/kiss-pet.png';
+import { BaseButton } from '../Button/Button';
+
 const Featured = () => {
-  const [scrollY, setScrollY] = useState(false);
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY >= 95 && window.scrollY < 900) {
-        document.getElementsByClassName(styles.subImg);
-        document.getElementsByClassName(styles.texts);
-        setScrollY(true);
-        if (scrollY === true) {
-          setShow(true);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  });
-
   return (
-    <div className={styles.featuredContainer}>
-      <div className={styles.imgContainer}>
-        <img className={styles.img} src="/img/background.png" alt="" />
-        {show && (
-          <img className={`${styles.subImg} ${scrollY ? styles.activeImg : ''}`} src="/img/kiss-pet.png" alt="" />
-        )}
-        {show && (
-          <div className={`${styles.texts} ${scrollY ? styles.activeText : ''}`}>
-            <h1 className={styles.text}>We make pets pretty!</h1>
-            <p className={styles.text}>
-              They were very nice to Russy and he enjoyed getting his hair cut together with the other dogs.
-            </p>
-            <button className={styles.button}>READ MORE</button>
-          </div>
-        )}
-      </div>
-    </div>
+    <Box className={styles.Container}>
+      <Grid container className={styles.ImgContainer} lg={12}>
+        <img className={styles.HomeBackground} src={HomeBackground} alt="homeBackground" />
+        <Grid container className={styles.Items}>
+          <Grid className={styles.Item} lg={6}>
+              <Grid className={styles.Texts}>
+                <Typography variant="h1">We make pets pretty!</Typography>
+                <Typography variant="body1">
+                  They were very nice to Russy and he enjoyed getting his hair cut together with the other dogs.
+                </Typography>
+                <BaseButton ghost>READ MORE</BaseButton>
+              </Grid>
+          </Grid>
+          <Grid className={styles.Item} lg={6}>
+            <img className={`${styles.subImg}`} src={KissPet} alt="kissPet" />
+          </Grid>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

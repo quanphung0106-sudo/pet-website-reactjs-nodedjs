@@ -1,7 +1,10 @@
-import styles from './DataList.module.css';
-// import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
+import { Box, Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 
-const DataList = () => {
+import Arrow from '~/assets/images/arrow.png';
+import styles from './ListData.module.scss';
+
+const ListData = () => {
   const datas = [
     {
       id: 1,
@@ -30,32 +33,32 @@ const DataList = () => {
   ];
 
   return (
-    <div className={styles.container}>
-      <div className={styles.left}>
-        <div className={styles.card}>
-          <h1 className={styles.title}>
+    <Box className={styles.Container}>
+      <Grid container className={styles.Left} lg={6}>
+        <Grid container className={styles.Card}>
+          <Typography variant="h1">
             Join thousands of Happy Dog Owners Who Have Successfully Completed Our Courses.
-          </h1>
-          <p className={styles.text}>
+          </Typography>
+          <Typography variant="body1">
             By following our programs, you will see definite changes in your dog’s behavior after one month. However,
             many owners report that their dogs a a lot better after as little as two weeks!
-          </p>
-          <div className={styles.imgWrapper}>
-            <img className={styles.arrow} src="/img/arrow.png" alt="" />
-          </div>
-        </div>
-      </div>
-      <div className={styles.right}>
+          </Typography>
+          <Box className={styles.ImgWrapper}>
+            <img src={Arrow} alt="arrow" />
+          </Box>
+        </Grid>
+      </Grid>
+      <Grid container className={styles.Right} lg={6}>
         {datas.map((data) => (
-          <div className={styles.texts} key={data.id}>
-            <h1 className={styles.number}>{data.number}</h1>
-            <span className={styles.span}>{data.span}</span>
-            <p className={styles.text}>{data.text}</p>
-          </div>
+          <Grid className={styles.Texts} key={data.id} lg={6}>
+            <Typography variant="h2">{data.number}</Typography>
+            <Typography variant="h3">{data.span}</Typography>
+            <Typography variant="body1">{data.text}</Typography>
+          </Grid>
         ))}
-      </div>
-    </div>
+      </Grid>
+    </Box>
   );
 };
 
-export default DataList;
+export default ListData;
