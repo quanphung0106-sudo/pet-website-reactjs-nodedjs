@@ -1,0 +1,88 @@
+@mixin flexBox($align, $justify) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  @content;
+}
+
+.Container {
+  @include flexBox(center, center) {
+    height: calc(100vh - 100px);
+    background-color: var(--pink_70);
+    padding: 50px;
+  }
+
+  .FormContainer {
+    width: 60%;
+    height: 400px;
+    display: flex;
+    background-color: var(--white);
+
+    .Left {
+      @include flexBox(center, unset) {
+        padding: 25px;
+      }
+
+      h1 {
+        color: var(--black_30);
+        font-weight: 600;
+        margin-bottom: 20px;
+        font-size: 3.6rem;
+      }
+
+      .Texts {
+        @include flexBox(flex-start, center) {
+          flex-direction: column;
+          margin-bottom: 25px;
+        }
+
+        p {
+          margin-top: 5px;
+          margin-bottom: 5px;
+          font-size: 1.8rem;
+        }
+
+        .Email {
+          color: #ea666c;
+          font-weight: bold;
+          font-size: 2rem;
+          border-bottom: 2px solid #ea666c;
+          transition: 0.2s;
+        }
+      }
+
+      .IconWrapper {
+        @include flexBox(center, unset) {
+        }
+
+        .Icon {
+          margin-right: 15px;
+          font-size: 2.4rem;
+          transition: 0.2s;
+
+          &:hover {
+            opacity: 0.8;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .Right {
+      @include flexBox(center, unset) {
+      }
+
+      .InputWrapper {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 50px;
+
+        button {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}

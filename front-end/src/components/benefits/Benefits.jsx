@@ -1,5 +1,7 @@
-import styles from './Benefits.module.css';
 import { useState, useEffect } from 'react';
+import Grid from '@mui/material/Unstable_Grid2';
+
+import styles from './Benefits.module.scss';
 
 const Benefits = (props) => {
   const [scrollY, setScrollY] = useState(false);
