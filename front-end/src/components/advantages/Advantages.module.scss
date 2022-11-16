@@ -57,12 +57,12 @@
 }
 
 .BoxWrapper {
-  padding-left: 15rem;
-
+  justify-content: center;
   .Modal {
     @include flexBox(flex-start, flex-start) {
       flex-direction: column;
       width: 60%;
+      max-width: 1200px;
       background-color: #f09196;
       padding: 25px;
     }

@@ -7,16 +7,18 @@
 
 .Container {
   @include flexBox(center, center) {
-    height: calc(100vh - 100px);
+    height: calc(100vh);
     background-color: var(--pink_70);
     padding: 50px;
   }
 
   .FormContainer {
     width: 60%;
+    max-width: 800px;
     height: 400px;
     display: flex;
     background-color: var(--white);
+    border-radius: 5px;
 
     .Left {
       @include flexBox(center, unset) {
