@@ -15,6 +15,7 @@ import { Box, Grid } from '@mui/material';
 import Footer from '~/components/footer/Footer';
 import Header from '~/components/Header/Header';
 import Test from '~/pages/Test/Test';
+import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 
 const Layout = () => {
   return (
@@ -24,6 +25,7 @@ const Layout = () => {
         <Outlet />
       </Grid>
       <Footer />
+      <ScrollToTop />
     </Box>
   );
 };

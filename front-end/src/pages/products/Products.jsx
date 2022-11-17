@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import Footer from '~/components/footer/Footer';
-import Item from '~/components/item/Item';
-import Navbar from '~/components/Header/Header';
-import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
-import styles from './Products.module.css';
+import Grid from '@mui/material/Unstable_Grid2';
+
+import Item from '~/components/Item/Item';
+import styles from './Products.module.scss';
+import Search from '~/components/Search/Search';
+import { Box } from '@mui/material';
 
 const Products = () => {
   useEffect(() => {
@@ -11,14 +12,16 @@ const Products = () => {
   }, []);
 
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.wrapper}>
+    <Box>
+      <Grid container className={styles.Container} lg={12}>
+        <Grid lg={2} className={styles.Search}>
+          <Search />
+        </Grid>
+        <Grid wrap='wrap' container lg={10} className={styles.Items}>
           <Item />
-        </div>
-      </div>
-      <ScrollToTop />
-    </>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

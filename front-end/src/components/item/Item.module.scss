@@ -1,0 +1,91 @@
+@mixin flexBox($align, $justify) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  @content;
+}
+
+.Container {
+  max-width: 240px;
+  height: 38rem;
+  background-color: var(--pink_70);
+  margin: 0 25px 25px;
+  border-radius: 5px;
+
+  .Top {
+    position: relative;
+    cursor: pointer;
+
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .Sale {
+      position: absolute;
+      line-height: 25px;
+      text-align: center;
+      width: 4rem;
+      height: 2.5rem;
+      border-radius: 5px;
+      background-color: var(--pink_100);
+      color: var(--white);
+      right: -1rem;
+      top: -1rem;
+    }
+  }
+
+  .Bottom {
+    @include flexBox(center, flex-start) {
+      flex-direction: column;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      padding-bottom: 5px;
+      color: white;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 1.8rem;
+      color: white;
+      font-weight: bold;
+      padding-bottom: 20px;
+    }
+
+    .Price {
+      font-weight: 500;
+      margin-right: 5px;
+    }
+
+    button {
+      text-transform: inherit;
+    }
+  }
+}
+
+.Loading {
+  @include flexBox(center, center) {
+    width: 100%;
+    height: calc(100vh - 100px);
+    gap: 15px;
+  }
+
+  h1 {
+    font-size: 3.2rem;
+    font-weight: bold;
+  }
+
+  .LoadingIcon {
+    border: 5px solid transparent;
+    border-top-color: var(--pink_light);
+    border-right-color: var(--pink_60);
+    border-bottom-color: var(--pink_100);
+    border-left-color: transparent;
+    border-radius: 50%;
+    color: transparent !important;
+  }
+}
