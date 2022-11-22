@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-
-import styles from './CartTotal.module.css';
-import Modal from '../modal/Modal';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const CartTotal = ({ typeOfButton, button }) => {
+import styles from './CartTotal.module.scss';
+import Modal from '../modal/Modal';
+import { Box, Typography } from '@mui/material';
+import { BaseButton } from '../Button/Button';
+
+const CartTotal = () => {
   const cart = useSelector((state) => state.cart);
   const amount = cart.total;
   const navigate = useNavigate();
@@ -19,33 +21,28 @@ const CartTotal = ({ typeOfButton, button }) => {
     res.status === 201 && navigate(`/orders/${res.data._id}`);
   };
 
-  // console.log(cart);
   return (
     <>
-      <div className={styles.totalWrapper}>
-        <h2 className={styles.title}>CART TOTAL</h2>
-        <div className={styles.totalText}>
-          <b className={styles.totalTextTitle}>Subtotal:</b>${amount}
-        </div>
-        <div className={styles.totalText}>
-          <b className={styles.totalTextTitle}>Discount:</b>$0.00
-        </div>
-        <div className={styles.totalText}>
-          <b className={styles.totalTextTitle}>Total:</b>${amount}
-        </div>
+      <Box className={styles.Container}>
+        <Typography variant="h1">CART TOTAL</Typography>
+        <Box className={styles.TotalWrapper}>
+          <Typography variant="body1">Subtotal: ${amount}</Typography>
+          <Typography variant="body1">Discount: $0.00</Typography>
+          <Typography variant="body1">Total: ${amount}</Typography>
+        </Box>
         {open ? (
-          <div className={styles.payment}>
-            <button className={styles.cash} onClick={() => setShowModal(true)}>
+          <Box className={styles.PaymentMethod}>
+            <BaseButton ghost onClick={() => setShowModal(true)}>
               CASH
-            </button>
-            <button className={styles.paypal}>Paypal</button>
-          </div>
+            </BaseButton>
+            <BaseButton ghost>Paypal</BaseButton>
+          </Box>
         ) : (
-          <button onClick={() => setOpen(true)} className={typeOfButton}>
-            {button}
-          </button>
+          <BaseButton ghost onClick={() => setOpen(true)} className={styles.CheckoutBtn}>
+            CHECKOUT NOW!
+          </BaseButton>
         )}
-      </div>
+      </Box>
       {showModal && <Modal total={cart.total} createOrder={createOrder} setShowModal={setShowModal} />}
     </>
   );

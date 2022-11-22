@@ -1,11 +1,14 @@
-import styles from './ItemDetail.module.css';
+import styles from './ItemDetail.module.scss';
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import axios from 'axios';
+import Grid from '@mui/material/Unstable_Grid2';
+
 import { useDispatch } from 'react-redux';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { addProduct } from '~/redux/cartSlice';
 import { v4 as uuidv4 } from 'uuid';
+import { Box, Typography } from '@mui/material';
 
 const ItemDetail = () => {
   const [quantity, setQuantity] = useState(1);
@@ -81,45 +84,43 @@ const ItemDetail = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.left}>
-        <div className={styles.imgContainer}>
-          <img className={styles.img} src={datas.img} alt="" />
-        </div>
-      </div>
-      <div className={styles.right}>
-        <div className={styles.texts}>
-          <h1 className={styles.title}>{datas.title}</h1>
-          <div className={styles.prices}>
+    <Grid container className={styles.Container} lg={12}>
+      <Grid className={styles.Left} lg={6}>
+        <Box component="img" src={datas.img} alt="detailItem" />
+      </Grid>
+      <Grid className={styles.Right} lg={6}>
+        <Box className={styles.Texts}>
+          <Typography variant="h1">{datas.title}</Typography>
+          <Box className={styles.Prices}>
             {datas.sellItem !== 0 ? (
               <>
-                <div className={styles.sellNum}>-{datas.sellItem}%</div>
-                {/* <del className={styles.price}>${price}</del>  */}${price}
+                <Typography variant="body1">-{datas.sellItem}%</Typography>${price}
+                <del className={styles.Price}>${price}</del>
               </>
             ) : (
               <>${price}</>
             )}
-          </div>
-          <p className={styles.desc}>{datas.desc}</p>
-          <div className={styles.quantity}>
-            <button onClick={() => handleQuantity('left')} className={styles.adjust}>
+          </Box>
+          <Typography variant="body1">{datas.desc}</Typography>
+          <Box className={styles.Quantity}>
+            <button onClick={() => handleQuantity('left')} className={styles.AdjustQuantity}>
               -
             </button>
-            <input type="number" onChange={handleOnchange} className={styles.number} value={quantity} />
-            <button onClick={() => handleQuantity('right')} className={styles.adjust}>
+            <input type="number" onChange={handleOnchange} className={styles.Numbers} value={quantity} />
+            <button onClick={() => handleQuantity('right')} className={styles.AdjustQuantity}>
               +
             </button>
-            <p className={styles.text}>20 products are available</p>
-          </div>
-          <section className={styles.types}>
+            <Typography variant="body1">20 products are available</Typography>
+          </Box>
+          <section className={styles.Types}>
             {datas.typeOfOptions?.map((option) => (
-              <div className={styles.extra} key={option._id}>
+              <div className={styles.Extras} key={option._id}>
                 <input
                   onChange={() => handleChecked(option)}
                   type="checkbox"
                   checked={check._id === option._id}
                   id={option._id}
-                  className={styles.option}
+                  className={styles.Options}
                 ></input>
                 <label htmlFor={option._id}>{option.title}</label>
               </div>
@@ -134,9 +135,9 @@ const ItemDetail = () => {
               <p className={styles.p}>Buy now!</p>
             </button>
           </div>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 

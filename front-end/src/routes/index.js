@@ -41,10 +41,6 @@ export const routes = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/test',
-        element: <Test />,
-      },
-      {
         path: '/',
         element: <Home />,
       },
@@ -78,6 +74,11 @@ export const routes = createBrowserRouter([
         errorElement: <Error />,
       },
     ],
+  },
+
+  {
+    path: '/test',
+    element: <Test />,
   },
   {
     path: '/signin',

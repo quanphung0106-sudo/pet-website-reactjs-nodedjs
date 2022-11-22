@@ -1,16 +1,20 @@
-import styles from './Order.module.css';
+import { useEffect, useState } from 'react';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Grid from '@mui/material/Unstable_Grid2';
+import { Box, Typography } from '@mui/material';
 
 import { reset } from '~/redux/cartSlice';
-import Navbar from '~/components/Header/Header';
-import Footer from '~/components/footer/Footer';
-import CartTotal from '~/components/cartTotal/CartTotal';
-import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
+import { BaseButton } from '~/components/Button/Button';
+import Paid from '~/assets/images/paid.png';
+import Bake from '~/assets/images/bake.png';
+import Bike from '~/assets/images/bike.png';
+import Delivered from '~/assets/images/delivered.png';
+import Checked from '~/assets/images/checked.png';
+import styles from './Order.module.scss';
 
 const Orders = () => {
   const [data, setData] = useState({});
@@ -50,114 +54,95 @@ const Orders = () => {
   };
 
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.wrapper}>
-          <div className={styles.left}>
-            <div className={styles.buttonWrapper}>
-              <button onClick={handleclick} className={styles.goBackButton}>
-                <ArrowBackOutlinedIcon className={styles.icon} />
-                <span>Quay lại danh sách đơn hàng</span>
-              </button>
-              <h4>*Chú ý: Bạn nên lưu Order ID phía bên phải để check thông tin đơn hàng.</h4>
-            </div>
-            <div className={styles.delivery}>
-              <div className={statusClass(0)}>
-                <img className={styles.img} src="/img/paid.png" alt="" />
-                <span className={styles.text}>Payment</span>
-                <div className={styles.checkedIconWrapper}>
-                  <img className={styles.checkedIcon} src="/img/checked.png" alt="" />
-                </div>
-              </div>
-              <div className={statusClass(1)}>
-                <img className={styles.img} src="/img/bake.png" alt="" />
-                <span className={styles.text}>Preparing</span>
-                <img className={styles.checkedIcon} src="/img/checked.png" alt="" />
-              </div>
-              <div className={statusClass(2)}>
-                <img className={styles.img} src="/img/bike.png" alt="" />
-                <span className={styles.text}>On the way</span>
-                <div className={styles.checkedIconWrapper}>
-                  <img className={styles.checkedIcon} src="/img/checked.png" alt="" />
-                </div>
-              </div>
-              <div className={statusClass(3)}>
-                <img className={styles.img} src="/img/delivered.png" alt="" />
-                <span className={styles.text}>Delivered</span>
-                <div className={styles.checkedIconWrapper}>
-                  <img className={styles.checkedIcon} src="/img/checked.png" alt="" />
-                </div>
-              </div>
-            </div>
+    <Box className={styles.Container}>
+      <Grid container className={styles.Wrapper} columnSpacing={{ lg: 6 }}>
+        <Grid className={styles.Left} sm={12} lg={8}>
+          <Box className={styles.ButtonWrapper}>
+            <BaseButton startIcon={<ArrowBackOutlinedIcon />} primary onClick={handleclick}>
+              Back to order list
+            </BaseButton>
+            <Typography variant="body1">
+              *Warning: You should save the Order ID on the right side to check the order information.
+            </Typography>
+          </Box>
+          <Grid container className={styles.DeliveryState}>
+            <Grid className={statusClass(0)} lg={3}>
+              <img src={Paid} alt="Paid" />
+              <Box component="span">Payment</Box>
+              <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
+            </Grid>
+            <Grid className={statusClass(1)} lg={3}>
+              <img src={Bake} alt="Bake" />
+              <Box component="span">Preparing</Box>
+              <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
+            </Grid>
+            <Grid className={statusClass(2)} lg={3}>
+              <img src={Bike} alt="Bike" />
+              <Box component="span">On the way</Box>
+              <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
+            </Grid>
+            <Grid className={statusClass(3)} lg={3}>
+              <img src={Delivered} alt="Delivered" />
+              <Box component="span">Delivered</Box>
+              <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
+            </Grid>
+          </Grid>
 
-            <div className={styles.tableWrapper}>
-              <div className={styles.tableHead}>
-                <table className={styles.table}>
-                  <thead>
-                    <tr className={styles.head}>
-                      <th className={styles.column}>Product</th>
-                      <th className={styles.column}>Name</th>
-                      <th className={styles.column}>Type</th>
-                      <th className={styles.column}>Quantity</th>
-                      <th className={styles.column}>Price</th>
+          <div className={styles.tableWrapper}>
+            <div className={styles.tableHead}>
+              <table className={styles.table}>
+                <thead>
+                  <tr className={styles.head}>
+                    <th className={styles.column}>Product</th>
+                    <th className={styles.column}>Name</th>
+                    <th className={styles.column}>Type</th>
+                    <th className={styles.column}>Quantity</th>
+                    <th className={styles.column}>Price</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div className={styles.tableBody}>
+              <table className={styles.table}>
+                <tbody className={styles.tbody}>
+                  {data.products?.map((item) => (
+                    <tr className={styles.body} key={item._id}>
+                      <td className={styles.column}>
+                        <div className={styles.imgContainer}>
+                          <img src={item.img} alt="" />
+                        </div>
+                      </td>
+                      <td className={styles.column}>
+                        <span className={styles.name}>{item.title}</span>
+                      </td>
+                      <td className={styles.column}>
+                        <span className={styles.type}>{item.check.title}</span>
+                      </td>
+                      <td className={styles.column}>
+                        <span className={styles.quantity}>{item.quantityItem}</span>
+                      </td>
+                      <td className={styles.column}>
+                        <span className={styles.price}>${item.totalItem}</span>
+                      </td>
                     </tr>
-                  </thead>
-                </table>
-              </div>
-              <div className={styles.tableBody}>
-                <table className={styles.table}>
-                  <tbody className={styles.tbody}>
-                    {data.products?.map((item) => (
-                      <tr className={styles.body} key={item._id}>
-                        <td className={styles.column}>
-                          <div className={styles.imgContainer}>
-                            <img className={styles.img} src={item.img} alt="" />
-                          </div>
-                        </td>
-                        <td className={styles.column}>
-                          <span className={styles.name}>{item.title}</span>
-                        </td>
-                        <td className={styles.column}>
-                          <span className={styles.type}>{item.check.title}</span>
-                        </td>
-                        <td className={styles.column}>
-                          <span className={styles.quantity}>{item.quantityItem}</span>
-                        </td>
-                        <td className={styles.column}>
-                          <span className={styles.price}>${item.totalItem}</span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
-          <div className={styles.right}>
-            <div className={styles.totalWrapper}>
-              <h2 className={styles.title}>Order Information</h2>
-              <div className={styles.totalText}>
-                <b className={styles.totalTextTitle}>OrderID:</b>
-                {data._id}
-              </div>
-              <div className={styles.totalText}>
-                <b className={styles.totalTextTitle}>Customer:</b>
-                {data.customer}
-              </div>
-              <div className={styles.totalText}>
-                <b className={styles.totalTextTitle}>Address:</b>
-                {data.address}
-              </div>
-              <div className={styles.totalText}>
-                <b className={styles.totalTextTitle}>Total:</b>${data.total}
-              </div>
-              <button className={styles.orderButton}>PAID!</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ScrollToTop />
-    </>
+        </Grid>
+        <Grid className={styles.Right} sm={12} lg={4}>
+          <Box className={styles.TotalWrapper}>
+            <Typography variant="h1">Order Information</Typography>
+            <Typography variant="body1">OrderID: {data._id}</Typography>
+            <Typography variant="body1">Customer: {data.customer}</Typography>
+            <Typography variant="body1">Address: {data.address}</Typography>
+            <Typography variant="body1">Total: ${data.total}</Typography>
+            <BaseButton disabled ghost>PAID!</BaseButton>
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

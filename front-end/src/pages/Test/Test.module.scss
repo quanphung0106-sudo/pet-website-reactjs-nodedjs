@@ -1,25 +1,46 @@
+body {
+  // padding: 20px;
+}
 .Container {
-    background-color: #777;
-    height: 100vh;
+  background-color: grey;
 
-    .Box1 {
-        background-color: red;
+  .Item {
+    background-color: aqua;
+    border: 2px solid violet;
 
-        .Box11 {
-            background-color: var(--black_80);
-        }
-        .Box12 {
-            background-color: var(--black_40);
-        }
+    &.Item1 {
+      font-weight: bold;
+      height: 100px;
+      max-height: 100px;
     }
-    .Box2 {
-        background-color: blue;
-    }
-    .Box3{
-        background-color: gray;
-    }
-    .Box4{
-        background-color: pink;
 
+    &.Item2 {
+      height: 800px;
     }
+
+    &.Item3 {
+      height: 800px;
+
+      .Article {
+        border: 1px solid red;
+        background-color: cornflowerblue;
+      }
+    }
+    &.Item4 {
+      height: 100px;
+      max-height: 100px;
+    }
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1203px) {
+  .Item2 {
+    max-height: 100px;
+  }
+  .Item3 {
+    max-height: 700px;
+  }
+}
+
+@media (max-width: 599px) {
 }

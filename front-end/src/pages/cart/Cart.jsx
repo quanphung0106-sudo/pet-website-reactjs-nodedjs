@@ -1,12 +1,13 @@
+import { Box } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { BaseButton } from '~/components/Button/Button';
+import Grid from '@mui/material/Unstable_Grid2';
 
-import CartTotal from '~/components/cartTotal/CartTotal';
-import Footer from '~/components/footer/Footer';
-import Navbar from '~/components/Header/Header';
+import CartTotal from '~/components/CartTotal/CartTotal';
 import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 import { deleteItem } from '~/redux/cartSlice';
-import styles from './Cart.module.css';
+import styles from './Cart.module.scss';
 
 const Cart = (props) => {
   const dispatch = useDispatch();
@@ -17,13 +18,54 @@ const Cart = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const columns = [
+    {
+      name: 'Product',
+      align: 'left',
+      key: 'idItem',
+      dataIndex: 'img',
+      render: ({ img }) => <img src={img} alt="img" />,
+    },
+    {
+      name: 'Name',
+      align: 'center',
+      key: 'idItem',
+      dataIndex: 'title',
+    },
+    {
+      name: 'Type',
+      align: 'center',
+      key: 'idItem',
+      dataIndex: 'check',
+    },
+    {
+      name: 'Price',
+      align: 'right',
+      key: 'idItem',
+      dataIndex: 'price',
+    },
+    {
+      name: 'Quantity',
+      align: 'right',
+      key: 'idItem',
+      dataIndex: 'quantity',
+    },
+    {
+      name: 'Total',
+      align: 'right',
+      key: 'idItem',
+      dataIndex: 'total',
+    },
+  ];
   return (
+    // <BaseTable columns={columns} dataSource={items} />
     <>
-      <div className={styles.container}>
+      <Box className={styles.Container}>
         {items.length !== 0 ? (
           <>
-            <div className={styles.wrapper}>
-              <div className={styles.left}>
+            <Grid container className={styles.Wrapper} columnSpacing={{ lg: 6 }}>
+              <Grid className={styles.Left} sm={12} lg={8}>
                 <div className={styles.tableWrapper}>
                   <div className={styles.tableHead}>
                     <table className={styles.table}>
@@ -79,18 +121,21 @@ const Cart = (props) => {
                     </table>
                   </div>
                 </div>
-              </div>
-              <div className={styles.right}>
-                <CartTotal disabled={false} typeOfButton={styles.cartButton} button="CHECKOUT NOW!" />
-              </div>
-            </div>
+              </Grid>
+              <Grid className={styles.Right} sm={12} lg={4}>
+                <CartTotal disabled={false} />
+              </Grid>
+            </Grid>
           </>
         ) : (
-          <div className={styles.textWrapper}>
+          <Box flexDirection="column" className={styles.textWrapper}>
             <h1>Bạn chưa chọn bất kỳ món hàng nào :(</h1>
-          </div>
+            <BaseButton primary to="/products">
+              Mua ngay!
+            </BaseButton>
+          </Box>
         )}
-      </div>
+      </Box>
       <ScrollToTop />
     </>
   );
