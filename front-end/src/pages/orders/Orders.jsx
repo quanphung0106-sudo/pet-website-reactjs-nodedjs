@@ -134,11 +134,17 @@ const Orders = () => {
         <Grid className={styles.Right} sm={12} lg={4}>
           <Box className={styles.TotalWrapper}>
             <Typography variant="h1">Order Information</Typography>
-            <Typography variant="body1">OrderID: {data._id}</Typography>
-            <Typography variant="body1">Customer: {data.customer}</Typography>
-            <Typography variant="body1">Address: {data.address}</Typography>
-            <Typography variant="body1">Total: ${data.total}</Typography>
-            <BaseButton disabled ghost>PAID!</BaseButton>
+            <Box component="span">OrderID:</Box>
+            <Typography variant="body1">{data._id}</Typography>
+            <Box component="span">Customer:</Box>
+            <Typography variant="body1">{data.customer}</Typography>
+            <Box component="span">Address:</Box>
+            <Typography variant="body1">{data.address}</Typography>
+            <Box component="span">Total:</Box>
+            <Typography variant="body1">${data.total}</Typography>
+            <BaseButton disabled ghost>
+              PAID!
+            </BaseButton>
           </Box>
         </Grid>
       </Grid>
