@@ -33,7 +33,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "react-scripts build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
@@ -46,7 +46,7 @@
   "browserslist": {
     "production": [
       ">0.2%",
-      "not dead",
+      "not dead",   
       "not op_mini all"
     ],
     "development": [
