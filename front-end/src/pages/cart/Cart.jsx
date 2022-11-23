@@ -123,12 +123,12 @@ const Cart = (props) => {
                 </div>
               </Grid>
               <Grid className={styles.Right} sm={12} lg={4}>
-                <CartTotal disabled={false} />
+                <CartTotal />
               </Grid>
             </Grid>
           </>
         ) : (
-          <Box flexDirection="column" className={styles.textWrapper}>
+          <Box flexDirection="column" className={styles.TextWrapper}>
             <h1>Bạn chưa chọn bất kỳ món hàng nào :(</h1>
             <BaseButton primary to="/products">
               Mua ngay!

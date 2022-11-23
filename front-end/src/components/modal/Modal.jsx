@@ -1,10 +1,16 @@
-import styles from './Modal.module.css';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { reset } from '~/redux/cartSlice';
+import { Box, Dialog, IconButton, Typography } from '@mui/material';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import CloseIcon from '@mui/icons-material/Close';
 
-const Modal = ({ total, setShowModal, createOrder }) => {
+import { reset } from '~/redux/cartSlice';
+import styles from './Modal.module.scss';
+import { ContainedTextField } from '../TextField/TextField';
+import { BaseButton } from '../Button/Button';
+
+const Modal = ({ total, createOrder, setOpen, open }) => {
   const cartProducts = useSelector((state) => state.cart.products);
   // const cartQuantityOfProduct = useSelector((state) => {
   //   state.cart.products.map((product) => console.log(product.quantity));
@@ -16,7 +22,9 @@ const Modal = ({ total, setShowModal, createOrder }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [address, setAddress] = useState('');
 
-  // console.log(products);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleClick = () => {
     const products = cartProducts.map((product) => ({
@@ -38,55 +46,57 @@ const Modal = ({ total, setShowModal, createOrder }) => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <CloseOutlinedIcon onClick={() => setShowModal(false)} fontSize="large" className={styles.icon} />
-        <h1 className={styles.title}>
-          You will pay <span className={styles.total}>${total}</span> after devivery.
-        </h1>
-        <div className={styles.item}>
-          <label className={styles.label} htmlFor="">
-            Your name
-          </label>
-          <input
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle onClose={handleClose}>
+        <IconButton
+          aria-label="close"
+          onClick={handleClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        You will pay <Box component="b">${total}</Box> after delivery.
+      </DialogTitle>
+      <DialogContent>
+        <Box className={styles.ContentWrapper}>
+          <ContainedTextField
+            label="Name"
+            name="Name"
+            type="text"
+            placeholder="John Doe"
             onChange={(e) => setCustomer(e.target.value)}
-            className={styles.input}
-            type="text"
-            name=""
-            id=""
-            placeholder="Quan Phung"
-          />
-        </div>
-        <div className={styles.item}>
-          <label className={styles.label} htmlFor="">
-            Phone number
-          </label>
-          <input
-            className={styles.input}
+          >
+            Hello
+          </ContainedTextField>
+          <ContainedTextField
+            label="Phone Number"
+            name="Phone Number"
+            type="number"
+            placeholder="0935 5xx xxx"
             onChange={(e) => setPhoneNumber(e.target.value)}
+          >
+            Hello
+          </ContainedTextField>
+          <ContainedTextField
+            label="Address"
+            name="Address"
             type="text"
-            name=""
-            id=""
-            placeholder="0935 123 456"
-          />
-        </div>
-        <div className={styles.item}>
-          <label className={styles.label} htmlFor="">
-            Address
-          </label>
-          <textarea
+            placeholder="johndoe176@gmail.com"
             onChange={(e) => setAddress(e.target.value)}
-            className={styles.input}
-            rows={2}
-            placeholder="50 Nguyen Xuan Huu, Da Nang"
-          />
-        </div>
-
-        <button onClick={handleClick} className={styles.button}>
-          ORDER NOW!
-        </button>
-      </div>
-    </div>
+          >
+            Hello
+          </ContainedTextField>
+          <BaseButton primary onClick={handleClick}>
+            ORDER NOW!
+          </BaseButton>
+        </Box>
+      </DialogContent>
+    </Dialog>
   );
 };
 

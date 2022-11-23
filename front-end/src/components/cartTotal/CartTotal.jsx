@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useNavigate } from 'react-router-dom';
+import { Box, Dialog, IconButton, Typography } from '@mui/material';
+import DialogTitle from '@mui/material/DialogTitle';
+import CloseIcon from '@mui/icons-material/Close';
 
-import styles from './CartTotal.module.scss';
-import Modal from '../modal/Modal';
-import { Box, Typography } from '@mui/material';
+import Modal from '../Modal/Modal';
 import { BaseButton } from '../Button/Button';
+import styles from './CartTotal.module.scss';
 
 const CartTotal = () => {
   const cart = useSelector((state) => state.cart);
@@ -14,7 +17,11 @@ const CartTotal = () => {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [openPayment, setOpenPayment] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
   const createOrder = async (data) => {
     const res = await axios.post('https://pet-website-reactjs-nodejs.herokuapp.com/api/orders', data);
@@ -30,20 +37,20 @@ const CartTotal = () => {
           <Typography variant="body1">Discount: $0.00</Typography>
           <Typography variant="body1">Total: ${amount}</Typography>
         </Box>
-        {open ? (
+        {openPayment ? (
           <Box className={styles.PaymentMethod}>
-            <BaseButton ghost onClick={() => setShowModal(true)}>
+            <BaseButton ghost onClick={handleClickOpen}>
               CASH
             </BaseButton>
             <BaseButton ghost>Paypal</BaseButton>
           </Box>
         ) : (
-          <BaseButton ghost onClick={() => setOpen(true)} className={styles.CheckoutBtn}>
+          <BaseButton ghost onClick={() => setOpenPayment(true)} className={styles.CheckoutBtn}>
             CHECKOUT NOW!
           </BaseButton>
         )}
       </Box>
-      {showModal && <Modal total={cart.total} createOrder={createOrder} setShowModal={setShowModal} />}
+      {open && <Modal total={cart.total} createOrder={createOrder} setOpen={setOpen} open={open} />}
     </>
   );
 };

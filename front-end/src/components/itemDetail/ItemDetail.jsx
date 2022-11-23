@@ -3,12 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import Grid from '@mui/material/Unstable_Grid2';
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 
 import { useDispatch } from 'react-redux';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { addProduct } from '~/redux/cartSlice';
 import { v4 as uuidv4 } from 'uuid';
 import { Box, Typography } from '@mui/material';
+import { BaseButton } from '../Button/Button';
 
 const ItemDetail = () => {
   const [quantity, setQuantity] = useState(1);
@@ -84,11 +86,14 @@ const ItemDetail = () => {
   };
 
   return (
-    <Grid container className={styles.Container} lg={12}>
-      <Grid className={styles.Left} lg={6}>
+    <Grid container className={styles.Container}>
+      <Grid className={styles.Left} xs={12} sm={6} lg={6}>
+        <BaseButton to="/products" primary startIcon={<ArrowBackOutlinedIcon />}>
+          Go back
+        </BaseButton>
         <Box component="img" src={datas.img} alt="detailItem" />
       </Grid>
-      <Grid className={styles.Right} lg={6}>
+      <Grid className={styles.Right} xs={12} sm={6} lg={6}>
         <Box className={styles.Texts}>
           <Typography variant="h1">{datas.title}</Typography>
           <Box className={styles.Prices}>
@@ -114,7 +119,7 @@ const ItemDetail = () => {
           </Box>
           <section className={styles.Types}>
             {datas.typeOfOptions?.map((option) => (
-              <div className={styles.Extras} key={option._id}>
+              <Box className={styles.Extras} key={option._id}>
                 <input
                   onChange={() => handleChecked(option)}
                   type="checkbox"
@@ -122,19 +127,18 @@ const ItemDetail = () => {
                   id={option._id}
                   className={styles.Options}
                 ></input>
-                <label htmlFor={option._id}>{option.title}</label>
-              </div>
+                <Box component="label" htmlFor={option._id}>{option.title}</Box>
+              </Box>
             ))}
           </section>
-          <div className={styles.payment}>
-            <button disabled={blockAdd} onClick={handleClick} className={styles.addToCartButton}>
-              <ShoppingCartIcon />
-              <p className={styles.p}>Add to cart</p>
-            </button>
-            <button className={styles.button} disabled={blockAdd}>
-              <p className={styles.p}>Buy now!</p>
-            </button>
-          </div>
+          <Box className={styles.Payment}>
+            <BaseButton startIcon={<ShoppingCartIcon />} ghost disabled={blockAdd} onClick={handleClick}>
+              Add to cart
+            </BaseButton>
+            <BaseButton disabled={blockAdd} primary>
+              Buy now!
+            </BaseButton>
+          </Box>
         </Box>
       </Grid>
     </Grid>

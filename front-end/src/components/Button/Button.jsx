@@ -45,6 +45,7 @@ export const BaseButton = (props) => {
           sizeMedium: styles.SizeMedium,
           sizeSmall: styles.SizeSmall,
           sizeLarge: styles.SizeLarge,
+          disabled: styles.Disabled
         }}
         onClick={onClick}
         {...others}

@@ -66,22 +66,22 @@ const Orders = () => {
             </Typography>
           </Box>
           <Grid container className={styles.DeliveryState}>
-            <Grid className={statusClass(0)} lg={3}>
+            <Grid className={statusClass(0)} sm={3} lg={3}>
               <img src={Paid} alt="Paid" />
               <Box component="span">Payment</Box>
               <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
             </Grid>
-            <Grid className={statusClass(1)} lg={3}>
+            <Grid className={statusClass(1)} sm={3} lg={3}>
               <img src={Bake} alt="Bake" />
               <Box component="span">Preparing</Box>
               <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
             </Grid>
-            <Grid className={statusClass(2)} lg={3}>
+            <Grid className={statusClass(2)} sm={3} lg={3}>
               <img src={Bike} alt="Bike" />
               <Box component="span">On the way</Box>
               <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
             </Grid>
-            <Grid className={statusClass(3)} lg={3}>
+            <Grid className={statusClass(3)} sm={3} lg={3}>
               <img src={Delivered} alt="Delivered" />
               <Box component="span">Delivered</Box>
               <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
@@ -134,7 +134,7 @@ const Orders = () => {
         <Grid className={styles.Right} sm={12} lg={4}>
           <Box className={styles.TotalWrapper}>
             <Typography variant="h1">Order Information</Typography>
-            <Box component="span">OrderID:</Box>
+            <Box component="span">Order Code:</Box>
             <Typography variant="body1">{data._id}</Typography>
             <Box component="span">Customer:</Box>
             <Typography variant="body1">{data.customer}</Typography>
@@ -142,7 +142,7 @@ const Orders = () => {
             <Typography variant="body1">{data.address}</Typography>
             <Box component="span">Total:</Box>
             <Typography variant="body1">${data.total}</Typography>
-            <BaseButton disabled ghost>
+            <BaseButton disabled primary>
               PAID!
             </BaseButton>
           </Box>

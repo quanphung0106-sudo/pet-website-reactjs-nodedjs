@@ -1,0 +1,14 @@
+.ContentWrapper {
+  width: 40rem;
+  max-width: 50rem;
+  height: 440px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 25px 0;
+
+  button {
+    min-width: 100%;
+  }
+}

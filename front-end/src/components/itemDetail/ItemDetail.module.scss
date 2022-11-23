@@ -5,21 +5,20 @@
 
   .Left {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    flex: 1;
+    gap: 20px;
 
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+      min-width: 95%;
+      min-height: 95%;
+      object-fit: cover;
     }
   }
 
   .Right {
     display: flex;
     align-items: center;
-    flex: 1;
 
     .Texts {
       width: 100%;
@@ -80,21 +79,21 @@
           outline: none;
           font-size: 1.6rem;
           border: none;
-          border: 1px solid rgba(0, 0, 0, 0.09);
+          border: 1px solid var(--black_20);
           background-color: transparent;
         }
 
         .AdjustQuantity {
-          height: 40px;
-          width: 40px;
-          font-size: 20px;
+          height: 4rem;
+          width: 4rem;
+          font-size: 2rem;
           background-color: transparent;
-          border: 1px solid rgba(0, 0, 0, 0.09);
+          border: 1px solid var(--black_20);
           outline: none;
         }
 
         p {
-          color: #757575;
+          color: var(--black_40);
           margin-left: 15px;
         }
       }
@@ -119,7 +118,7 @@
             -moz-appearance: none;
             -o-appearance: none;
             appearance: none;
-            border: 1px solid #34495e;
+            border: 1px solid var(--black_40);
             position: relative;
             display: flex;
             align-items: center;
@@ -139,57 +138,16 @@
         }
       }
     }
+
+    .Payment {
+      display: flex;
+      gap: 15px;
+    }
   }
 }
 
-.p {
-  margin-left: 5px;
-}
-
-.payment {
-  display: flex;
-  gap: 15px;
-}
-
-.payment .addToCartButton:first-child {
-  padding: 10px 50px;
-  border-radius: 5px;
-  background-color: #fff;
-  color: #ee8186;
-  font-size: 18px;
-  font-weight: 700;
-  border: none;
-  transition: 0.3s;
-  outline: none;
-  display: flex;
-  border: 1px solid #ee81869a;
-}
-
-.payment .addToCartButton:hover {
-  background-color: #ea666c;
-  color: #fff;
-  cursor: pointer;
-}
-.payment .button {
-  padding: 10px 25px;
-  border-radius: 5px;
-  font-size: 18px;
-  font-weight: 700;
-  border: none;
-  transition: 0.3s;
-  outline: none;
-  display: flex;
-  background-color: #ea666c;
-  color: #fff;
-}
-
-.payment .button:hover {
-  cursor: pointer;
-  opacity: 0.9;
-}
-
-:disabled {
-  cursor: default;
-  opacity: 0.4;
-  pointer-events: none;
+@media (max-width: 74.9375em) {
+    .Payment {
+      flex-direction: column;
+    }
 }

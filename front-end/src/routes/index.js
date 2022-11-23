@@ -1,4 +1,5 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
+import { Box, Grid } from '@mui/material';
 
 import Admin from '~/pages/admin/Admin';
 import Cart from '~/pages/cart/Cart';
@@ -6,12 +7,11 @@ import Detail from '~/pages/detail/Detail';
 import Error from '~/pages/error/Error';
 import Home from '~/pages/home/Home';
 import MyItem from '~/pages/items/MyItems';
-import ItemsNotLogin from '~/pages/itemsNotLogin/ItemsNotLogin';
+import SearchOrder from '~/pages/searchOrder/SearchOrder';
 import Login from '~/pages/login/Login';
 import Register from '~/pages/register/Register';
 import Orders from '~/pages/orders/Orders';
 import Products from '~/pages/products/Products';
-import { Box, Grid } from '@mui/material';
 import Footer from '~/components/footer/Footer';
 import Header from '~/components/Header/Header';
 import Test from '~/pages/Test/Test';
@@ -58,7 +58,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: '/stranger-items',
-        element: <ItemsNotLogin />,
+        element: <SearchOrder />,
       },
       {
         path: `/orders/:id`,

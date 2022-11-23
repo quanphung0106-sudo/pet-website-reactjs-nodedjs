@@ -8,9 +8,6 @@
 .Wrapper {
   width: 90%;
 
-  .Left {
-  }
-
   .Right {
     position: sticky;
     top: 100px;
@@ -18,7 +15,7 @@
   }
 }
 
-.textWrapper {
+.TextWrapper {
   height: 100%;
   display: flex;
   align-items: center;
