@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import styles from './Detail.module.scss';
-import ItemDetail from '../../components/ItemDetail/ItemDetail';
+import ItemDetail from '~/components/ItemDetail/ItemDetail';
 
 const Detail = () => {
   return (
