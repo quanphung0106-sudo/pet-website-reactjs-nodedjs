@@ -4,9 +4,11 @@ const { override, useBabelRc } = require('customize-cra');
 const path = require('path');
 
 module.exports = override(
-  useBabelRc({
-    resolve: {
-      extensions: ['.js', '.jsx'],
-    },
-  }),
+  useBabelRc(
+  //   {
+  //   resolve: {
+  //     extensions: ['.js', '.jsx'],
+  //   },
+  // }
+  ),
 );

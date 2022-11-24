@@ -10,8 +10,6 @@ import Paper from '@mui/material/Paper';
 import styles from './Table.module.scss';
 
 export default function BaseTable({ columns, dataSource }) {
-  
-  
   console.log({
     columns,
     // dataSource,
@@ -39,16 +37,16 @@ export default function BaseTable({ columns, dataSource }) {
           </TableRow>
         </TableHead>
         <TableBody classes={{ root: styles.TableBody }}>
-          {/* {dataSource?.map((data, index) => ( */}
-          <TableRow
-            classes={{ root: styles.TableRow }}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            // key={index}
-          >
-            <TableCell classes={{ root: styles.TableCell }} align="left">
-              {/* {dataSourceMapping(dataSource)} */}
-            </TableCell>
-            {/* 
+          {dataSource?.map((data, index) => (
+            <TableRow
+              classes={{ root: styles.TableRow }}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              key={index}
+            >
+              {/* <TableCell classes={{ root: styles.TableCell }} align="left">
+                {dataSourceMapping(dataSource)}
+              </TableCell> */}
+
               <TableCell classes={{ root: styles.TableCell }} align="left">
                 <img src={data.img} alt="img" />
               </TableCell>
@@ -66,9 +64,9 @@ export default function BaseTable({ columns, dataSource }) {
               </TableCell>
               <TableCell classes={{ root: styles.TableCell }} align="right">
                 ${data.price * data.quantity}
-              </TableCell> */}
-          </TableRow>
-          {/* ))} */}
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

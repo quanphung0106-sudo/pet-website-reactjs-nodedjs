@@ -12,10 +12,10 @@ import Login from '~/pages/login/Login';
 import Register from '~/pages/register/Register';
 import Orders from '~/pages/orders/Orders';
 import Products from '~/pages/products/Products';
-import Footer from '~/components/footer/Footer';
 import Header from '~/components/Header/Header';
 import Test from '~/pages/Test/Test';
 import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
+import Footer from '~/components/Footer/Footer';
 
 const Layout = () => {
   return (

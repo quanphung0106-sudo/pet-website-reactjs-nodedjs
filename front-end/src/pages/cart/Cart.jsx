@@ -66,7 +66,7 @@ const Cart = (props) => {
           <>
             <Grid container className={styles.Wrapper} columnSpacing={{ lg: 6 }}>
               <Grid className={styles.Left} sm={12} lg={8}>
-                <div className={styles.tableWrapper}>
+              <div className={styles.tableWrapper}>
                   <div className={styles.tableHead}>
                     <table className={styles.table}>
                       <thead>
