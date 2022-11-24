@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider } from '@mui/material';
+import { Box, createTheme, ThemeProvider, Typography, useMediaQuery } from '@mui/material';
 import { RouterProvider } from 'react-router-dom';
 
 import { routes } from '~/routes';
@@ -6,21 +6,32 @@ import GlobalStyles from './components/GlobalStyles';
 import { ThemeProviderStyles } from './components/ThemeProvider';
 
 function App() {
+  const matches = useMediaQuery('(max-width:600px)');
+
   const theme = createTheme({
     typography: {
       htmlFontSize: 10,
       fontFamily: ['Nunito', 'sans-serif'].join(','),
     },
   });
+
   return (
     <div className="App">
-      <ThemeProvider theme={theme}>
-        <ThemeProviderStyles>
-          <GlobalStyles>
-            <RouterProvider router={routes} />
-          </GlobalStyles>
-        </ThemeProviderStyles>
-      </ThemeProvider>
+      {!matches ? (
+        <ThemeProvider theme={theme}>
+          <ThemeProviderStyles>
+            <GlobalStyles>
+              <RouterProvider router={routes} />
+            </GlobalStyles>
+          </ThemeProviderStyles>
+        </ThemeProvider>
+      ) : (
+        <Box padding={2} textAlign="center">
+          <Typography variant="h1">
+            Giao diện mobile chưa được hỗ trợ. Xin hãy truy cập trang web bằng tablet hoặc laptop. Xin cám ơn.
+          </Typography>
+        </Box>
+      )}
     </div>
   );
 }

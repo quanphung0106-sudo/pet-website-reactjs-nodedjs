@@ -10,28 +10,27 @@ import { Visibility } from '@mui/icons-material';
 
 export default function Register() {
   return (
-    <Box sx={{ flexGrow: 1 }} className={styles.Register}>
-      <Grid container spacing={0} className={styles.Container}>
-        <Grid className={styles.ImgContainer} xs={6}>
-          <Grid className={styles.Overlay} xs={12} />
-          <Grid className={styles.Texts} xs={12}>
+    <Box padding={{sm: 4}} className={styles.Register}>
+      <Grid container className={styles.Container} lg={12}>
+        <Grid container className={styles.ImgContainer} sm={6} lg={6}>
+          <Grid className={styles.Texts}>
             <Typography variant="h1">Welcome, My Friend!</Typography>
             <Typography variant="body1">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil blanditiis nostrum quod, perspiciatis
               voluptatem nobis ducimus modi officiis fuga consequuntur voluptas esse, debitis perferendis
               necessitatibus.
             </Typography>
-            <Grid xs={12}>
-            <Typography variant="body2">Do you already have an account?</Typography>
-            <BaseButton to="/signin" ghost>
-              Sign in
-            </BaseButton>
-            </Grid>
+            <Box className={styles.Account}>
+              <Typography variant="body2">Do you already have an account?</Typography>
+              <BaseButton to="/signin" ghost>
+                Sign in
+              </BaseButton>
+            </Box>
           </Grid>
           <img src={RegisterImage} alt="register" />
         </Grid>
-        <Grid className={styles.Form} xs={6}>
-          <Grid className={styles.Texts} xs={12}>
+        <Grid className={styles.Form} sm={6} lg={6}>
+          <Box className={styles.Texts}>
             <Typography variant="h2">Register</Typography>
             <form>
               <LineTextField
@@ -78,7 +77,7 @@ export default function Register() {
               />
               <BaseButton primary>Register</BaseButton>
             </form>
-          </Grid>
+          </Box>
         </Grid>
       </Grid>
     </Box>
