@@ -45,11 +45,10 @@ export default function Login() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }} className={styles.Login}>
-      <Grid container spacing={0} className={styles.Container}>
-        <Grid className={styles.ImgContainer} xs={6}>
-          <Grid className={styles.Overlay} xs={12} />
-          <Grid className={styles.Texts} xs={12}>
+    <Box padding={{ sm: 4 }} className={styles.Login}>
+      <Grid container className={styles.Container} lg={12}>
+        <Grid container className={styles.ImgContainer} sm={6} lg={6}>
+          <Grid className={styles.Texts}>
             <Typography variant="h1">Welcome Back.</Typography>
             <Typography variant="body1">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil blanditiis nostrum quod, perspiciatis
@@ -65,8 +64,8 @@ export default function Login() {
           </Grid>
           <img src={LoginImage} alt="login" />
         </Grid>
-        <Grid className={styles.Form} xs={6}>
-          <Grid className={styles.Texts} xs={12}>
+        <Grid className={styles.Form} sm={6} lg={6}>
+          <Grid className={styles.Texts}>
             <Typography variant="h2">Login</Typography>
             <form>
               <LineTextField

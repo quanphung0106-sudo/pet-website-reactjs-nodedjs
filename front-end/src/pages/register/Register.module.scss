@@ -18,8 +18,6 @@
 
 .ImgContainer {
   position: relative;
-  .Account {
-  }
 
   img {
     width: 100%;
@@ -32,7 +30,6 @@
     top: 0;
     left: 0;
     padding: 25px;
-    // background-color: aqua;
     display: flex;
     max-height: 60rem;
     flex-direction: column;
@@ -88,6 +85,18 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+    }
+  }
+}
+
+@media (max-width: 63.9375em) {
+  .ImgContainer {
+    .Texts {
+      gap: 2rem;
+      h1 {
+        font-size: 4.5rem;
+        line-height: 5rem;
+      }
     }
   }
 }
