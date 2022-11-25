@@ -43,7 +43,7 @@ export default function Login() {
       }
     }
   };
-
+  
   return (
     <Box padding={{ sm: 4 }} className={styles.Login}>
       <Grid container className={styles.Container} lg={12}>
@@ -73,17 +73,17 @@ export default function Login() {
                 label="Username"
                 type="text"
                 placeholder="Enter your username"
-                helperText={error}
+                helperText="Something is wrong. Check again!"
                 required
                 onChange={handleChange}
-                error={error}
+                error={error ? true : false}
               />
               <LineTextField
                 label="Password"
                 name="password"
                 type="password"
                 placeholder="Enter your password"
-                helperText={error}
+                helperText="Something is wrong. Check again!"
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -92,7 +92,7 @@ export default function Login() {
                   ),
                 }}
                 onChange={handleChange}
-                error={error}
+                error={error ? true : false}
                 required
               />
               <BaseButton primary onClick={handleSubmit}>

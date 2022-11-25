@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
@@ -9,22 +9,7 @@ import styles from './Button.module.scss';
 const cx = classNames.bind(styles);
 
 export const BaseButton = (props) => {
-  const {
-    className,
-    primary = false,
-    ghost = false,
-    text = false,
-    size,
-    to,
-    children,
-    onClick,
-    disabled,
-    ...others
-  } = props;
-
-  let Href = Fragment;
-  if (to) Href = Link;
-  if (disabled) Href = Fragment;
+  const { className, primary = false, ghost = false, text = false, to, children, ...others } = props;
 
   const classesCustom = cx('', {
     [className]: className,
@@ -34,25 +19,22 @@ export const BaseButton = (props) => {
   });
 
   return (
-    <Href to={to} className={styles.Href}>
+    <Box component={props.to ? Link : 'div'} to={props.to && props.to} className={styles.Href}>
       <Button
         className={classesCustom}
-        disabled={disabled}
-        size={size}
         variant="contained"
         classes={{
           root: styles.BaseButton,
           sizeMedium: styles.SizeMedium,
           sizeSmall: styles.SizeSmall,
           sizeLarge: styles.SizeLarge,
-          disabled: styles.Disabled
+          disabled: styles.Disabled,
         }}
-        onClick={onClick}
         {...others}
       >
         {children}
       </Button>
-    </Href>
+    </Box>
   );
 };
 

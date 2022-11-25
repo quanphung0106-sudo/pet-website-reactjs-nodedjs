@@ -132,7 +132,7 @@ const ItemDetail = () => {
             ))}
           </section>
           <Box className={styles.Payment}>
-            <BaseButton startIcon={<ShoppingCartIcon />} ghost disabled={blockAdd} onClick={handleClick}>
+            <BaseButton size="large" startIcon={<ShoppingCartIcon />} ghost disabled={blockAdd} onClick={handleClick}>
               Add to cart
             </BaseButton>
             <BaseButton disabled={blockAdd} primary>

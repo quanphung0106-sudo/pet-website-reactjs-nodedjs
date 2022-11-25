@@ -36,7 +36,6 @@
     color: rgb(88, 83, 83);
     font-weight: 650;
     font-size: 1.8rem;
-    pointer-events: none;
     gap: 5rem;
 
     h1 {
@@ -44,19 +43,19 @@
       font-weight: bold;
       font-size: 6rem;
       line-height: 8rem;
+      pointer-events: none;
     }
 
     p {
       font-size: 1.8rem;
       font-weight: bold;
+      pointer-events: none;
     }
 
-    p:nth-child(2) {
-    }
-
-    button {
-      pointer-events: all;
-      margin-top: 15px;
+    .Account {
+      p {
+        margin-bottom: 15px;
+      }
     }
   }
 }
