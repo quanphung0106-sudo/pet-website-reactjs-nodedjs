@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import styles from './Benefits.module.scss';
+import { Box, Typography } from '@mui/material';
+import { BaseButton } from '../Button/Button';
+import Pet from '~/assets/images/pet.png';
+import Pets from '~/assets/images/pets.jpg';
 
 const Benefits = (props) => {
   const [scrollY, setScrollY] = useState(false);
@@ -10,11 +14,6 @@ const Benefits = (props) => {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY >= 890 && window.scrollY < 1521) {
-        document.getElementsByClassName(styles.topItem);
-        document.getElementsByClassName(styles.img);
-        document.getElementsByClassName(styles.img2);
-        document.getElementsByClassName(styles.modalWrapper);
-        document.getElementsByClassName(styles.textWrapper);
         setScrollY(true);
         if (scrollY === true) {
           setShow(true);
@@ -30,47 +29,45 @@ const Benefits = (props) => {
   });
 
   return (
-    <div className={styles.container}>
-      <div className={styles.item}>
+    <Grid container className={styles.Container}>
+      <Grid className={styles.Item} lg={12}>
         {show && (
-          <div className={`${styles.topItem} ${scrollY ? styles.activeTopItem : ''}`}>
-            {show && <img className={`${styles.img} ${scrollY ? styles.activeImg : ''}`} src="/img/pet.png" alt="" />}
-          </div>
+          <Box className={styles.ImgWrapper}>
+            {show && <img className={`${scrollY ? styles.active : ''}`} src={Pet} alt="pet" />}
+          </Box>
         )}
-      </div>
-      <div className={styles.item}>
-        <div className={styles.modalContainer}>
+      </Grid>
+      <Grid className={styles.Item} lg={12}>
+        <Box className={styles.ModalContainer}>
           {show && (
-            <div className={`${styles.modalWrapper} ${scrollY ? styles.activeModalWrapper : ''}`}>
-              <h4 className={styles.title}>Why Dogs Make You Happy</h4>
-              <p className={styles.text}>
+            <Box className={`${styles.ModalWrapper} ${scrollY ? styles.activeModalWrapper : ''}`}>
+              <Typography variant="h1">Why Dogs Make You Happy</Typography>
+              <Typography variant="body1">
                 Quam nulla porttitor massa id neque aliquam vestibulum morbi. Eu consequat ac felis donec et odio
                 pellentesque. Turpis nunc eget lorem dolor sed. Ornare quam viverra orci sagittis eu volutpat odio. Sed
                 vulputate odio ut enim blandit volutpat.
-              </p>
-              <button className={styles.button}>READ MORE</button>
-            </div>
+              </Typography>
+              <BaseButton ghost>READ MORE</BaseButton>
+            </Box>
           )}
 
           {show && (
-            <div className={`${styles.textWrapper} ${scrollY ? styles.activeTextWrapper : ''}`}>
-              <h1 className={styles.title}>Dogs improve your mood:</h1>
-              <ul className={styles.ul}>
-                <li className={styles.li}>Duis are iruhe dolor in</li>
-                <li className={styles.li}>Expepteur sint occaecat</li>
-                <li className={styles.li}>Utenim ad minim</li>
-                <li className={styles.li}>Lorem ipsum dolor</li>
+            <Box className={`${styles.TextWrapper} ${scrollY ? styles.active : ''}`}>
+              <Typography variant="h1">Dogs improve your mood:</Typography>
+              <ul >
+                <li>Duis are iruhe dolor in</li>
+                <li>Expepteur sint occaecat</li>
+                <li>Utenim ad minim</li>
+                <li>Lorem ipsum dolor</li>
               </ul>
-            </div>
+            </Box>
           )}
-        </div>
-      </div>
-      <div className={styles.item}>
-        <div className={styles.imgContainer}>
-          {show && <img className={`${styles.img2} ${scrollY ? styles.activeImg2 : ''}`} src="/img/pets.jpg" alt="" />}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Grid>
+      <Grid className={styles.Item} lg={12}>
+          {show && <img className={`${scrollY ? styles.active : ''}`} src={Pets} alt="pet" />}
+      </Grid>
+    </Grid>
   );
 };
 
