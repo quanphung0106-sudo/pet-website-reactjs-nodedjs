@@ -18,7 +18,7 @@
         height: 32rem;
         margin-right: -200px;
 
-        &.activeImg {
+        &.active {
           animation: zoom 1s ease-in-out;
         }
       }
@@ -37,6 +37,7 @@
       display: flex;
       justify-content: center;
       flex-direction: row-reverse;
+      transition: .5s;
     }
 
     .ModalWrapper {
