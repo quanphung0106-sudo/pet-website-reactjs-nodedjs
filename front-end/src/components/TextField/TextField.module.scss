@@ -19,8 +19,10 @@ input[type=number] {
 }
 
 .InputField {
+  height: 8rem;
+  max-height: 8rem;
   caret-color: var(--pink_light);
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 
   // &:hover .LabelRoot {
   //   transition: 0.2s;
