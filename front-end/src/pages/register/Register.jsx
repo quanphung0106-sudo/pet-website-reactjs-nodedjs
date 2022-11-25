@@ -3,7 +3,7 @@ import { Box, InputAdornment, Typography } from '@mui/material';
 import styles from './Register.module.scss';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import RegisterImage from '~/assets/images/register.jpg';
+import RegisterImage from '~/assets/images/register-background.png';
 import { BaseButton } from '~/components/Button/Button';
 import { LineTextField } from '~/components/TextField/TextField';
 import { Visibility } from '@mui/icons-material';

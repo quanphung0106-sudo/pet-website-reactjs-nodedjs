@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { Visibility } from '@mui/icons-material';
 
 import { loginStart, loginSuccess, loginFail } from '~/redux/userSlice';
-import LoginImage from '~/assets/images/login.jpg';
+import LoginImage from '~/assets/images/login-background.png';
 import { BaseButton } from '~/components/Button/Button';
 import { LineTextField } from '~/components/TextField/TextField';
 import styles from './Login.module.scss';
