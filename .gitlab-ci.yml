@@ -57,7 +57,7 @@ deploy:
   script:
     - cp -r output/front-end/ front-end
     - cp -r output/back-end back-end
-    - /root/.nvm/versions/node/v14.18.3/bin/pm2 start
+    # - /root/.nvm/versions/node/v14.18.3/bin/pm2 start
   #   tags:
   #     - pet-project-production
   only:
