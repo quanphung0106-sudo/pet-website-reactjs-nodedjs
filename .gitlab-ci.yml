@@ -1,0 +1,60 @@
+# https://docs.gitlab.com/12.10/ee/api/jobs.html
+
+stages:
+  # - test
+  - build
+  - deploy
+
+# test:
+#     stage: test
+#     before_script:
+#         - yarn
+#     script:
+#         - yarn back-end:lint
+#         - yarn front-end:lint
+#     tags:
+#         - 7h00_quyennc
+#     except:
+#         - master
+
+build:
+  stage: build
+  before_script:
+    - rm -rf node_modules
+    - yarn
+  script:
+    # - yarn back-end:build
+    - yarn front-end:build
+    - rm -rf output
+    - mkdir output
+    - mkdir output/back-end
+    - mkdir output/front-end
+    - cp -r front-end/build/ output/front-end/
+    - cp -r back-end/ output/back-end/
+  artifacts:
+    paths:
+      - output/**/*
+    expire_in: 4h
+  tags:
+    - 7h00_quyennc
+  only:
+    - ui
+
+deploy:
+  stage: deploy
+  #  when: manual
+  before_script:
+    - export PATH=$PATH:/root/.nvm/versions/node/v14.18.3/bin
+    - /root/.nvm/versions/node/v14.18.3/bin/pm2 --version
+    - echo "PATH='${PATH}'"
+    - rm -rf front-end/build/
+    - npm config set cache .npm
+    - yarn
+  script:
+    - cp -r output/front-end/ front-end
+    - cp -r output/back-end back-end
+    - /root/.nvm/versions/node/v14.18.3/bin/pm2 start
+  tags:
+    - pet-project-production
+  only:
+    - ui
