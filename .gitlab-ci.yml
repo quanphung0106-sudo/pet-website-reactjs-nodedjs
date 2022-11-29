@@ -26,6 +26,7 @@ build:
     # - rm -rf node_modules
     - yarn
   script:
+    - yarn install
     # - yarn back-end:build
     - yarn front-end:build
     - rm -rf output
