@@ -1,4 +1,5 @@
 # https://docs.gitlab.com/12.10/ee/api/jobs.html
+image: node:latest
 
 stages:
   # - test
