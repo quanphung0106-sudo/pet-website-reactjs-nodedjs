@@ -22,9 +22,8 @@ build:
   stage: build
   before_script:
     - export PATH=$PATH:/root/.nvm/versions/node/v14.18.3/bin
-    # - /root/.nvm/versions/node/v14.18.3/bin/pm2 --version
     - echo "PATH='${PATH}'"
-    - rm -rf node_modules
+    # - rm -rf node_modules
     - yarn
   script:
     # - yarn back-end:build
