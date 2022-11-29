@@ -49,7 +49,7 @@ deploy:
   #  when: manual
   before_script:
     - export PATH=$PATH:/root/.nvm/versions/node/v14.18.3/bin
-    - /root/.nvm/versions/node/v14.18.3/bin/pm2 --version
+    # - /root/.nvm/versions/node/v14.18.3/bin/pm2 --version
     - echo "PATH='${PATH}'"
     - rm -rf front-end/build/
     - npm config set cache .npm
