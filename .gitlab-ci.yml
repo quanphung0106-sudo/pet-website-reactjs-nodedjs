@@ -26,9 +26,8 @@ build:
     # - rm -rf node_modules
     - yarn
   script:
-    - yarn install
-    # - yarn back-end:build
-    - cd front-end && yarn install && cd ../
+    - cd front-end && yarn install
+    - cd ../
     - yarn front-end:build
     - rm -rf output
     - mkdir output
