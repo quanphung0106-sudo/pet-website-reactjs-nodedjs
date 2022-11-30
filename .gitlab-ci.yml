@@ -2,8 +2,10 @@
 image: node:latest
 
 services:
-  - docker:19.03.1-dind
+  - docker:dind
 before_script:
+  - export PATH=$PATH:/root/.nvm/versions/node/v14.18.3/bin
+  - echo "PATH='${PATH}'"
   - docker pull stackhawk/hawkscan
 hawkscan:
   script:
