@@ -1,4 +1,4 @@
-import { InputAdornment, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import clsx from 'clsx';
 
 import styles from './TextField.module.scss';
@@ -40,7 +40,7 @@ const BaseInputField = (props) => {
 
 export const LineTextField = (props) => {
   const { error, InputProps, helperText, className, ...others } = props;
-  
+
   return (
     <BaseInputField
       {...others}

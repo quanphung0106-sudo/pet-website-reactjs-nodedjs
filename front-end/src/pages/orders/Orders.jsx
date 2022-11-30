@@ -1,19 +1,18 @@
-import { useEffect, useState } from 'react';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import Grid from '@mui/material/Unstable_Grid2';
 import { Box, Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { reset } from '~/redux/cartSlice';
-import { BaseButton } from '~/components/Button/Button';
-import Paid from '~/assets/images/paid.png';
 import Bake from '~/assets/images/bake.png';
 import Bike from '~/assets/images/bike.png';
-import Delivered from '~/assets/images/delivered.png';
 import Checked from '~/assets/images/checked.png';
+import Delivered from '~/assets/images/delivered.png';
+import Paid from '~/assets/images/paid.png';
+import { BaseButton } from '~/components/Button/Button';
+import { reset } from '~/redux/cartSlice';
 import styles from './Order.module.scss';
 
 const Orders = () => {
@@ -22,8 +21,8 @@ const Orders = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  const cart = useSelector((state) => state.cart);
-  const amount = cart.total;
+  // const cart = useSelector((state) => state.cart);
+  // const amount = cart.total;
   const status = data.status;
 
   const navigate = useNavigate();
@@ -35,6 +34,7 @@ const Orders = () => {
       dispatch(reset());
     };
     getItemById();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.log(data);

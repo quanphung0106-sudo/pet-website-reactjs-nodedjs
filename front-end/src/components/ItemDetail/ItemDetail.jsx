@@ -1,15 +1,15 @@
-import styles from './ItemDetail.module.scss';
-import React, { useState, useEffect } from 'react';
-import { Link, useParams, Navigate } from 'react-router-dom';
-import axios from 'axios';
-import Grid from '@mui/material/Unstable_Grid2';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import Grid from '@mui/material/Unstable_Grid2';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import styles from './ItemDetail.module.scss';
 
-import { useDispatch } from 'react-redux';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { addProduct } from '~/redux/cartSlice';
-import { v4 as uuidv4 } from 'uuid';
 import { Box, Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import { addProduct } from '~/redux/cartSlice';
 import { BaseButton } from '../Button/Button';
 
 const ItemDetail = () => {
@@ -17,7 +17,7 @@ const ItemDetail = () => {
   const [check, setCheck] = useState({});
   const [datas, setDatas] = useState({});
   const [price, setPrice] = useState(0);
-  const [sell, setSell] = useState(0);
+  // const [sell, setSell] = useState(0);
   const [blockAdd, setBlockAdd] = useState(true);
 
   const dispatch = useDispatch();
@@ -35,6 +35,7 @@ const ItemDetail = () => {
       setDatas(res.data);
     };
     getItemById();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -65,7 +66,7 @@ const ItemDetail = () => {
 
     if (datas.sellItem !== 0) {
       const sellPrice = option.price - (option.price * datas.sellItem) / 100;
-      setSell(sellPrice);
+      // setSell(sellPrice);
       setPrice(sellPrice);
     } else {
       setPrice(option.price);
@@ -127,7 +128,9 @@ const ItemDetail = () => {
                   id={option._id}
                   className={styles.Options}
                 ></input>
-                <Box component="label" htmlFor={option._id}>{option.title}</Box>
+                <Box component="label" htmlFor={option._id}>
+                  {option.title}
+                </Box>
               </Box>
             ))}
           </section>

@@ -1,35 +1,54 @@
-import React, { useState } from 'react';
-import { Box, InputAdornment, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Visibility } from '@mui/icons-material';
-
-import { loginStart, loginSuccess, loginFail } from '~/redux/userSlice';
+import { Alert, Box, Button, CircularProgress, InputAdornment, TextField, Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
+import axios from 'axios';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
 import LoginImage from '~/assets/images/login-background.png';
 import { BaseButton } from '~/components/Button/Button';
-import { LineTextField } from '~/components/TextField/TextField';
+import { loginFail, loginStart, loginSuccess } from '~/redux/userSlice';
 import styles from './Login.module.scss';
 
-export default function Login() {
-  const [user, setUser] = useState({
-    username: '',
-    password: '',
-  });
-  const [error, setError] = useState('');
+const messages = {
+  email: 'Invalid email format',
+  notMatchPassword: "Retype password doesn't match",
+  requiredField: (value) => `${value} is required`,
+  maxLength: (field, value) => `${field} max length is ${value}`,
+  minLength: (field, value) => `${field} min length is ${value}`,
+};
 
+export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const { register, formState, handleSubmit } = useForm({
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+    mode: 'onBlur',
+    resolver: yupResolver(
+      Yup.object({
+        username: Yup.string()
+          .min(5, messages.minLength('Username', 5))
+          .max(255, messages.maxLength('Username', 50))
+          .required(messages.requiredField('Username')),
+        password: Yup.string().required(messages.requiredField('Password')),
+      }),
+    ),
+  });
 
-  const handleSubmit = async () => {
+  const handleFormSubmit = async (values) => {
+    setLoading(true);
     try {
       dispatch(loginStart());
-      const res = await axios.post('/auth/login', user);
+      const res = await axios.post('https://pet-website-reactjs-nodejs.herokuapp.com/api/auth/login', values);
       dispatch(loginSuccess(res.data));
       if (res.data.isAdmin === true) {
         navigate('/admin');
@@ -37,13 +56,15 @@ export default function Login() {
         navigate('/');
       }
     } catch (err) {
+      setError(err?.response?.data);
       if (err.status !== 200) {
         dispatch(loginFail(err));
-        setError(err.response.data);
       }
+    } finally {
+      setLoading(false);
     }
   };
-  
+
   return (
     <Box padding={{ sm: 4 }} className={styles.Login}>
       <Grid container className={styles.Container} lg={12}>
@@ -67,23 +88,35 @@ export default function Login() {
         <Grid className={styles.Form} sm={6} lg={6}>
           <Grid className={styles.Texts}>
             <Typography variant="h2">Login</Typography>
-            <form>
-              <LineTextField
-                name="username"
+            {error && (
+              <Alert severity="error" sx={{ mb: 2 }}>
+                {error}
+              </Alert>
+            )}
+            <Box
+              component="form"
+              onSubmit={handleSubmit(handleFormSubmit)}
+              data-testid="login-form"
+              sx={{ display: 'flex', flexDirection: 'column', gap: '30px' }}
+            >
+              <TextField
                 label="Username"
                 type="text"
                 placeholder="Enter your username"
-                helperText="Something is wrong. Check again!"
-                required
-                onChange={handleChange}
-                error={error ? true : false}
+                spellCheck="false"
+                variant="standard"
+                {...register('username')}
+                InputLabelProps={{ shrink: true }}
+                helperText={formState.errors.username?.message}
+                error={!!formState.errors.username}
+                InputProps={{
+                  inputProps: { 'data-testid': 'account-username', maxLength: 50 },
+                }}
               />
-              <LineTextField
+              <TextField
                 label="Password"
-                name="password"
                 type="password"
                 placeholder="Enter your password"
-                helperText="Something is wrong. Check again!"
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -91,14 +124,38 @@ export default function Login() {
                     </InputAdornment>
                   ),
                 }}
-                onChange={handleChange}
-                error={error ? true : false}
-                required
+                data-testid="account-password"
+                spellCheck="false"
+                variant="standard"
+                {...register('password')}
+                InputLabelProps={{ shrink: true }}
+                helperText={formState.errors.password?.message}
+                error={!!formState.errors.password}
               />
-              <BaseButton primary onClick={handleSubmit}>
+              <Button
+                type="submit"
+                disabled={loading}
+                variant="contained"
+                disableElevation
+                data-testid="login-button"
+                sx={{
+                  width: 'fit-content',
+                  height: '50px',
+                  bgcolor: '#ea666c',
+                  fontWeight: '800!important',
+                  '&:hover': {
+                    bgcolor: '#fff',
+                    color: '#ea666c',
+                    boxShadow:
+                      '0px 2px 4px -1px rgb(0 0 0 / 4%), 0px 4px 5px 0px rgb(0 0 0 / 4%), 0px 1px 10px 0px rgb(0 0 0 / 10%)',
+                  },
+                  gap: '10px',
+                }}
+              >
+                {loading && <CircularProgress size={20} sx={{ color: '#ea666c' }} />}
                 Sign in
-              </BaseButton>
-            </form>
+              </Button>
+            </Box>
           </Grid>
         </Grid>
       </Grid>

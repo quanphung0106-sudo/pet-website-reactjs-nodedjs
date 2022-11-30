@@ -1,14 +1,10 @@
+import { Box, Typography } from '@mui/material';
+import axios from 'axios';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useNavigate } from 'react-router-dom';
-import { Box, Dialog, IconButton, Typography } from '@mui/material';
-import DialogTitle from '@mui/material/DialogTitle';
-import CloseIcon from '@mui/icons-material/Close';
-
-import Modal from '../Modal/Modal';
 import { BaseButton } from '../Button/Button';
+import Modal from '../Modal/Modal';
 import styles from './CartTotal.module.scss';
 
 const CartTotal = () => {

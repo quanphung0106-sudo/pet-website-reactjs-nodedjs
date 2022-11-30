@@ -48,7 +48,7 @@ const Header = () => {
       <Grid container className={styles.Item} lg={6}>
         <ul>
           <Link to="/">
-            <li>Homepage</li>
+            <li>Home</li>
           </Link>
           <Link to="/products">
             <li>Pet</li>

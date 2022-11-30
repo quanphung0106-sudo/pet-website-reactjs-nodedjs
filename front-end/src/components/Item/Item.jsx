@@ -4,7 +4,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchData, fetchedData } from '~/redux/cartSlice';
+import { fetchData } from '~/redux/cartSlice';
 import styles from './Item.module.scss';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { BaseButton } from '../Button/Button';
@@ -24,6 +24,7 @@ const Item = () => {
       dispatch(fetchData());
     };
     getDatas();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

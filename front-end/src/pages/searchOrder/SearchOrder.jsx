@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { Box, InputAdornment, Typography } from '@mui/material';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import { Box, InputAdornment, Typography } from '@mui/material';
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ContainedTextField } from '~/components/TextField/TextField';
 import styles from './SearchOrder.module.scss';

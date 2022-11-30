@@ -1,14 +1,13 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Box, Dialog, IconButton, Typography } from '@mui/material';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
 import CloseIcon from '@mui/icons-material/Close';
+import { Box, Dialog, IconButton } from '@mui/material';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import { reset } from '~/redux/cartSlice';
-import styles from './Modal.module.scss';
-import { ContainedTextField } from '../TextField/TextField';
 import { BaseButton } from '../Button/Button';
+import { ContainedTextField } from '../TextField/TextField';
+import styles from './Modal.module.scss';
 
 const Modal = ({ total, createOrder, setOpen, open }) => {
   const cartProducts = useSelector((state) => state.cart.products);
@@ -16,7 +15,6 @@ const Modal = ({ total, createOrder, setOpen, open }) => {
   //   state.cart.products.map((product) => console.log(product.quantity));
   // });
   // const cartTotalOfProduct = useSelector((state) => state.products.totalItem);
-  const dispatch = useDispatch();
 
   const [customer, setCustomer] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
