@@ -23,6 +23,8 @@ stages:
 test:
   stage: test
   before_script:
+    - export PATH=$PATH:/root/.nvm/versions/node/v14.18.3/bin
+    - echo "PATH='${PATH}'"
     - yarn
   script:
     - cd front-end && yarn test
