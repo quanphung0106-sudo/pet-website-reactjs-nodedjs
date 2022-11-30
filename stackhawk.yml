@@ -1,0 +1,13 @@
+# -- stackhawk configuration for Pet app --
+app:
+    # -- An applicationId obtained from the StackHawk platform. --
+    applicationId: a1348587-15e1-49e9-9078-0e37116ee3a2 # (required)
+    # -- The environment for the applicationId defined in the StackHawk platform. --
+    env: Development # (required)
+    # -- The url of your application to scan --
+    host: http://localhost:3002 # (required)
+
+hawk:
+    startupTimeoutMinutes: 1
+    spider:
+        base: false
