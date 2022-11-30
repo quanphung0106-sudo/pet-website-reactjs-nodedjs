@@ -1,20 +1,6 @@
 # https://docs.gitlab.com/12.10/ee/api/jobs.html
 image: node:latest
 
-# services:
-#   - docker:dind
-# before_script:
-#   - apt-get install docker
-#   - export PATH=$PATH:<docker_path>
-#   - docker pull stackhawk/hawkscan
-# hawkscan:
-#   script:
-#     - |
-#       docker run -v $(pwd):/hawk:rw -t \
-#         -e API_KEY="hawk.${HAWK_API_ID}.${HAWK_API_SECRET}" \
-#         -e NO_COLOR=true \
-#         stackhawk/hawkscan
-
 stages:
   - hawkscan
   - test
@@ -25,7 +11,6 @@ hawkscan:
   stage: hawkscan
   services:
     - docker:dind
-  image: docker:lastest
   before_script:
     - docker pull stackhawk/hawkscan
     - docker info
