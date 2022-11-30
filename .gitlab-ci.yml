@@ -17,6 +17,7 @@ image: node:latest
 
 stages:
   - test
+  - hawkscan
   - build
   - deploy
 
@@ -30,6 +31,22 @@ test:
     - cd front-end && yarn install && yarn test
     - cd ../ 
 
+hawkscan:
+  stage: hawkscan
+  services:
+    - docker:dind
+  image: docker:lastest
+  before_script:
+    - docker pull stackhawk/hawkscan
+    - docker info
+  script:
+    - |
+      docker run -v $(pwd):/hawk:rw -t \
+        -e API_KEY="hawk.${HAWK_API_ID}.${HAWK_API_SECRET}" \
+        -e NO_COLOR=true \
+        stackhawk/hawkscan
+
+
 build:
   stage: build
   before_script:
@@ -38,8 +55,8 @@ build:
     # - rm -rf node_modules
     - yarn
   script:
-    # - cd front-end && yarn install
-    # - cd ../
+    - cd front-end && yarn install
+    - cd ../
     - yarn front-end:build
     - rm -rf output
     - mkdir output
