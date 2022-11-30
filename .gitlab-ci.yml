@@ -12,7 +12,7 @@ hawkscan:
   services:
     - docker:dind
   before_script:
-    - docker pull stackhawk/hawkscan
+    # - docker pull stackhawk/hawkscan
     - docker info
   script:
     - |
