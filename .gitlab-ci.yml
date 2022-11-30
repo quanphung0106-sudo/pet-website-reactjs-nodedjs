@@ -16,20 +16,10 @@ image: node:latest
 #         stackhawk/hawkscan
 
 stages:
-  - test
   - hawkscan
+  - test
   - build
   - deploy
-
-test:
-  stage: test
-  before_script:
-    - export PATH=$PATH:/root/.nvm/versions/node/v14.18.3/bin
-    - echo "PATH='${PATH}'"
-    - yarn
-  script:
-    - cd front-end && yarn install && yarn test
-    - cd ../ 
 
 hawkscan:
   stage: hawkscan
@@ -45,6 +35,16 @@ hawkscan:
         -e API_KEY="hawk.${HAWK_API_ID}.${HAWK_API_SECRET}" \
         -e NO_COLOR=true \
         stackhawk/hawkscan
+
+test:
+  stage: test
+  before_script:
+    - export PATH=$PATH:/root/.nvm/versions/node/v14.18.3/bin
+    - echo "PATH='${PATH}'"
+    - yarn
+  script:
+    - cd front-end && yarn install && yarn test
+    - cd ../ 
 
 
 build:
