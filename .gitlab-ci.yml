@@ -4,8 +4,8 @@ image: node:latest
 services:
   - docker:dind
 before_script:
-  - export PATH=$PATH:/root/.nvm/versions/node/v14.18.3/bin
-  - echo "PATH='${PATH}'"
+  - apt-get install docker
+  - export PATH=$PATH:<docker_path>
   - docker pull stackhawk/hawkscan
 hawkscan:
   script:
