@@ -11,6 +11,7 @@ hawkscan:
   stage: hawkscan
   services:
     - docker:dind
+    - name: docker:20.10.7-dind
   before_script:
     # - docker pull stackhawk/hawkscan
     - docker info
