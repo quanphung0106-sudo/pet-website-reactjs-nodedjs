@@ -27,8 +27,8 @@ test:
     - echo "PATH='${PATH}'"
     - yarn
   script:
-    - cd front-end && yarn test
-    - cd ../
+    - cd front-end && yarn install && yarn test
+    - cd ../ 
 
 build:
   stage: build
@@ -38,8 +38,8 @@ build:
     # - rm -rf node_modules
     - yarn
   script:
-    - cd front-end && yarn install
-    - cd ../
+    # - cd front-end && yarn install
+    # - cd ../
     - yarn front-end:build
     - rm -rf output
     - mkdir output
