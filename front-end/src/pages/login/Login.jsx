@@ -3,7 +3,7 @@ import { Visibility } from '@mui/icons-material';
 import { Alert, Box, Button, CircularProgress, InputAdornment, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -64,6 +64,10 @@ export default function Login() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    console.log('hello bgnk');
+  }, []);
 
   return (
     <Box padding={{ sm: 4 }} className={styles.Login}>
