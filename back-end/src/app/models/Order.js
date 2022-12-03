@@ -48,10 +48,10 @@ const OrderSchema = new Schema(
           title: {
             type: String,
           },
-          totalItem: {
+          total: {
             type: Number,
           },
-          quantityItem: {
+          quantity: {
             type: Number,
           },
           img: {

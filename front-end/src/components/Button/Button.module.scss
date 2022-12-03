@@ -45,7 +45,8 @@ $button_Disabled: rgba(0, 0, 0, 0.26);
     @include baseButton(0.5rem) {
       background-color: var(--pink_100);
       color: var(--white);
-
+      border: 1px solid transparent;
+      
       &:hover {
         background-color: var(--white);
         color: var(--pink_100);
@@ -57,6 +58,10 @@ $button_Disabled: rgba(0, 0, 0, 0.26);
         box-shadow: none !important;
         background-color: var(--black_20) !important;
       }
+    }
+
+    & svg {
+      color: var(--white);
     }
   }
 

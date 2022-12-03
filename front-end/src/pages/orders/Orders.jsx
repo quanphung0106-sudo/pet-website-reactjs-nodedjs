@@ -12,6 +12,7 @@ import Checked from '~/assets/images/checked.png';
 import Delivered from '~/assets/images/delivered.png';
 import Paid from '~/assets/images/paid.png';
 import { BaseButton } from '~/components/Button/Button';
+import BaseTable from '~/components/Table/Table';
 import { reset } from '~/redux/cartSlice';
 import styles from './Order.module.scss';
 
@@ -29,7 +30,8 @@ const Orders = () => {
 
   useEffect(() => {
     const getItemById = async () => {
-      const res = await axios.get(`https://pet-website-reactjs-nodejs.herokuapp.com/api/orders/${params.id}`);
+      const res = await axios.get(`http://localhost:8808/api/orders/${params.id}`);
+      // const res = await axios.get(`https://pet-website-reactjs-nodejs.herokuapp.com/api/orders/${params.id}`);
       setData(res.data);
       dispatch(reset());
     };
@@ -52,6 +54,39 @@ const Orders = () => {
       navigate('/stranger-items');
     }
   };
+
+  const columns = [
+    {
+      name: 'Product',
+      align: 'left',
+      render: ({ img }) => <img src={img} alt="img" />,
+    },
+    {
+      name: 'Name',
+      align: 'center',
+      render: ({ title }) => <p>{title}</p>,
+    },
+    {
+      name: 'Type',
+      align: 'center',
+      render: ({ type }) =><p>{type}</p>,
+    },
+    {
+      name: 'Price',
+      align: 'right',
+      render: ({ price }) => <p>${price}</p>,
+    },
+    {
+      name: 'Quantity',
+      align: 'right',
+      render: ({ quantity }) => <p>{quantity}</p>,
+    },
+    {
+      name: 'Total',
+      align: 'right',
+      render: ({ total }) => <p>${total}</p>,
+    },
+  ];
 
   return (
     <Box className={styles.Container}>
@@ -88,48 +123,7 @@ const Orders = () => {
             </Grid>
           </Grid>
 
-          <div className={styles.tableWrapper}>
-            <div className={styles.tableHead}>
-              <table className={styles.table}>
-                <thead>
-                  <tr className={styles.head}>
-                    <th className={styles.column}>Product</th>
-                    <th className={styles.column}>Name</th>
-                    <th className={styles.column}>Type</th>
-                    <th className={styles.column}>Quantity</th>
-                    <th className={styles.column}>Price</th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-            <div className={styles.tableBody}>
-              <table className={styles.table}>
-                <tbody className={styles.tbody}>
-                  {data.products?.map((item) => (
-                    <tr className={styles.body} key={item._id}>
-                      <td className={styles.column}>
-                        <div className={styles.imgContainer}>
-                          <img src={item.img} alt="" />
-                        </div>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.name}>{item.title}</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.type}>{item.check.title}</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.quantity}>{item.quantityItem}</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.price}>${item.totalItem}</span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+         {data?.products ? <BaseTable columns={columns} dataSource={data?.products} /> : 'Hello'}
         </Grid>
         <Grid className={styles.Right} sm={12} lg={4}>
           <Box className={styles.TotalWrapper}>

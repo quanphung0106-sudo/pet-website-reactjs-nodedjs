@@ -30,8 +30,8 @@ const Modal = ({ total, createOrder, setOpen, open }) => {
       check: product.check,
       img: product.img,
       title: product.title,
-      quantityItem: product.quantity,
-      totalItem: product.totalItem,
+      quantity: product.quantity,
+      total: product.totalItem,
     }));
     createOrder({
       products,

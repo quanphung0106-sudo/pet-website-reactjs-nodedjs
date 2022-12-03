@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,30 +6,54 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
 import styles from './Table.module.scss';
 
-export default function BaseTable({ columns, dataSource }) {
-  console.log({
-    columns,
-    // dataSource,
-  });
+export default function BaseTable(props) {
+  const { columns, dataSource } = props;
+  const [newFunc, setNewFunc] = useState([]);
+  useEffect(() => {
+    const newArray = dataSource.map((data, index) => ({
+      ...data,
+      renderImage: function () {
+        return columns[0].render({ img: data.img });
+      },
+      renderTitle: function () {
+        return columns[1].render({ title: data.title });
+      },
+      renderType: function () {
+        return columns[2].render({ type: data.check.title });
+      },
+      renderPrice: function () {
+        return columns[3].render({ price: data.price || data.check.price });
+      },
+      renderQuantity: function () {
+        return columns[4].render({ quantity: data.quantity });
+      },
+      renderTotal: function () {
+        return columns[5].render({ total: data.quantity * data.price || data.total });
+      },
+    }));
+    setNewFunc(newArray);
+  }, [columns, dataSource]);
 
-  // const Columns = () => {
-  //   columns.map((column) => (
-  //     <TableCell classes={{ root: styles.TableCell }} align={column.align} key={column.dataIndex}>
-  //       {column.name}
-  //     </TableCell>
-  //   ));
-  // };
+  const handleAlign = (array, index, align) => {
+    if (index === 0) return 'left';
+    if (index === array.length - 1) return 'right';
+    return align;
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }}>
         <TableHead classes={{ root: styles.TableHead }}>
           <TableRow>
-            {columns.map((column) => {
+            {columns.map((column, index) => {
               return (
-                <TableCell classes={{ root: styles.TableCell }} align={column.align} key={column.dataIndex}>
+                <TableCell
+                  classes={{ root: styles.TableCell }}
+                  align={handleAlign(columns, index, column.align)}
+                  key={column.dataIndex}
+                >
                   {column.name}
                 </TableCell>
               );
@@ -37,33 +61,33 @@ export default function BaseTable({ columns, dataSource }) {
           </TableRow>
         </TableHead>
         <TableBody classes={{ root: styles.TableBody }}>
-          {dataSource?.map((data, index) => (
+          {newFunc?.map((data, index) => (
             <TableRow
               classes={{ root: styles.TableRow }}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              sx={{
+                '&:last-child td, &:last-child th': {
+                  border: 0,
+                },
+              }}
               key={index}
             >
-              {/* <TableCell classes={{ root: styles.TableCell }} align="left">
-                {dataSourceMapping(dataSource)}
-              </TableCell> */}
-
               <TableCell classes={{ root: styles.TableCell }} align="left">
-                <img src={data.img} alt="img" />
+                {data.renderImage()}
               </TableCell>
               <TableCell classes={{ root: styles.TableCell }} align="center">
-                {data.title}
+                {data.renderTitle()}
               </TableCell>
               <TableCell classes={{ root: styles.TableCell }} align="center">
-                {data.check.title}
+                {data.renderType()}
               </TableCell>
               <TableCell classes={{ root: styles.TableCell }} align="right">
-                ${data.price}
+                {data.renderPrice()}
               </TableCell>
               <TableCell classes={{ root: styles.TableCell }} align="right">
-                {data.quantity}
+                {data.renderQuantity()}
               </TableCell>
               <TableCell classes={{ root: styles.TableCell }} align="right">
-                ${data.price * data.quantity}
+                {data.renderTotal()}
               </TableCell>
             </TableRow>
           ))}

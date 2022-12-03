@@ -23,7 +23,8 @@ const SearchOrder = () => {
 
   const getItemById = async () => {
     try {
-      const res = await axios.get(`https://pet-website-reactjs-nodejs.herokuapp.com/api/orders/${id}`);
+      const res = await axios.get(`http://localhost:8808/api/orders/${id}`);
+      // const res = await axios.get(`https://pet-website-reactjs-nodejs.herokuapp.com/api/orders/${id}`);
       setData(res.data);
     } catch (err) {
       console.log(err);

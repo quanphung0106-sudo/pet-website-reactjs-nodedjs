@@ -1,7 +1,9 @@
-import { TextField } from '@mui/material';
+import React, { useState } from 'react';
+import { IconButton, InputAdornment, TextField } from '@mui/material';
 import clsx from 'clsx';
 
 import styles from './TextField.module.scss';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 //input
 const InputBaseClasses = {
@@ -26,24 +28,39 @@ const FormHelperTextClasses = {
   error: styles.HelperTextError,
 };
 
-const BaseInputField = (props) => {
-  const { variant, iconStart, iconEnd, InputPropClasses, ...others } = props;
+const BaseInputField = React.forwardRef((props, ref) => {
+  const { variant, iconStart, iconEnd, InputPropClasses, type, ...others } = props;
+  const [show, setShow] = useState(false);
+
   return (
     <TextField
       {...others}
+      type={show ? 'text' : type}
+      ref={ref}
       variant={variant}
       InputLabelProps={{ shrink: true, classes: InputLabelClasses }}
       FormHelperTextProps={{ classes: FormHelperTextClasses }}
+      InputProps={{
+        ...props.InputProps,
+        endAdornment: (
+          <>
+           {type === 'password' && <IconButton position="end" onClick={() => setShow(!show)}>
+              {show ? <VisibilityOff /> : <Visibility />}
+            </IconButton>}
+          </>
+        ),
+      }}
     />
   );
-};
+});
 
-export const LineTextField = (props) => {
+export const LineTextField = React.forwardRef((props, ref) => {
   const { error, InputProps, helperText, className, ...others } = props;
 
   return (
     <BaseInputField
       {...others}
+      ref={ref}
       variant="standard"
       className={clsx(styles.InputField, styles.LineTextField, className)}
       InputProps={{
@@ -58,15 +75,14 @@ export const LineTextField = (props) => {
       helperText={error ? helperText : ''}
     />
   );
-};
-export const ContainedTextField = (props) => {
+});
+export const ContainedTextField = React.forwardRef((props, ref) => {
   const { error, InputProps, helperText, className, ...others } = props;
-
-  console.log(error);
 
   return (
     <BaseInputField
       {...others}
+      ref={ref}
       variant="outlined"
       className={clsx(styles.InputField, styles.ContainedTextField, className)}
       InputProps={{
@@ -80,4 +96,4 @@ export const ContainedTextField = (props) => {
       helperText={error ? helperText : ''}
     />
   );
-};
+});

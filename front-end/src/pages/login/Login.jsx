@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Visibility } from '@mui/icons-material';
-import { Alert, Box, Button, CircularProgress, InputAdornment, TextField, Typography } from '@mui/material';
+import { Alert, Box, CircularProgress, InputAdornment, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import axios from 'axios';
 import { useState } from 'react';
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import LoginImage from '~/assets/images/login-background.png';
 import { BaseButton } from '~/components/Button/Button';
+import { LineTextField } from '~/components/TextField/TextField';
 import { loginFail, loginStart, loginSuccess } from '~/redux/userSlice';
 import styles from './Login.module.scss';
 
@@ -48,7 +49,7 @@ export default function Login() {
     setLoading(true);
     try {
       dispatch(loginStart());
-      const res = await axios.post('https://pet-website-reactjs-nodejs.herokuapp.com/api/auth/login', values);
+      const res = await axios.post('http://localhost:8808/api/auth/login', values);
       dispatch(loginSuccess(res.data));
       if (res.data.isAdmin === true) {
         navigate('/admin');
@@ -97,14 +98,12 @@ export default function Login() {
               component="form"
               onSubmit={handleSubmit(handleFormSubmit)}
               data-testid="login-form"
-              sx={{ display: 'flex', flexDirection: 'column', gap: '30px' }}
             >
-              <TextField
+              <LineTextField
                 label="Username"
                 type="text"
                 placeholder="Enter your username"
                 spellCheck="false"
-                variant="standard"
                 {...register('username')}
                 InputLabelProps={{ shrink: true }}
                 helperText={formState.errors.username?.message}
@@ -113,48 +112,22 @@ export default function Login() {
                   inputProps: { 'data-testid': 'account-username', maxLength: 50 },
                 }}
               />
-              <TextField
+              <LineTextField
                 label="Password"
                 type="password"
                 placeholder="Enter your password"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Visibility />
-                    </InputAdornment>
-                  ),
-                }}
                 data-testid="account-password"
                 spellCheck="false"
-                variant="standard"
                 {...register('password')}
                 InputLabelProps={{ shrink: true }}
                 helperText={formState.errors.password?.message}
                 error={!!formState.errors.password}
               />
-              <Button
-                type="submit"
-                disabled={loading}
-                variant="contained"
-                disableElevation
-                data-testid="login-button"
-                sx={{
-                  width: 'fit-content',
-                  height: '50px',
-                  bgcolor: '#ea666c',
-                  fontWeight: '800!important',
-                  '&:hover': {
-                    bgcolor: '#fff',
-                    color: '#ea666c',
-                    boxShadow:
-                      '0px 2px 4px -1px rgb(0 0 0 / 4%), 0px 4px 5px 0px rgb(0 0 0 / 4%), 0px 1px 10px 0px rgb(0 0 0 / 10%)',
-                  },
-                  gap: '10px',
-                }}
-              >
-                {loading && <CircularProgress size={20} sx={{ color: '#ea666c' }} />}
+              <BaseButton primary type="submit" disabled={loading} disableElevation data-testid="login-button"
+                startIcon={loading && <CircularProgress size={20} />}
+               >
                 Sign in
-              </Button>
+              </BaseButton>
             </Box>
           </Grid>
         </Grid>

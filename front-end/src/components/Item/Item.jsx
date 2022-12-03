@@ -17,7 +17,8 @@ const Item = () => {
 
   useEffect(() => {
     const getDatas = async () => {
-      const res = await axios.get('https://pet-website-reactjs-nodejs.herokuapp.com/api/items');
+      // const res = await axios.get('https://pet-website-reactjs-nodejs.herokuapp.com/api/items');
+      const res = await axios.get('http://localhost:8808/api/items');
       if (res.data) {
         setDatas(res.data);
       }

@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import RegisterImage from '~/assets/images/register-background.png';
 import { BaseButton } from '~/components/Button/Button';
+import { LineTextField } from '~/components/TextField/TextField';
 import styles from './Register.module.scss';
 
 const messages = {
@@ -78,24 +79,21 @@ export default function Register() {
               component="form"
               onSubmit={handleSubmit(handleFormSubmit)}
               data-testid="logup-form"
-              sx={{ display: 'flex', flexDirection: 'column', gap: '30px' }}
             >
-              <TextField
+              <LineTextField
                 label="Username"
                 type="text"
                 spellCheck="false"
                 data-testid="account-username"
                 placeholder="Enter your username"
-                variant="standard"
                 {...register('fullName')}
                 InputLabelProps={{ shrink: true }}
                 helperText={formState.errors.fullName?.message}
                 error={!!formState.errors.fullName}
               />
-              <TextField
+              <LineTextField
                 label="Email"
                 type="email"
-                variant="standard"
                 spellCheck="false"
                 InputLabelProps={{ shrink: true }}
                 placeholder="Enter your email"
@@ -103,10 +101,9 @@ export default function Register() {
                 helperText={formState.errors.email?.message}
                 error={!!formState.errors.email}
               />
-              <TextField
+              <LineTextField
                 label="Password"
                 type="password"
-                variant="standard"
                 spellCheck="false"
                 InputLabelProps={{ shrink: true }}
                 placeholder="Enter your password"
@@ -121,11 +118,10 @@ export default function Register() {
                 helperText={formState.errors.password?.message}
                 error={!!formState.errors.password}
               />
-              <TextField
+              <LineTextField
                 label="Confirm Password"
                 type="password"
                 placeholder="Confirm your password"
-                variant="standard"
                 spellCheck="false"
                 InputLabelProps={{ shrink: true }}
                 InputProps={{
