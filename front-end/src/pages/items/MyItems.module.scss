@@ -7,23 +7,6 @@ $background_color_hover: #f0919675;
   padding: 50px;
 }
 
-.ContentWrapper {
-  width: 90%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  & > div:first-child {
-    width: 28rem;
-  }
-
-  h4 {
-    font-size: 2rem;
-    font-weight: 500;
-  }
-}
-
 .TableHead {
   background-color: var(--pink_60);
   border-top-left-radius: 5px;

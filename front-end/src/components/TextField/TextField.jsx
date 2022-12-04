@@ -29,27 +29,15 @@ const FormHelperTextClasses = {
 };
 
 const BaseInputField = React.forwardRef((props, ref) => {
-  const { variant, iconStart, iconEnd, InputPropClasses, type, ...others } = props;
-  const [show, setShow] = useState(false);
+  const { variant, iconStart, iconEnd, InputPropClasses, ...others } = props;
 
   return (
     <TextField
       {...others}
-      type={show ? 'text' : type}
-      ref={ref}
       variant={variant}
+      ref={ref}
       InputLabelProps={{ shrink: true, classes: InputLabelClasses }}
       FormHelperTextProps={{ classes: FormHelperTextClasses }}
-      InputProps={{
-        ...props.InputProps,
-        endAdornment: (
-          <>
-           {type === 'password' && <IconButton position="end" onClick={() => setShow(!show)}>
-              {show ? <VisibilityOff /> : <Visibility />}
-            </IconButton>}
-          </>
-        ),
-      }}
     />
   );
 });

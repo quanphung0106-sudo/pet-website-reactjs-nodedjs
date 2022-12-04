@@ -1,8 +1,16 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import { format } from 'timeago.js';
 
-import styles from './MyItems.module.css';
+import styles from './MyItems.module.scss';
+import { Box, Paper } from '@mui/material';
 
 const MyItem = () => {
   const [data, setData] = useState([]);
@@ -20,49 +28,95 @@ const MyItem = () => {
   const navigateToDetailItem = (id) => {
     navigate(`/orders/${id}`);
   };
+  const columns = [
+    {
+      name: 'Order Code',
+      align: 'left',
+    },
+    {
+      name: 'Customer',
+      align: 'center',
+    },
+    {
+      name: 'Address',
+      align: 'center',
+    },
+    {
+      name: 'Method',
+      align: 'center',
+    },
+    {
+      name: 'Order time',
+      align: 'center',
+    },
+    {
+      name: 'Total',
+      align: 'right',
+    },
+  ];
+
+  const handleAlign = (array, index, align) => {
+    if (index === 0) return 'left';
+    if (index === array.length - 1) return 'right';
+    return align;
+  };
 
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.wrapper}>
-          <div className={styles.tableWrapper}>
-            <div className={styles.tableHead}>
-              <table className={styles.table}>
-                <thead>
-                  <tr className={styles.head}>
-                    <th className={styles.column}>Order ID</th>
-                    <th className={styles.column}>Customer</th>
-                    <th className={styles.column}>Address</th>
-                    <th className={styles.column}>Total</th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-            <div className={styles.tableBody}>
-              <table className={styles.table}>
-                <tbody className={styles.tbody}>
-                  {data.map((order) => (
-                    <tr onClick={() => navigateToDetailItem(order._id)} className={styles.body} key={order._id}>
-                      <td className={styles.column}>
-                        <span className={styles.orderId}>{order._id}</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.customer}>{order.customer}</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.address}>{order.address}</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.total}>${order.total}</span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Box className={styles.Container}>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }}>
+              <TableHead classes={{ root: styles.TableHead }}>
+                <TableRow>
+                  {columns.map((column, index) => {
+                    return (
+                      <TableCell
+                        classes={{ root: styles.TableCell }}
+                        align={handleAlign(columns, index, column.align)}
+                        key={column.dataIndex}
+                      >
+                        {column.name}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              </TableHead>
+              <TableBody classes={{ root: styles.TableBody }}>
+                {data?.map((order) => (
+                  <TableRow
+                    onClick={() => navigateToDetailItem(order._id)}
+                    key={order._id}
+                    classes={{ root: styles.TableRow }}
+                    sx={{
+                      '&:last-child td, &:last-child th': {
+                        border: 0,
+                      },
+                    }}
+                  >
+                    <TableCell classes={{ root: styles.TableCell }} align="left">
+                      {order._id}
+                    </TableCell>
+                    <TableCell classes={{ root: styles.TableCell }} align="center">
+                      {order.customer}
+                    </TableCell>
+                    <TableCell classes={{ root: styles.TableCell }} align="center">
+                      {order.address}
+                    </TableCell>
+                    <TableCell classes={{ root: styles.TableCell }} align="center">
+                      {order.method === 0 ? 'Cash' : 'Visa'}
+                    </TableCell>
+                    <TableCell classes={{ root: styles.TableCell }} align="center">
+                      {format(order.createdAt)}
+                    </TableCell>
+                    <TableCell classes={{ root: styles.TableCell }} align="right">
+                      ${order.total}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+      </Box>
     </>
   );
 };

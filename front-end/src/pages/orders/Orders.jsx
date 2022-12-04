@@ -97,7 +97,7 @@ const Orders = () => {
               Back to order list
             </BaseButton>
             <Typography variant="body1">
-              *Warning: You should save the Order ID on the right side to check the order information.
+              *Warning: You should save the "Order Code" on the right side to check the order information.
             </Typography>
           </Box>
           <Grid container className={styles.DeliveryState}>

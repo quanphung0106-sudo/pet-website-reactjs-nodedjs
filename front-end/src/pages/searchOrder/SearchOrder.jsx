@@ -1,8 +1,15 @@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import { Box, InputAdornment, Typography } from '@mui/material';
+import { Box, InputAdornment, Paper, Typography } from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import {format} from "timeago.js";
 
 import { ContainedTextField } from '~/components/TextField/TextField';
 import styles from './SearchOrder.module.scss';
@@ -34,6 +41,39 @@ const SearchOrder = () => {
     navigate(`/orders/${id}`);
   };
 
+  const columns = [
+    {
+      name: 'Order Code',
+      align: 'left',
+    },
+    {
+      name: 'Customer',
+      align: 'center',
+    },
+    {
+      name: 'Address',
+      align: 'center',
+    },
+    {
+      name: 'Method',
+      align: 'center',
+    },
+    {
+      name: 'Order time',
+      align: 'center',
+    },
+    {
+      name: 'Total',
+      align: 'right',
+    },
+  ];
+
+  const handleAlign = (array, index, align) => {
+    if (index === 0) return 'left';
+    if (index === array.length - 1) return 'right';
+    return align;
+  };
+
   return (
     <Box className={styles.Container}>
       <Box className={styles.ContentWrapper}>
@@ -50,45 +90,55 @@ const SearchOrder = () => {
           }}
         />
         {Object.keys(data).length !== 0 ? (
-          <>
-            <div className={styles.tableWrapper}>
-              <div className={styles.tableHead}>
-                <table className={styles.table}>
-                  <thead>
-                    <tr className={styles.head}>
-                      <th className={styles.column}>Order ID</th>
-                      <th className={styles.column}>Customer</th>
-                      <th className={styles.column}>Address</th>
-                      <th className={styles.column}>Total</th>
-                    </tr>
-                  </thead>
-                </table>
-              </div>
-              <div className={styles.tableBody}>
-                <table className={styles.table}>
-                  <tbody className={styles.tbody}>
-                    <tr onClick={navigateToDetailItem} className={styles.body}>
-                      <td className={styles.column}>
-                        <span className={styles.orderId}>{data._id}</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.customer}>{data.customer}</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.address}>{data.address}</span>
-                      </td>
-                      <td className={styles.column}>
-                        <span className={styles.total}>
-                          {Object.keys(data).length === 0 ? '' : '$'}
-                          {data.total}
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }}>
+              <TableHead classes={{ root: styles.TableHead }}>
+                <TableRow>
+                  {columns.map((column, index) => {
+                    return (
+                      <TableCell
+                        classes={{ root: styles.TableCell }}
+                        align={handleAlign(columns, index, column.align)}
+                        key={column.dataIndex}
+                      >
+                        {column.name}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              </TableHead>
+              <TableBody classes={{ root: styles.TableBody }}>
+                <TableRow
+                  onClick={navigateToDetailItem}
+                  classes={{ root: styles.TableRow }}
+                  sx={{
+                    '&:last-child td, &:last-child th': {
+                      border: 0,
+                    },
+                  }}
+                >
+                  <TableCell classes={{ root: styles.TableCell }} align="left">
+                    {data._id}
+                  </TableCell>
+                  <TableCell classes={{ root: styles.TableCell }} align="center">
+                    {data.customer}
+                  </TableCell>
+                  <TableCell classes={{ root: styles.TableCell }} align="center">
+                    {data.address}
+                  </TableCell>
+                  <TableCell classes={{ root: styles.TableCell }} align="center">
+                    {data.method === 0 ? 'Cash' : 'Visa'}
+                  </TableCell>
+                  <TableCell classes={{ root: styles.TableCell }} align="center">
+                    {format(data.createdAt)}
+                  </TableCell>
+                  <TableCell classes={{ root: styles.TableCell }} align="right">
+                    ${data.total}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
         ) : (
           <Typography variant="h4">*Enter your Order Code to track the order</Typography>
         )}

@@ -24,6 +24,8 @@ const Modal = ({ total, createOrder, setOpen, open }) => {
     setOpen(false);
   };
 
+  console.log(cartProducts);
+
   const handleClick = () => {
     const products = cartProducts.map((product) => ({
       _id: product._id,
@@ -31,7 +33,7 @@ const Modal = ({ total, createOrder, setOpen, open }) => {
       img: product.img,
       title: product.title,
       quantity: product.quantity,
-      total: product.totalItem,
+      total: product.total,
     }));
     createOrder({
       products,

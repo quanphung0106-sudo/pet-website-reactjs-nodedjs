@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Visibility } from '@mui/icons-material';
-import { Alert, Box, CircularProgress, InputAdornment, TextField, Typography } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Alert, Box, CircularProgress, IconButton, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import axios from 'axios';
 import { useState } from 'react';
@@ -27,6 +27,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false)
 
   const { register, formState, handleSubmit } = useForm({
     defaultValues: {
@@ -114,7 +115,7 @@ export default function Login() {
               />
               <LineTextField
                 label="Password"
-                type="password"
+                type={show ? 'text' : 'password'}
                 placeholder="Enter your password"
                 data-testid="account-password"
                 spellCheck="false"
@@ -122,6 +123,13 @@ export default function Login() {
                 InputLabelProps={{ shrink: true }}
                 helperText={formState.errors.password?.message}
                 error={!!formState.errors.password}
+                InputProps={{
+                  endAdornment: (
+                    <IconButton position="end" onClick={() => setShow(!show)}>
+                      {show ? <VisibilityOff /> : <Visibility  />}
+                    </IconButton>
+                  ),
+                }}
               />
               <BaseButton primary type="submit" disabled={loading} disableElevation data-testid="login-button"
                 startIcon={loading && <CircularProgress size={20} />}

@@ -82,7 +82,7 @@ const ItemDetail = () => {
         price,
         quantity,
         check,
-        totalItem: quantity * price,
+        total: quantity * price,
       }),
     );
   };
