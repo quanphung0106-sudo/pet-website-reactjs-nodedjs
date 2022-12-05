@@ -12,6 +12,7 @@ import Checked from '~/assets/images/checked.png';
 import Delivered from '~/assets/images/delivered.png';
 import Paid from '~/assets/images/paid.png';
 import { BaseButton } from '~/components/Button/Button';
+import Loading from '~/components/Loading/Loading';
 import BaseTable from '~/components/Table/Table';
 import { reset } from '~/redux/cartSlice';
 import styles from './Order.module.scss';
@@ -69,7 +70,7 @@ const Orders = () => {
     {
       name: 'Type',
       align: 'center',
-      render: ({ type }) =><p>{type}</p>,
+      render: ({ type }) => <p>{type}</p>,
     },
     {
       name: 'Price',
@@ -100,30 +101,35 @@ const Orders = () => {
               *Warning: You should save the "Order Code" on the right side to check the order information.
             </Typography>
           </Box>
-          <Grid container className={styles.DeliveryState}>
-            <Grid className={statusClass(0)} sm={3} lg={3}>
-              <img src={Paid} alt="Paid" />
-              <Box component="span">Payment</Box>
-              <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
-            </Grid>
-            <Grid className={statusClass(1)} sm={3} lg={3}>
-              <img src={Bake} alt="Bake" />
-              <Box component="span">Preparing</Box>
-              <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
-            </Grid>
-            <Grid className={statusClass(2)} sm={3} lg={3}>
-              <img src={Bike} alt="Bike" />
-              <Box component="span">On the way</Box>
-              <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
-            </Grid>
-            <Grid className={statusClass(3)} sm={3} lg={3}>
-              <img src={Delivered} alt="Delivered" />
-              <Box component="span">Delivered</Box>
-              <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
-            </Grid>
-          </Grid>
-
-         {data?.products ? <BaseTable columns={columns} dataSource={data?.products} /> : 'Hello'}
+          {data?.products ? (
+            <>
+              <Grid container className={styles.DeliveryState}>
+                <Grid className={statusClass(0)} sm={3} lg={3}>
+                  <img src={Paid} alt="Paid" />
+                  <Box component="span">Payment</Box>
+                  <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
+                </Grid>
+                <Grid className={statusClass(1)} sm={3} lg={3}>
+                  <img src={Bake} alt="Bake" />
+                  <Box component="span">Preparing</Box>
+                  <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
+                </Grid>
+                <Grid className={statusClass(2)} sm={3} lg={3}>
+                  <img src={Bike} alt="Bike" />
+                  <Box component="span">On the way</Box>
+                  <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
+                </Grid>
+                <Grid className={statusClass(3)} sm={3} lg={3}>
+                  <img src={Delivered} alt="Delivered" />
+                  <Box component="span">Delivered</Box>
+                  <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
+                </Grid>
+              </Grid>
+              <BaseTable columns={columns} dataSource={data?.products} />
+            </>
+          ) : (
+            <Loading />
+          )}
         </Grid>
         <Grid className={styles.Right} sm={12} lg={4}>
           <Box className={styles.TotalWrapper}>

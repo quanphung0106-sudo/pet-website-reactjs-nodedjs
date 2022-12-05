@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchData } from '~/redux/cartSlice';
 import styles from './Item.module.scss';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { BaseButton } from '../Button/Button';
+import Loading from '../Loading/Loading';
 
 const Item = () => {
   const [datas, setDatas] = useState([]);
@@ -31,10 +32,7 @@ const Item = () => {
   return (
     <>
       {fetch === false ? (
-        <Box className={styles.Loading}>
-          <Typography variant="h1">Đang tải tài nguyên, vui lòng chờ</Typography>
-          <CircularProgress classes={{ root: styles.LoadingIcon }} />
-        </Box>
+        <Loading className={styles.Loading} />
       ) : (
         datas?.map((data) => (
           <Grid container className={styles.Container} key={data._id} sm={4} md={3} lg={3}>

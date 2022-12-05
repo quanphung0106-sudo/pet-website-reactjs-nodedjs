@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { IconButton, InputAdornment, TextField } from '@mui/material';
+import React from 'react';
+import { TextField } from '@mui/material';
 import clsx from 'clsx';
 
 import styles from './TextField.module.scss';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 //input
 const InputBaseClasses = {

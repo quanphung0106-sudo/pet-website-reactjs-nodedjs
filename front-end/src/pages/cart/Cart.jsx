@@ -10,7 +10,7 @@ import BaseTable from '~/components/Table/Table';
 import styles from './Cart.module.scss';
 
 const Cart = (props) => {
-  const cart = useSelector((state) => state.cart);
+  // const cart = useSelector((state) => state.cart);
   const items = useSelector((state) => state.cart.products);
 
   useEffect(() => {

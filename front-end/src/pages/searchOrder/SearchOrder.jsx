@@ -9,10 +9,11 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {format} from "timeago.js";
+import moment from 'moment';
 
 import { ContainedTextField } from '~/components/TextField/TextField';
 import styles from './SearchOrder.module.scss';
+import { formatDate } from '~/components/FormatDate/FormatDate';
 
 const SearchOrder = () => {
   const navigate = useNavigate();
@@ -130,7 +131,7 @@ const SearchOrder = () => {
                     {data.method === 0 ? 'Cash' : 'Visa'}
                   </TableCell>
                   <TableCell classes={{ root: styles.TableCell }} align="center">
-                    {format(data.createdAt)}
+                    {formatDate(data.createdAt)}
                   </TableCell>
                   <TableCell classes={{ root: styles.TableCell }} align="right">
                     ${data.total}
