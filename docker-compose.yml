@@ -9,7 +9,6 @@ services:
       - '8808:8808'
     volumes:
       - ./back-end:/app
-      - /app/node_modules
     command: yarn start
     networks:
       - common
@@ -25,7 +24,6 @@ services:
       - '3002:3002'
     volumes:
       - ./front-end:/app
-      - /app/node_modules
     networks:
       - common
 

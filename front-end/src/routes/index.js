@@ -3,6 +3,7 @@ import { createBrowserRouter, Outlet } from 'react-router-dom';
 import Footer from '~/components/Footer/Footer';
 import Header from '~/components/Header/Header';
 import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
+import ActiveAccount from '~/pages/activeAccount/ActiveAccount';
 import Admin from '~/pages/admin/Admin';
 import Cart from '~/pages/cart/Cart';
 import Detail from '~/pages/detail/Detail';
@@ -85,5 +86,9 @@ export const routes = createBrowserRouter([
   {
     path: '/signup',
     element: <Register />,
+  },
+  {
+    path: '/active-account',
+    element: <ActiveAccount />,
   },
 ]);

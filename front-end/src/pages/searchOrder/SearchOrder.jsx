@@ -9,11 +9,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import moment from 'moment';
 
 import { ContainedTextField } from '~/components/TextField/TextField';
-import styles from './SearchOrder.module.scss';
 import { formatDate } from '~/components/FormatDate/FormatDate';
+import styles from './SearchOrder.module.scss';
 
 const SearchOrder = () => {
   const navigate = useNavigate();
@@ -100,7 +99,7 @@ const SearchOrder = () => {
                       <TableCell
                         classes={{ root: styles.TableCell }}
                         align={handleAlign(columns, index, column.align)}
-                        key={column.dataIndex}
+                        key={index}
                       >
                         {column.name}
                       </TableCell>

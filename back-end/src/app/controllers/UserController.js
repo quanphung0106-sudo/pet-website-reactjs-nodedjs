@@ -1,6 +1,6 @@
 const User = require('../models/User');
 
-//create an order
+//create an user
 //[POST]: /api/item/
 const createUser = async (req, res) => {
   try {
@@ -33,8 +33,20 @@ const deleteAllUsers = async (req, res) => {
   }
 };
 
+//delete an user
+//[DELETE]: /api/users/:id
+const deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.status(200).json('The account has been deleted.');
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
   deleteAllUsers,
+  deleteUser
 };

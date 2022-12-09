@@ -27,7 +27,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
 
   const { register, formState, handleSubmit } = useForm({
     defaultValues: {
@@ -39,7 +39,7 @@ export default function Login() {
       Yup.object({
         username: Yup.string()
           .min(5, messages.minLength('Username', 5))
-          .max(255, messages.maxLength('Username', 50))
+          .max(30, messages.maxLength('Username', 30))
           .required(messages.requiredField('Username')),
         password: Yup.string().required(messages.requiredField('Password')),
       }),
@@ -58,8 +58,9 @@ export default function Login() {
         navigate('/');
       }
     } catch (err) {
-      setError(err?.response?.data);
+      console.log(err);
       if (err.status !== 200) {
+        setError(err?.response?.data);
         dispatch(loginFail(err));
       }
     } finally {
@@ -95,11 +96,7 @@ export default function Login() {
                 {error}
               </Alert>
             )}
-            <Box
-              component="form"
-              onSubmit={handleSubmit(handleFormSubmit)}
-              data-testid="login-form"
-            >
+            <Box component="form" onSubmit={handleSubmit(handleFormSubmit)} data-testid="login-form">
               <LineTextField
                 label="Username"
                 type="text"
@@ -126,14 +123,19 @@ export default function Login() {
                 InputProps={{
                   endAdornment: (
                     <IconButton position="end" onClick={() => setShow(!show)}>
-                      {show ? <VisibilityOff /> : <Visibility  />}
+                      {show ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   ),
                 }}
               />
-              <BaseButton primary type="submit" disabled={loading} disableElevation data-testid="login-button"
+              <BaseButton
+                primary
+                type="submit"
+                disabled={loading}
+                disableElevation
+                data-testid="login-button"
                 startIcon={loading && <CircularProgress size={20} />}
-               >
+              >
                 Sign in
               </BaseButton>
             </Box>

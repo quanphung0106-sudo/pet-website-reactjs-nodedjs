@@ -1,7 +1,19 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Visibility } from '@mui/icons-material';
-import { Box, InputAdornment, Typography } from '@mui/material';
+import {
+  Alert,
+  Box,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  InputAdornment,
+  Typography,
+} from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
+import axios from 'axios';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import RegisterImage from '~/assets/images/register-background.png';
@@ -18,9 +30,12 @@ const messages = {
 };
 
 export default function Register() {
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { register, formState, handleSubmit } = useForm({
     defaultValues: {
-      fullName: '',
+      username: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -28,14 +43,14 @@ export default function Register() {
     mode: 'all',
     resolver: yupResolver(
       Yup.object({
-        fullName: Yup.string()
-          .min(5, messages.minLength('Full name', 5))
-          .max(255, messages.maxLength('Full name', 50))
-          .required(messages.requiredField('Full name')),
+        username: Yup.string()
+          .min(5, messages.minLength('Username', 5))
+          .max(30, messages.maxLength('Username', 30))
+          .required(messages.requiredField('Username')),
         email: Yup.string()
           .email(messages.email)
           .min(5, messages.minLength('Email', 5))
-          .max(255, messages.maxLength('Email', 50))
+          .max(50, messages.maxLength('Email', 50))
           .required(messages.requiredField('Email')),
         password: Yup.string().required(messages.requiredField('Password')),
         confirmPassword: Yup.string()
@@ -47,9 +62,18 @@ export default function Register() {
       }),
     ),
   });
-
-  const handleFormSubmit = (values) => {
-    console.log(values);
+  const handleFormSubmit = async (values) => {
+    const { username, email, password } = values;
+    setLoading(true);
+    try {
+      const res = await axios.post('http://localhost:8808/api/auth/register', { username, email, password });
+      setError(false);
+      if (res.status === 200) return setSuccess(true);
+    } catch (err) {
+      setError(err?.response?.data);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -74,22 +98,36 @@ export default function Register() {
         </Grid>
         <Grid className={styles.Form} sm={6} lg={6}>
           <Box className={styles.Texts}>
-            <Typography variant="h2">Register</Typography>
-            <Box
-              component="form"
-              onSubmit={handleSubmit(handleFormSubmit)}
-              data-testid="logup-form"
-            >
+            {!error && <Typography variant="h2">Register</Typography>}
+            {error && (
+              <Alert severity="error" sx={{ mb: 2 }}>
+                {error}
+              </Alert>
+            )}
+            {success && (
+              <Dialog open={true}>
+                <DialogTitle sx={{ fontSize: '2.4rem', fontWeight: 'bold' }}>Welcome to Pet Website.</DialogTitle>
+                <DialogContent dividers sx={{ borderBottom: 'none', height: 100 }}>
+                  We sent you an email with an access link. Please check your inbox.
+                </DialogContent>
+                <DialogActions>
+                  <BaseButton primary to="/signin">
+                    Done!
+                  </BaseButton>
+                </DialogActions>
+              </Dialog>
+            )}
+            <Box component="form" onSubmit={handleSubmit(handleFormSubmit)} data-testid="logup-form">
               <LineTextField
                 label="Username"
                 type="text"
                 spellCheck="false"
                 data-testid="account-username"
                 placeholder="Enter your username"
-                {...register('fullName')}
+                {...register('username')}
                 InputLabelProps={{ shrink: true }}
-                helperText={formState.errors.fullName?.message}
-                error={!!formState.errors.fullName}
+                helperText={formState.errors.username?.message}
+                error={!!formState.errors.username}
               />
               <LineTextField
                 label="Email"
@@ -135,7 +173,13 @@ export default function Register() {
                 helperText={formState.errors.confirmPassword?.message}
                 error={!!formState.errors.confirmPassword}
               />
-              <BaseButton primary data-testid="button" type="submit">
+              <BaseButton
+                primary
+                disabled={loading}
+                data-testid="button"
+                type="submit"
+                startIcon={loading && <CircularProgress size={20} />}
+              >
                 Register
               </BaseButton>
             </Box>

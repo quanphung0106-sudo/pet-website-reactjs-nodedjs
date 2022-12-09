@@ -23,8 +23,9 @@ const UserSchema = new Schema(
     photos: {
       type: String,
     },
-    acctiveAccount: {
+    activeAccount: {
       type: Boolean,
+      default: false,
     },
   },
   {

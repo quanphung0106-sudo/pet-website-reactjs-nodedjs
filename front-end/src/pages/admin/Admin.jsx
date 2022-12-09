@@ -15,8 +15,6 @@ const Admin = () => {
   const user = useSelector((state) => state.user.user);
   const isAdmin = user !== null && user.isAdmin;
 
-  console.log(isAdmin);
-
   const navigate = useNavigate();
 
   useEffect(() => {

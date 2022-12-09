@@ -52,7 +52,7 @@ export default function BaseTable(props) {
                 <TableCell
                   classes={{ root: styles.TableCell }}
                   align={handleAlign(columns, index, column.align)}
-                  key={column.dataIndex}
+                  key={index}
                 >
                   {column.name}
                 </TableCell>

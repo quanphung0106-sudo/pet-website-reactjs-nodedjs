@@ -7,12 +7,11 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import moment from 'moment';
-
-import styles from './MyItems.module.scss';
 import { Box, Paper } from '@mui/material';
+
 import { formatDate } from '~/components/FormatDate/FormatDate';
 import Loading from '~/components/Loading/Loading';
+import styles from './MyItems.module.scss';
 
 const MyItem = () => {
   const [data, setData] = useState([]);
