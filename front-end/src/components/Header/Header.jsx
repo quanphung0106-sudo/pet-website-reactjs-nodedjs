@@ -10,6 +10,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import styles from './Header.module.scss';
 import { logout } from '~/redux/userSlice';
 import { BaseButton } from '../Button/Button';
+import axios from 'axios';
 
 const Header = () => {
   const quantity = useSelector((state) => state.cart.quantity);
@@ -29,7 +30,8 @@ const Header = () => {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await axios.post('http://localhost:8808/api/auth/logout');
     dispatch(logout());
     navigate('/');
   };

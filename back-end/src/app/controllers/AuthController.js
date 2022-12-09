@@ -6,6 +6,32 @@ const User = require('../models/User');
 const SERVER_ENDPOINT = process.env.SERVER_ENDPOINT || 'http://localhost:8808';
 const CLIENT_ENDPOINT = process.env.CLIENT_ENDPOINT || 'http://localhost:3002';
 
+const generateAccessToken = (user) => {
+  return jwt.sign(
+    {
+      id: user._id,
+      isAdmin: user.isAdmin,
+    },
+    process.env.JWT,
+    {
+      expiresIn: '1d',
+    },
+  );
+};
+
+const generateRefreshToken = (user) => {
+  return jwt.sign(
+    {
+      id: user._id || user.id,
+      isAdmin: user.isAdmin,
+    },
+    process.env.JWT_REFRESH_TOKEN,
+    {
+      expiresIn: '7d',
+    },
+  );
+};
+
 //[POST]: /api/auth/login
 const userLogin = async (req, res) => {
   try {
@@ -15,26 +41,28 @@ const userLogin = async (req, res) => {
       const validPassword = await bcrypt.compare(req.body.password, user.password);
       if (user.activeAccount === false) return res.status(404).json('Please active your account.');
       if (!validPassword) return res.status(404).json('Wrong password!');
+      const accessToken = generateAccessToken(user);
+      const refreshToken = generateRefreshToken(user);
+      const newToken = await new Token({
+        userId: user._id,
+        refreshToken: refreshToken,
+      });
+      await newToken.save();
+
       const { password, isAdmin, _id, activeAccount, ...others } = user._doc;
-      return res.status(200).json({ ...others });
+
+      res.cookie('refresh_token', refreshToken, {
+        httpOnly: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        sameSite: 'strict',
+        secure: false,
+        path: '/',
+      });
+      return res.status(200).json({ ...others, accessToken });
     }
   } catch (err) {
-    console.log(err);
     return res.status(500).json(err);
   }
-};
-
-const generateAccessToken = (user) => {
-  return jwt.sign(
-    {
-      id: user._id,
-      isAdmin: user.isAdmin,
-    },
-    process.env.JWT,
-    {
-      expiresIn: '30m',
-    },
-  );
 };
 
 //[POST]: /api/auth/register
@@ -67,7 +95,8 @@ const userRegister = async (req, res) => {
       <a href="${CLIENT_ENDPOINT}/active-account/?token=${newToken.activateToken}">Active your account</a>
       `,
     );
-    return res.status(200).json(newUser);
+    const { isAdmin, activeAccount, password, ...others } = newUser._doc;
+    return res.status(200).json({ ...others });
   } catch (err) {
     return res.status(500).json(err);
   }
@@ -94,6 +123,16 @@ const activeAccount = async (req, res) => {
   }
 };
 
+//[POST]: /api/auth/logout
+const logout = async (req, res) => {
+  try {
+    res.clearCookie('refresh_token', { path: '/' });
+    return res.status(200).json({ msg: 'Logout success' });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 const getToken = async (req, res) => {
   try {
     const token = await Token.find();
@@ -115,7 +154,8 @@ const deleteTokens = async (req, res) => {
 module.exports = {
   userLogin,
   userRegister,
+  activeAccount,
+  logout,
   getToken,
   deleteTokens,
-  activeAccount,
 };

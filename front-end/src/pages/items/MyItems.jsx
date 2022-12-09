@@ -12,15 +12,19 @@ import { Box, Paper } from '@mui/material';
 import { formatDate } from '~/components/FormatDate/FormatDate';
 import Loading from '~/components/Loading/Loading';
 import styles from './MyItems.module.scss';
+import { useSelector } from 'react-redux';
 
 const MyItem = () => {
   const [data, setData] = useState([]);
+  const user = useSelector((state) => state.user.user);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const getAllOrders = async () => {
-      const res = await axios.get('http://localhost:8808/api/orders');
+      const res = await axios.get('http://localhost:8808/api/orders', {
+        headers: { Authorization: user.accessToken },
+      });
       setData(res.data);
     };
     getAllOrders();
@@ -74,7 +78,7 @@ const MyItem = () => {
                     <TableCell
                       classes={{ root: styles.TableCell }}
                       align={handleAlign(columns, index, column.align)}
-                      key={column.dataIndex}
+                      key={index}
                     >
                       {column.name}
                     </TableCell>

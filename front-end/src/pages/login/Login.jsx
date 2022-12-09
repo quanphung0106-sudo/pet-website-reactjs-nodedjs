@@ -28,6 +28,7 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
+  axios.defaults.withCredentials = true;
 
   const { register, formState, handleSubmit } = useForm({
     defaultValues: {
@@ -52,6 +53,7 @@ export default function Login() {
       dispatch(loginStart());
       const res = await axios.post('http://localhost:8808/api/auth/login', values);
       dispatch(loginSuccess(res.data));
+      console.log(res.data);
       if (res.data.isAdmin === true) {
         navigate('/admin');
       } else {

@@ -8,6 +8,9 @@ const TokenSchema = new Schema({
   activateToken: {
     type: String,
   },
+  refreshToken: {
+    type: String
+  }
 });
 
 module.exports = mongoose.model("Token", TokenSchema);

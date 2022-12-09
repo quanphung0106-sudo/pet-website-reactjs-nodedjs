@@ -86,7 +86,7 @@ const Modal = ({ total, createOrder, setOpen, open }) => {
             label="Address"
             name="Address"
             type="text"
-            placeholder="johndoe176@gmail.com"
+            placeholder="512 Truong Chinh, Cam Le, Da Nang"
             onChange={(e) => setAddress(e.target.value)}
           >
             Hello

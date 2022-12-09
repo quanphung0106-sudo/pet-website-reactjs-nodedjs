@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const helmet = require('helmet');
+const cookieParser = require("cookie-parser");
 const route = require('./src/routes/index');
 
 dotenv.config();
@@ -20,21 +21,22 @@ mongoose
   });
 
 //midleware
-app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());
 app.use(helmet());
+app.use(cors({ credentials: true, origin: true }));
+app.use(cookieParser());
+
+app.use(function (req, res, next) {
+  res.header("Content-Type", "application/json;charset=UTF-8");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 route(app);
-// app.use((err, req, res, next) => {
-//   const errorStatus = err.status || 500;
-//   const errorMessage = err.message || "Something went wrong";
-//   return res.status(errorStatus).json({
-//     success: false,
-//     status: errorStatus,
-//     message: errorMessage,
-//     stack: err.stack,
-//   });
-// });
 
 app.listen(port, () => {
   console.log(`Connected to server with port: ${port}`);

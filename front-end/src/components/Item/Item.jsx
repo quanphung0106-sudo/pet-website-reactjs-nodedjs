@@ -15,11 +15,14 @@ const Item = () => {
 
   const dispatch = useDispatch();
   const fetch = useSelector((state) => state.cart.isFetching);
+  const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
     const getDatas = async () => {
       // const res = await axios.get('https://pet-website-reactjs-nodejs.herokuapp.com/api/items');
-      const res = await axios.get('http://localhost:8808/api/items');
+      const res = await axios.get('http://localhost:8808/api/items', {
+        headers: { Authorization: user.accessToken },
+      });
       if (res.data) {
         setDatas(res.data);
       }
