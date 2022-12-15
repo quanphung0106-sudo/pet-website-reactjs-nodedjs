@@ -32,6 +32,53 @@ const generateRefreshToken = (user) => {
   );
 };
 
+//[POST]: /api/auth/refresh-token
+const refreshToken = async (req, res) => {
+  try {
+    // check refreshToken cookies === refreshToken cookie db
+    const refreshToken = req.cookies.refresh_token;
+    if (!refreshToken) return res.status(404).json('Token is not exist.');
+
+    jwt.verify(refreshToken, process.env.JWT_REFRESH_TOKEN, async (err, user) => {
+      if (!user) return res.status(403).json(err);
+      if (user.id) {
+        const tokens = await Token.find({ userId: user.id });
+        const isCheckToken = tokens.some((token) => {
+          return token.refreshToken === refreshToken;
+        });
+
+        if (!isCheckToken) return res.status(403).json({ msg: 'Refresh token is not valid!' });
+
+        const newAccessToken = generateAccessToken(user);
+        const newRefreshToken = generateRefreshToken(user);
+
+        const newToken = new Token({
+          userId: user.id,
+          refreshToken: newRefreshToken,
+        });
+        await newToken.save();
+
+        res.cookie('refresh_token', newRefreshToken, {
+          httpOnly: true,
+          maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+          sameSite: 'strict',
+          secure: false,
+          path: '/',
+        });
+
+        console.log('refresh token:', { newRefreshToken, newAccessToken });
+
+        return res.status(200).json({
+          newRefreshToken: newRefreshToken,
+          newAccessToken: newAccessToken,
+        });
+      }
+    });
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+};
+
 //[POST]: /api/auth/login
 const userLogin = async (req, res) => {
   try {
@@ -49,7 +96,7 @@ const userLogin = async (req, res) => {
       });
       await newToken.save();
 
-      const { password, isAdmin, _id, activeAccount, ...others } = user._doc;
+      const { password, _id, activeAccount, ...others } = user._doc;
 
       res.cookie('refresh_token', refreshToken, {
         httpOnly: true,
@@ -58,6 +105,7 @@ const userLogin = async (req, res) => {
         secure: false,
         path: '/',
       });
+      console.log('user login', { user, newToken });
       return res.status(200).json({ ...others, accessToken });
     }
   } catch (err) {
@@ -158,4 +206,5 @@ module.exports = {
   logout,
   getToken,
   deleteTokens,
+  refreshToken,
 };

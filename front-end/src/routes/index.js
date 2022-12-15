@@ -67,14 +67,8 @@ export const routes = createBrowserRouter([
         path: '/my-items',
         element: <MyItem />,
       },
-      {
-        path: '/admin',
-        element: <Admin />,
-        errorElement: <Error />,
-      },
     ],
   },
-
   {
     // path: '/test',
     // element: <Test />,
@@ -90,5 +84,10 @@ export const routes = createBrowserRouter([
   {
     path: '/active-account',
     element: <ActiveAccount />,
+  },
+  {
+    path: '/admin',
+    element: <Admin />,
+    errorElement: <Error />,
   },
 ]);

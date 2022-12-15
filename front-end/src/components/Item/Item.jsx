@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchData } from '~/redux/cartSlice';
@@ -9,26 +8,28 @@ import styles from './Item.module.scss';
 import { Box, Typography } from '@mui/material';
 import { BaseButton } from '../Button/Button';
 import Loading from '../Loading/Loading';
+import useAxiosPrivate from '~/hooks/useAxiosPrivate';
 
 const Item = () => {
-  const [datas, setDatas] = useState([]);
-
-  const dispatch = useDispatch();
+  const [data, setData] = useState([]);
   const fetch = useSelector((state) => state.cart.isFetching);
   const user = useSelector((state) => state.user.user);
+  const axiosPrivate = useAxiosPrivate();
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
-    const getDatas = async () => {
-      // const res = await axios.get('https://pet-website-reactjs-nodejs.herokuapp.com/api/items');
-      const res = await axios.get('http://localhost:8808/api/items', {
+    const getData = async () => {
+      console.log('user.accessToken: ', user.accessToken);
+      const res = await axiosPrivate.get(`${process.env.REACT_APP_SERVER}/items`, {
         headers: { Authorization: user.accessToken },
       });
       if (res.data) {
-        setDatas(res.data);
+        setData(res.data);
       }
       dispatch(fetchData());
     };
-    getDatas();
+    getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -37,7 +38,7 @@ const Item = () => {
       {fetch === false ? (
         <Loading className={styles.Loading} />
       ) : (
-        datas?.map((data) => (
+        data?.map((data) => (
           <Grid container className={styles.Container} key={data._id} sm={4} md={3} lg={3}>
             <Grid className={styles.Top} lg={12}>
               <Link to={`/products/${data._id}`}>

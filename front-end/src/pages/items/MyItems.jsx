@@ -14,9 +14,15 @@ import Loading from '~/components/Loading/Loading';
 import styles from './MyItems.module.scss';
 import { useSelector } from 'react-redux';
 
+import useRefreshToken from '~/hooks/useRefreshToken';
+import { BaseButton } from '~/components/Button/Button';
+
 const MyItem = () => {
   const [data, setData] = useState([]);
   const user = useSelector((state) => state.user.user);
+  const refresh = useRefreshToken();
+
+  console.log({ user, accessToken: user.accessToken });
 
   const navigate = useNavigate();
 
@@ -69,58 +75,62 @@ const MyItem = () => {
   return (
     <>
       <Box className={styles.Container}>
-        {data.length !== 0 ? <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }}>
-            <TableHead classes={{ root: styles.TableHead }}>
-              <TableRow>
-                {columns.map((column, index) => {
-                  return (
-                    <TableCell
-                      classes={{ root: styles.TableCell }}
-                      align={handleAlign(columns, index, column.align)}
-                      key={index}
-                    >
-                      {column.name}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            </TableHead>
-            <TableBody classes={{ root: styles.TableBody }}>
-              {data.map((order) => (
-                <TableRow
-                  onClick={() => navigateToDetailItem(order._id)}
-                  key={order._id}
-                  classes={{ root: styles.TableRow }}
-                  sx={{
-                    '&:last-child td, &:last-child th': {
-                      border: 0,
-                    },
-                  }}
-                >
-                  <TableCell classes={{ root: styles.TableCell }} align="left">
-                    {order._id}
-                  </TableCell>
-                  <TableCell classes={{ root: styles.TableCell }} align="center">
-                    {order.customer}
-                  </TableCell>
-                  <TableCell classes={{ root: styles.TableCell }} align="center">
-                    {order.address}
-                  </TableCell>
-                  <TableCell classes={{ root: styles.TableCell }} align="center">
-                    {order.method === 0 ? 'Cash' : 'Visa'}
-                  </TableCell>
-                  <TableCell classes={{ root: styles.TableCell }} align="center">
-                    {formatDate(order.createdAt)}
-                  </TableCell>
-                  <TableCell classes={{ root: styles.TableCell }} align="right">
-                    ${order.total}
-                  </TableCell>
+        {data.length !== 0 ? (
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }}>
+              <TableHead classes={{ root: styles.TableHead }}>
+                <TableRow>
+                  {columns.map((column, index) => {
+                    return (
+                      <TableCell
+                        classes={{ root: styles.TableCell }}
+                        align={handleAlign(columns, index, column.align)}
+                        key={index}
+                      >
+                        {column.name}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer> : <Loading className={styles.Loading} />}
+              </TableHead>
+              <TableBody classes={{ root: styles.TableBody }}>
+                {data.map((order) => (
+                  <TableRow
+                    onClick={() => navigateToDetailItem(order._id)}
+                    key={order._id}
+                    classes={{ root: styles.TableRow }}
+                    sx={{
+                      '&:last-child td, &:last-child th': {
+                        border: 0,
+                      },
+                    }}
+                  >
+                    <TableCell classes={{ root: styles.TableCell }} align="left">
+                      {order._id}
+                    </TableCell>
+                    <TableCell classes={{ root: styles.TableCell }} align="center">
+                      {order.customer}
+                    </TableCell>
+                    <TableCell classes={{ root: styles.TableCell }} align="center">
+                      {order.address}
+                    </TableCell>
+                    <TableCell classes={{ root: styles.TableCell }} align="center">
+                      {order.method === 0 ? 'Cash' : 'Visa'}
+                    </TableCell>
+                    <TableCell classes={{ root: styles.TableCell }} align="center">
+                      {formatDate(order.createdAt)}
+                    </TableCell>
+                    <TableCell classes={{ root: styles.TableCell }} align="right">
+                      ${order.total}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <Loading className={styles.Loading} />
+        )}
       </Box>
     </>
   );

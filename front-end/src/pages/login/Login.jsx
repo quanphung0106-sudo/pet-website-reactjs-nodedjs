@@ -53,7 +53,7 @@ export default function Login() {
       dispatch(loginStart());
       const res = await axios.post('http://localhost:8808/api/auth/login', values);
       dispatch(loginSuccess(res.data));
-      console.log(res.data);
+      console.log("login: ", res.data);
       if (res.data.isAdmin === true) {
         navigate('/admin');
       } else {

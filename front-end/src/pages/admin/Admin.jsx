@@ -1,12 +1,24 @@
 import { useSelector } from 'react-redux';
-import styles from './Admin.module.scss';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Error from '../error/Error';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import { Box, Paper, Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 
-const cx = classNames.bind(styles);
+import { formatDate } from '~/components/FormatDate/FormatDate';
+import { BaseButton } from '~/components/Button/Button';
+
+import styles from './Admin.module.scss';
+import Header from '~/components/Header/Header';
+import Footer from '~/components/Footer/Footer';
 
 const Admin = () => {
   const [items, setItems] = useState([]);
@@ -41,109 +53,185 @@ const Admin = () => {
     navigate(`/orders/${id}`);
   };
 
+  const columnItems = [
+    {
+      name: 'Product',
+    },
+    {
+      name: 'Product ID',
+      align: 'center',
+    },
+    {
+      name: 'Name',
+      align: 'center',
+    },
+    {
+      name: 'Price',
+      align: 'center',
+    },
+    {
+      name: 'Action',
+      align: 'center',
+    },
+  ];
+
+  const columnOrders = [
+    {
+      name: 'Order Id',
+    },
+    {
+      name: 'Customer',
+      align: 'center',
+    },
+    {
+      name: 'Total',
+      align: 'right',
+    },
+    {
+      name: 'Payment',
+      align: 'center',
+    },
+    {
+      name: 'Action',
+      align: 'center',
+    },
+  ];
+
+  const handleAlign = (index, align) => {
+    if (index === 0) return 'left';
+    return align;
+  };
+
   return (
     <>
       {isAdmin ? (
-        <div className={cx('container')}>
-          <div className={cx('left')}>
-            <div className={cx('top-left')}>
-              <h1>Products</h1>
-              <button className={cx('add-new-btn')}>Add new Product</button>
-            </div>
-            <div className={cx('tableWrapper')}>
-              <div className={cx('tableHead')}>
-                <table className={cx('table')}>
-                  <thead>
-                    <tr className={cx('head')}>
-                      <th className={cx('column')}>Product</th>
-                      <th className={cx('column')}>Product ID</th>
-                      <th className={cx('column')}>Name</th>
-                      <th className={cx('column')}>Price</th>
-                      <th className={cx('column')}>Edit</th>
-                    </tr>
-                  </thead>
-                </table>
-              </div>
-              <div className={cx('tableBody')}>
-                <table className={cx('table')}>
-                  <tbody className={cx('tbody')}>
-                    {items.map((product) => (
-                      <tr className={cx('body')} onClick={() => navigateToDetailItem(product._id)} key={product._id}>
-                        <td className={cx('column')}>
-                          <div className={cx('imgContainer')}>
-                            <img src={product.img} alt="" className={cx('img')} />
-                          </div>
-                        </td>
-                        <td className={cx('column')}>
-                          <span className={cx('productId')}>{product._id.slice(0, 9)}</span>
-                        </td>
-                        <td className={cx('column')}>
-                          <span className={cx('title')}>{product.title}</span>
-                        </td>
-                        <td className={cx('column')}>
-                          <span className={cx('price')}>
-                            ${product.typeOfOptions[0].price}- {product.typeOfOptions[1].price}
-                          </span>
-                        </td>
-                        <td className={cx('column')}>
-                          <span className={cx('edit')}>
-                            <button className={cx('edit-btn')}>Edit</button>
-                            <button className={cx('delte-btn')}>Delete</button>
-                          </span>
-                        </td>
-                      </tr>
+        <>
+          <Header />
+          <Grid container className={styles.Container}>
+            <Grid className={styles.Left} lg={6} sx={{ paddingRight: 2 }}>
+              <Box className={styles.Products}>
+                <Typography variant="h1">Products</Typography>
+                <BaseButton primary size="large">
+                  Add new Product
+                </BaseButton>
+              </Box>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }}>
+                  <TableHead classes={{ root: styles.TableHead }}>
+                    <TableRow>
+                      {columnItems.map((column, index) => {
+                        return (
+                          <TableCell
+                            classes={{ root: styles.TableCell }}
+                            align={handleAlign(index, column.align)}
+                            key={index}
+                          >
+                            {column.name}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody classes={{ root: styles.TableBody }}>
+                    {items.map((item) => (
+                      <TableRow
+                        onClick={() => navigateToDetailItem(item._id)}
+                        key={item._id}
+                        classes={{ root: styles.TableRow }}
+                        sx={{
+                          '&:last-child td, &:last-child th': {
+                            border: 0,
+                          },
+                        }}
+                      >
+                        <TableCell classes={{ root: styles.TableCell }} align="left">
+                          <img src={item.img} alt="" />
+                        </TableCell>
+                        <TableCell classes={{ root: styles.TableCell }} align="center">
+                          {item._id.slice(0, 9)}
+                        </TableCell>
+                        <TableCell classes={{ root: styles.TableCell }} align="center">
+                          {item.title}
+                        </TableCell>
+                        <TableCell classes={{ root: styles.TableCell }} align="center">
+                          ${item.typeOfOptions[0].price}- {item.typeOfOptions[1].price}
+                        </TableCell>
+                        <TableCell classes={{ root: styles.TableCell }} align="center">
+                          <BaseButton primary size="small">
+                            Edit
+                          </BaseButton>
+                          <BaseButton primary size="small">
+                            Delete
+                          </BaseButton>
+                        </TableCell>
+                      </TableRow>
                     ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div className={cx('right')}>
-            <h1 className={cx('top-right')}>Orders</h1>
-            <div className={cx('tableWrapper')}>
-              <div className={cx('tableHead')}>
-                <table className={cx('table')}>
-                  <thead>
-                    <tr className={cx('head')}>
-                      <th className={cx('column')}>Order ID</th>
-                      <th className={cx('column')}>Customer</th>
-                      <th className={cx('column')}>Total</th>
-                      <th className={cx('column')}>Payment</th>
-                      <th className={cx('column')}>Action</th>
-                    </tr>
-                  </thead>
-                </table>
-              </div>
-              <div className={cx('tableBody')}>
-                <table className={cx('table')}>
-                  <tbody className={cx('tbody')}>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+            <Grid className={styles.Right} lg={6} sx={{ paddingLeft: 2 }}>
+              <Box className={styles.Products}>
+                <Typography variant="h1">Orders</Typography>
+              </Box>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }}>
+                  <TableHead classes={{ root: styles.TableHead }}>
+                    <TableRow>
+                      {columnOrders.map((column, index) => {
+                        return (
+                          <TableCell
+                            classes={{ root: styles.TableCell }}
+                            align={handleAlign(index, column.align)}
+                            key={index}
+                          >
+                            {column.name}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody classes={{ root: styles.TableBody }}>
                     {orders.map((order) => (
-                      <tr className={cx('body')} onClick={() => navigateToDetailOrder(order._id)} key={order._id}>
-                        <td className={cx('column')}>
-                          <span className={cx('productId')}>{order._id.slice(0, 9)}</span>
-                        </td>
-                        <td className={cx('column')}>
-                          <span className={cx('title')}>{order.customer}</span>
-                        </td>
-                        <td className={cx('column')}>
-                          <span className={cx('price')}>${order.total}</span>
-                        </td>
-                        <td className={cx('column')}>
-                          <span className={cx('payment')}>{order.method === 0 ? 'Cash' : 'Paid'}</span>
-                        </td>
-                        <td className={cx('column')}>
-                          <span className={cx('edit')}>
-                            <button className={cx('stage-btn')}>Next Stage</button>
-                          </span>
-                        </td>
-                      </tr>
+                      <TableRow
+                        onClick={() => navigateToDetailOrder(order._id)}
+                        key={order._id}
+                        classes={{ root: styles.TableRow }}
+                        sx={{
+                          '&:last-child td, &:last-child th': {
+                            border: 0,
+                          },
+                        }}
+                      >
+                        <TableCell classes={{ root: styles.TableCell }} align="left">
+                          {order._id.slice(0, 9)}
+                        </TableCell>
+                        <TableCell classes={{ root: styles.TableCell }} align="center">
+                          {order.customer}
+                        </TableCell>
+                        <TableCell classes={{ root: styles.TableCell }} align="center">
+                          ${order.total}
+                        </TableCell>
+                        <TableCell classes={{ root: styles.TableCell }} align="center">
+                          {order.method === 0 ? 'Cash' : 'Paid'}
+                        </TableCell>
+                        <TableCell classes={{ root: styles.TableCell }} align="center">
+                          <BaseButton primary size="small">
+                            Edit
+                          </BaseButton>
+                          <BaseButton primary size="small">
+                            Delete
+                          </BaseButton>
+                        </TableCell>
+                      </TableRow>
                     ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+          </Grid>
+          <Footer />
+        </>
       ) : (
         <Error />
       )}

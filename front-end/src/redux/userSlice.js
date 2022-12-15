@@ -9,6 +9,14 @@ const userSlice = createSlice({
     // admin: false,
   },
   reducers: {
+    saveNewRefreshToken: (state, action) => {
+      state.isFetching = false;
+      state.error = false;
+      state.user = {
+        ...state.user,
+        accessToken: action.payload,
+      };
+    },
     loginStart: (state) => {
       state.user = null;
       state.isFetching = true;
@@ -38,5 +46,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { loginStart, loginSuccess, loginFail, logout } = userSlice.actions;
+export const { loginStart, loginSuccess, loginFail, saveNewRefreshToken, logout } = userSlice.actions;
 export default userSlice.reducer;
