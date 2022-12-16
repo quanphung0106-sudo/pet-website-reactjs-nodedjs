@@ -2,31 +2,23 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useDispatch, useSelector } from 'react-redux';
+import { Box, Typography } from '@mui/material';
 
 import { fetchData } from '~/redux/cartSlice';
 import styles from './Item.module.scss';
-import { Box, Typography } from '@mui/material';
 import { BaseButton } from '../Button/Button';
 import Loading from '../Loading/Loading';
-import useAxiosPrivate from '~/hooks/useAxiosPrivate';
+import { callApi } from '~/axios/axios';
 
 const Item = () => {
   const [data, setData] = useState([]);
   const fetch = useSelector((state) => state.cart.isFetching);
-  const user = useSelector((state) => state.user.user);
-  const axiosPrivate = useAxiosPrivate();
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     const getData = async () => {
-      console.log('user.accessToken: ', user.accessToken);
-      const res = await axiosPrivate.get(`${process.env.REACT_APP_SERVER}/items`, {
-        headers: { Authorization: user.accessToken },
-      });
-      if (res.data) {
-        setData(res.data);
-      }
+      const res = await callApi.get(`/items`);
+      if (res.data) setData(res.data);
       dispatch(fetchData());
     };
     getData();
