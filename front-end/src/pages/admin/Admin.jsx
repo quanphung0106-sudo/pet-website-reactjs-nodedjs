@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -13,16 +12,16 @@ import TableRow from '@mui/material/TableRow';
 import { Box, Paper, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import { formatDate } from '~/components/FormatDate/FormatDate';
 import { BaseButton } from '~/components/Button/Button';
-
-import styles from './Admin.module.scss';
 import Header from '~/components/Header/Header';
 import Footer from '~/components/Footer/Footer';
+import NewItem from '~/components/NewItem/NewItem';
+import styles from './Admin.module.scss';
 
 const Admin = () => {
   const [items, setItems] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const user = useSelector((state) => state.user.user);
   const isAdmin = user !== null && user.isAdmin;
@@ -102,16 +101,21 @@ const Admin = () => {
     return align;
   };
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <>
       {isAdmin ? (
         <>
+          <NewItem open={open} setOpen={setOpen} user={user} />
           <Header />
           <Grid container className={styles.Container}>
             <Grid className={styles.Left} lg={6} sx={{ paddingRight: 2 }}>
               <Box className={styles.Products}>
                 <Typography variant="h1">Products</Typography>
-                <BaseButton primary size="large">
+                <BaseButton primary size="large" onClick={handleClickOpen}>
                   Add new Product
                 </BaseButton>
               </Box>
@@ -133,39 +137,41 @@ const Admin = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody classes={{ root: styles.TableBody }}>
-                    {items.map((item) => (
-                      <TableRow
-                        onClick={() => navigateToDetailItem(item._id)}
-                        key={item._id}
-                        classes={{ root: styles.TableRow }}
-                        sx={{
-                          '&:last-child td, &:last-child th': {
-                            border: 0,
-                          },
-                        }}
-                      >
-                        <TableCell classes={{ root: styles.TableCell }} align="left">
-                          <img src={item.img} alt="" />
-                        </TableCell>
-                        <TableCell classes={{ root: styles.TableCell }} align="center">
-                          {item._id.slice(0, 9)}
-                        </TableCell>
-                        <TableCell classes={{ root: styles.TableCell }} align="center">
-                          {item.title}
-                        </TableCell>
-                        <TableCell classes={{ root: styles.TableCell }} align="center">
-                          ${item.typeOfOptions[0].price}- {item.typeOfOptions[1].price}
-                        </TableCell>
-                        <TableCell classes={{ root: styles.TableCell }} align="center">
-                          <BaseButton primary size="small">
-                            Edit
-                          </BaseButton>
-                          <BaseButton primary size="small">
-                            Delete
-                          </BaseButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                    {items.map((item) => {
+                      return (
+                        <TableRow
+                          onClick={() => navigateToDetailItem(item._id)}
+                          key={item._id}
+                          classes={{ root: styles.TableRow }}
+                          sx={{
+                            '&:last-child td, &:last-child th': {
+                              border: 0,
+                            },
+                          }}
+                        >
+                          <TableCell classes={{ root: styles.TableCell }} align="left">
+                            <img src={item.img} alt="" />
+                          </TableCell>
+                          <TableCell classes={{ root: styles.TableCell }} align="center">
+                            {item._id.slice(0, 9)}
+                          </TableCell>
+                          <TableCell classes={{ root: styles.TableCell }} align="center">
+                            {item.title}
+                          </TableCell>
+                          <TableCell classes={{ root: styles.TableCell }} align="center">
+                            ${item.typeOfOptions[0].price}- {item.typeOfOptions[item.typeOfOptions.length - 1].price}
+                          </TableCell>
+                          <TableCell classes={{ root: styles.TableCell }} align="center">
+                            <BaseButton primary size="small">
+                              Edit
+                            </BaseButton>
+                            <BaseButton primary size="small">
+                              Delete
+                            </BaseButton>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
                   </TableBody>
                 </Table>
               </TableContainer>

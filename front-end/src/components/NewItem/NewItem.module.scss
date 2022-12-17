@@ -1,0 +1,85 @@
+.ContentWrapper {
+  height: 440px;
+  padding-top: 25px;
+
+  button {
+    min-width: 100%;
+  }
+
+  .Left {
+    // background-color: aqua;
+    flex: 2;
+    display: flex;
+    justify-content: space-around;
+
+    & > div:first-of-type,
+    & > div:nth-of-type(2) {
+      display: flex;
+      flex-direction: column;
+      padding: 0 15px;
+      gap: 10px;
+    }
+    & > div:first-of-type {
+      // background-color: red;
+    }
+
+    & > div:nth-of-type(2) {
+      // background-color: blue;
+
+      .ExtraPrice {
+        display: flex;
+        gap: 10px;
+
+        div {
+          height: fit-content;
+        }
+      }
+    }
+
+    & > div:last-of-type {
+      width: 100%;
+    }
+  }
+
+  .Right {
+    flex: 1;
+    // background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+      width: 30rem;
+      height: 30rem;
+      object-fit: cover;
+    }
+    h1 {
+      margin: 15px 0 10px;
+      font-size: 2.4rem;
+      font-weight: bold;
+    }
+  }
+}
+.ListExtras {
+  display: flex;
+  max-height: 200px;
+  flex-wrap: wrap;
+  overflow: scroll;
+
+  li .Root {
+    width: 100%;
+    background-color: var(--black_10);
+
+    span {
+      width: 100%;
+      font-size: 1.6rem;
+      white-space: normal;
+
+      span {
+        display: inline-block;
+        width: 4.5rem;
+        color: var(--black_80);
+        font-weight: 600;
+      }
+    }
+  }
+}

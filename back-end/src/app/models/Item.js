@@ -11,11 +11,7 @@ const ItemSchema = new Schema(
     desc: {
       type: String,
       required: true,
-      maxlength: 60,
-    },
-    desc: {
-      type: String,
-      required: true,
+      maxlength: 270,
     },
     img: {
       type: String,

@@ -51,13 +51,13 @@ const Item = () => {
                 {data.sellItem !== 0 ? (
                   <>
                     <del variant="body2" className={styles.Price}>
-                      ${data.typeOfOptions[0].price} - {data.typeOfOptions[1].price}
+                      ${data.typeOfOptions[0].price} - {data.typeOfOptions[data.typeOfOptions.length - 1].price}
                     </del>
-                    ${data.typeOfOptions[0].price - (data.typeOfOptions[0].price * data.sellItem) / 100}-
-                    {data.typeOfOptions[1].price - (data.typeOfOptions[1].price * data.sellItem) / 100}
+                    ${data.typeOfOptions[0].price - (data.typeOfOptions[data.typeOfOptions.length - 1].price * data.sellItem) / 100}-
+                    {data.typeOfOptions[1].price - (data.typeOfOptions[data.typeOfOptions.length - 1].price * data.sellItem) / 100}
                   </>
                 ) : (
-                  `$${data.typeOfOptions[0].price} - ${data.typeOfOptions[1].price}`
+                  `$${data.typeOfOptions[0].price}`
                 )}
               </Typography>
               <BaseButton to={`/products/${data._id}`} ghost>

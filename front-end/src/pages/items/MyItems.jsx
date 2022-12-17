@@ -14,13 +14,9 @@ import Loading from '~/components/Loading/Loading';
 import styles from './MyItems.module.scss';
 import { useSelector } from 'react-redux';
 
-import useRefreshToken from '~/hooks/useRefreshToken';
-import { BaseButton } from '~/components/Button/Button';
-
 const MyItem = () => {
   const [data, setData] = useState([]);
   const user = useSelector((state) => state.user.user);
-  const refresh = useRefreshToken();
 
   console.log({ user, accessToken: user.accessToken });
 
@@ -34,7 +30,7 @@ const MyItem = () => {
       setData(res.data);
     };
     getAllOrders();
-  }, []);
+  }, [user.accessToken]);
 
   const navigateToDetailItem = (id) => {
     navigate(`/orders/${id}`);

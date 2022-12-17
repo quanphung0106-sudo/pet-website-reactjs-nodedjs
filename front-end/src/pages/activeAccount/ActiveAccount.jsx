@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { Dialog, DialogActions } from '@mui/material';
 import DialogContent from '@mui/material/DialogContent';

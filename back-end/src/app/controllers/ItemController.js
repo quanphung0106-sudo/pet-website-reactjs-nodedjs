@@ -5,6 +5,7 @@ const Item = require('../models/Item');
 const createItem = async (req, res) => {
   try {
     const products = await Item.create(req.body);
+    console.log("created new item: ", products);
     res.status(201).json(products);
   } catch (err) {
     res.status(500).json(err);
@@ -48,9 +49,21 @@ const deleteAllItems = async (req, res) => {
   }
 };
 
+//delete all items
+//[DELETE]: /api/items
+const deleteItem = async (req, res) => {
+  try {
+    await Item.findByIdAndDelete(req.params.id);
+    res.status(200).json('The item is deleted');
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 module.exports = {
   createItem,
   getItems,
   deleteAllItems,
   getItem,
+  deleteItem,
 };
