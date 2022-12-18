@@ -26,9 +26,12 @@ const cartSlice = createSlice({
       state.isFetching = true;
     },
     deleteItem: (state, action) => {
-      state.products = action.payload.idItem;
-      state.quantity -= 1;
-      state.total -= action.payload.price * action.payload.quantity;
+      // state.products = action.payload.idItem;
+      // state.quantity -= 1;
+      // state.total -= action.payload.price * action.payload.quantity;
+      state.products = action.payload.products;
+      state.quantity = action.payload.quantity;
+      state.total = action.payload.total;
     },
     reset: (state) => {
       state.products = [];

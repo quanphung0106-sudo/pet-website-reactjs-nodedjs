@@ -42,10 +42,6 @@ const Modal = ({ open, setOpen, user }) => {
     });
   };
 
-  // settypeOfOptions((chips) => {
-  //   return chips.filter((chip, chipsIndex) => chipsIndex !== index);
-  // });
-
   const handleChange = (e) => {
     setData((prev) => ({ ...prev, [e.target.name]: e.target.name === 'img' ? e.target.files[0] : e.target.value }));
   };

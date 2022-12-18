@@ -7,12 +7,18 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import styles from './Table.module.scss';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { IconButton } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { deleteItem } from '~/redux/cartSlice';
 
 export default function BaseTable(props) {
-  const { columns, dataSource } = props;
+  const { columns, dataSource, edit } = props;
   const [newFunc, setNewFunc] = useState([]);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    const newArray = dataSource.map((data, index) => ({
+    const newArray = dataSource.products.map((data, _index) => ({
       ...data,
       renderImage: function () {
         return columns[0].render({ img: data.img });
@@ -34,12 +40,27 @@ export default function BaseTable(props) {
       },
     }));
     setNewFunc(newArray);
-  }, [columns, dataSource]);
+  }, [columns, dataSource.products]);
 
   const handleAlign = (array, index, align) => {
     if (index === 0) return 'left';
     if (index === array.length - 1) return 'right';
     return align;
+  };
+
+  const handleDeleteItem = (index, data) => {
+      const newArr = dataSource.products.filter((_item, indexItem, array) => {
+        if (indexItem === index) console.log(array[indexItem]);
+        return indexItem !== index;
+      });
+      dispatch(
+        deleteItem({
+          ...dataSource,
+          quantity: newArr.length,
+          products: newArr,
+          total: dataSource.total - data.price * data.quantity,
+        }),
+      );
   };
 
   return (
@@ -58,6 +79,11 @@ export default function BaseTable(props) {
                 </TableCell>
               );
             })}
+            {edit && (
+              <TableCell classes={{ root: styles.TableCell }} align="center">
+                Action
+              </TableCell>
+            )}
           </TableRow>
         </TableHead>
         <TableBody classes={{ root: styles.TableBody }}>
@@ -89,6 +115,13 @@ export default function BaseTable(props) {
               <TableCell classes={{ root: styles.TableCell }} align="right">
                 {data.renderTotal()}
               </TableCell>
+              {edit && (
+                <TableCell classes={{ root: styles.TableCell }} align="center">
+                  <IconButton onClick={() => handleDeleteItem(index, data)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>

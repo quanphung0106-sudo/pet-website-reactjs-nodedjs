@@ -8,6 +8,17 @@
 .Wrapper {
   width: 90%;
 
+  .Left {
+    .ButtonWrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      gap: 5px;
+    }
+  }
+
   .Right {
     position: sticky;
     top: 100px;

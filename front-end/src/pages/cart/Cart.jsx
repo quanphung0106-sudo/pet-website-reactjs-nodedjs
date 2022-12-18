@@ -1,17 +1,20 @@
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BaseButton } from '~/components/Button/Button';
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 
 import CartTotal from '~/components/CartTotal/CartTotal';
 import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
 import BaseTable from '~/components/Table/Table';
+import { reset } from '~/redux/cartSlice';
 import styles from './Cart.module.scss';
 
 const Cart = (props) => {
   // const cart = useSelector((state) => state.cart);
-  const items = useSelector((state) => state.cart.products);
+  const items = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -31,7 +34,7 @@ const Cart = (props) => {
     {
       name: 'Type',
       align: 'center',
-      render: ({ type }) =><p>{type}</p>,
+      render: ({ type }) => <p>{type}</p>,
     },
     {
       name: 'Price',
@@ -50,14 +53,26 @@ const Cart = (props) => {
     },
   ];
 
+  const handleClear = () => {
+    dispatch(reset());
+  };
+
   return (
     <>
       <Box className={styles.Container}>
-        {items.length !== 0 ? (
+        {items.products.length !== 0 ? (
           <>
             <Grid container className={styles.Wrapper} columnSpacing={{ lg: 6 }}>
               <Grid className={styles.Left} sm={12} lg={8}>
-                <BaseTable columns={columns} dataSource={items} />
+                <Box className={styles.ButtonWrapper}>
+                  <BaseButton startIcon={<ArrowBackOutlinedIcon />} primary to="/products">
+                    Buy more pets
+                  </BaseButton>
+                  <BaseButton primary onClick={handleClear}>
+                    Clear all
+                  </BaseButton>
+                </Box>
+                <BaseTable columns={columns} dataSource={items} edit />
               </Grid>
               <Grid className={styles.Right} sm={12} lg={4}>
                 <CartTotal />

@@ -46,7 +46,7 @@ const Orders = () => {
     if (index - status > 1) return styles.undone;
   };
 
-  const handleclick = () => {
+  const handleClick = () => {
     if (user) {
       navigate('/my-items');
     } else {
@@ -92,7 +92,7 @@ const Orders = () => {
       <Grid container className={styles.Wrapper} columnSpacing={{ lg: 6 }}>
         <Grid className={styles.Left} sm={12} lg={8}>
           <Box className={styles.ButtonWrapper}>
-            <BaseButton startIcon={<ArrowBackOutlinedIcon />} primary onClick={handleclick}>
+            <BaseButton startIcon={<ArrowBackOutlinedIcon />} primary onClick={handleClick}>
               Back to order list
             </BaseButton>
             <Typography variant="body1">
@@ -123,7 +123,7 @@ const Orders = () => {
                   <img className={styles.checkedIcon} src={Checked} alt="CheckedImg" />
                 </Grid>
               </Grid>
-              <BaseTable columns={columns} dataSource={data?.products} />
+              {data && <BaseTable columns={columns} dataSource={data} />}
             </>
           ) : (
             <Loading />
