@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    user: JSON.parse(localStorage.getItem('user')) || null,
+    user: null,
     isFetching: false,
     error: false,
   },
@@ -23,7 +23,6 @@ const userSlice = createSlice({
     },
     loginSuccess: (state, action) => {
       state.user = action.payload;
-      localStorage.setItem('user', JSON.stringify(state));
       state.isFetching = false;
       state.error = false;
     },
@@ -36,7 +35,6 @@ const userSlice = createSlice({
       state.user = null;
       state.isFetching = false;
       state.error = false;
-      localStorage.clear();
     },
   },
 });

@@ -18,8 +18,6 @@ const MyItem = () => {
   const [data, setData] = useState([]);
   const user = useSelector((state) => state.user.user);
 
-  console.log({ user, accessToken: user.accessToken });
-
   const navigate = useNavigate();
 
   useEffect(() => {

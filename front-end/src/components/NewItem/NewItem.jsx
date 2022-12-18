@@ -11,8 +11,9 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { BaseButton } from '~/components/Button/Button';
 import { ContainedTextField } from '~/components/TextField/TextField';
 import styles from './NewItem.module.scss';
-import axios from 'axios';
+// import axios from 'axios';
 import useAxiosPrivate from '~/hooks/useAxiosPrivate';
+import { callApi } from '~/axios/axios';
 
 const Modal = ({ open, setOpen, user }) => {
   const handleClose = () => {
@@ -33,7 +34,6 @@ const Modal = ({ open, setOpen, user }) => {
     const options = data.typeOfOptions.filter((chips, chipsIndex) => {
       return chipsIndex !== index;
     });
-    console.log(...options);
     setData((prev) => {
       return {
         ...prev,
@@ -65,24 +65,16 @@ const Modal = ({ open, setOpen, user }) => {
     myData.append('upload_preset', 'pet-websites');
 
     try {
-      const uploadRes = await axios.post('https://api.cloudinary.com/v1_1/dw0r3ayk2/image/upload', myData);
-      await axiosPrivate.post(
-        `${process.env.REACT_APP_SERVER}/items`,
-        {
-          ...data,
-          img: uploadRes.data.url,
-        },
-        {
-          headers: { Authorization: user.accessToken },
-        },
-      );
+      const uploadRes = await callApi.post('https://api.cloudinary.com/v1_1/dw0r3ayk2/image/upload', myData);
+      await axiosPrivate.post('/items', {
+        ...data,
+        img: uploadRes.data.url,
+      });
       setOpen(false);
     } catch (err) {
       console.log(err);
     }
   };
-
-  console.log(data);
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="lg">

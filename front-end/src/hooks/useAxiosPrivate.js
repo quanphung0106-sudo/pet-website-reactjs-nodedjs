@@ -3,14 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import useRefreshToken from './useRefreshToken';
 import jwt_decode from 'jwt-decode';
 import { saveNewRefreshToken } from '~/redux/userSlice';
-import axios from 'axios';
+// import axios from 'axios';
+import { AxiosJWT } from '~/axios/axios';
 
 const useAxiosPrivate = () => {
   const refresh = useRefreshToken();
   const user = useSelector((state) => state.user.user);
   const accessToken = user.accessToken;
   const dispatch = useDispatch();
-  let axiosJWT = axios.create();
+  // let axiosJWT = axios.create({
+  //   baseURL: process.env.REACT_APP_SERVER,
+  //   headers: { Authorization: user.accessToken },
+  // });
+
+  let axiosJWT = AxiosJWT();
 
   useEffect(() => {
     axiosJWT.interceptors.request.use(async (config) => {
