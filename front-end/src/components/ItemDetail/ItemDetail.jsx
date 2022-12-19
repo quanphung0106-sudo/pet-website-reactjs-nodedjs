@@ -64,8 +64,6 @@ const ItemDetail = () => {
   const handleChecked = (option) => {
     setCheck(option);
     setBlockAdd(false);
-    console.log(option);
-
     if (datas.sellItem !== 0) {
       const sellPrice = option.price - (option.price * datas.sellItem) / 100;
       // setSell(sellPrice);

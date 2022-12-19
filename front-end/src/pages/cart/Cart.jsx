@@ -6,7 +6,7 @@ import { BaseButton } from '~/components/Button/Button';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 
 import CartTotal from '~/components/CartTotal/CartTotal';
-import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
+import ScrollToTop from '~/components/scroll/Scroll';
 import BaseTable from '~/components/Table/Table';
 import { reset } from '~/redux/cartSlice';
 import styles from './Cart.module.scss';

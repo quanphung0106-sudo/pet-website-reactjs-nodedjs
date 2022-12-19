@@ -12,15 +12,8 @@ import LoginImage from '~/assets/images/login-background.png';
 import { BaseButton } from '~/components/Button/Button';
 import { LineTextField } from '~/components/TextField/TextField';
 import { loginFail, loginStart, loginSuccess } from '~/redux/userSlice';
+import { messages } from '~/utils/messages';
 import styles from './Login.module.scss';
-
-const messages = {
-  email: 'Invalid email format',
-  notMatchPassword: "Retype password doesn't match",
-  requiredField: (value) => `${value} is required`,
-  maxLength: (field, value) => `${field} max length is ${value}`,
-  minLength: (field, value) => `${field} min length is ${value}`,
-};
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -53,7 +46,6 @@ export default function Login() {
       dispatch(loginStart());
       const res = await axios.post('http://localhost:8808/api/auth/login', values);
       dispatch(loginSuccess(res.data));
-      console.log("login: ", res.data);
       if (res.data.isAdmin === true) {
         navigate('/admin');
       } else {

@@ -6,6 +6,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const cookieParser = require("cookie-parser");
 const route = require('./src/routes/index');
+const morgan = require('morgan');
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors({ credentials: true, origin: true }));
 app.use(cookieParser());
+app.use(morgan('short'));
 
 app.use(function (req, res, next) {
   res.header("Content-Type", "application/json;charset=UTF-8");

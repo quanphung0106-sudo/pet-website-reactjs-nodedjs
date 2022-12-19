@@ -34,7 +34,6 @@ const Orders = () => {
       const res = await axios.get(`http://localhost:8808/api/orders/${params.id}`);
       // const res = await axios.get(`https://pet-website-reactjs-nodejs.herokuapp.com/api/orders/${params.id}`);
       setData(res.data);
-      dispatch(reset());
     };
     getItemById();
     // eslint-disable-next-line react-hooks/exhaustive-deps

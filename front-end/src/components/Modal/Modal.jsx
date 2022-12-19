@@ -1,32 +1,54 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Dialog, IconButton } from '@mui/material';
+import { Alert, Box, CircularProgress, Dialog, IconButton } from '@mui/material';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 
 import { BaseButton } from '../Button/Button';
 import { ContainedTextField } from '../TextField/TextField';
+import { messages } from '~/utils/messages';
 import styles from './Modal.module.scss';
+import { callApi } from '~/axios/axios';
+import { useNavigate } from 'react-router-dom';
+import { reset } from '~/redux/cartSlice';
 
-const Modal = ({ total, createOrder, setOpen, open }) => {
+const Modal = ({ total, setOpen, open }) => {
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const cartProducts = useSelector((state) => state.cart.products);
-  // const cartQuantityOfProduct = useSelector((state) => {
-  //   state.cart.products.map((product) => console.log(product.quantity));
-  // });
-  // const cartTotalOfProduct = useSelector((state) => state.products.totalItem);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [customer, setCustomer] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [address, setAddress] = useState('');
+  const { register, formState, handleSubmit } = useForm({
+    defaultValues: {
+      customer: '',
+      phoneNumber: '',
+      address: '',
+    },
+    mode: 'all',
+    resolver: yupResolver(
+      Yup.object({
+        customer: Yup.string().max(25, messages.maxLength('Name', 25)).required(messages.requiredField('Name')),
+        phoneNumber: Yup.string().required(messages.requiredField('Phone Number')),
+        address: Yup.string()
+          .min(25, messages.minLength('Address', 25))
+          .max(200, messages.maxLength('Address', 200))
+          .required(messages.requiredField('Address')),
+      }),
+    ),
+  });
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  console.log(cartProducts);
-
-  const handleClick = () => {
+  const handleSubmitForm = async (values) => {
+    const { customer, phoneNumber, address } = values;
+    setLoading(true);
     const products = cartProducts.map((product) => ({
       _id: product._id,
       check: product.check,
@@ -35,14 +57,26 @@ const Modal = ({ total, createOrder, setOpen, open }) => {
       quantity: product.quantity,
       total: product.total,
     }));
-    createOrder({
+    const data = {
       products,
       total,
       customer,
       phoneNumber,
       address,
       method: 0,
-    });
+    };
+    try {
+      const res = await callApi.post('/orders', data);
+      setError(false);
+      if (res.status === 201) {
+        dispatch(reset());
+        navigate(`/orders/${res.data._id}`);
+      }
+    } catch (err) {
+      setError(err?.response?.data);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -63,13 +97,17 @@ const Modal = ({ total, createOrder, setOpen, open }) => {
         You will pay <Box component="b">${total}</Box> after delivery.
       </DialogTitle>
       <DialogContent>
-        <Box className={styles.ContentWrapper}>
+        {error && <Alert severity="error">{error}</Alert>}
+        <Box component="form" onSubmit={handleSubmit(handleSubmitForm)} className={styles.ContentWrapper}>
           <ContainedTextField
             label="Name"
             name="Name"
             type="text"
             placeholder="John Doe"
-            onChange={(e) => setCustomer(e.target.value)}
+            spellCheck="false"
+            {...register('customer')}
+            helperText={formState.errors.customer?.message}
+            error={!!formState.errors.customer}
           >
             Hello
           </ContainedTextField>
@@ -78,7 +116,9 @@ const Modal = ({ total, createOrder, setOpen, open }) => {
             name="Phone Number"
             type="number"
             placeholder="0935 5xx xxx"
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            {...register('phoneNumber')}
+            helperText={formState.errors.phoneNumber?.message}
+            error={!!formState.errors.phoneNumber}
           >
             Hello
           </ContainedTextField>
@@ -87,11 +127,18 @@ const Modal = ({ total, createOrder, setOpen, open }) => {
             name="Address"
             type="text"
             placeholder="512 Truong Chinh, Cam Le, Da Nang"
-            onChange={(e) => setAddress(e.target.value)}
+            {...register('address')}
+            helperText={formState.errors.address?.message}
+            error={!!formState.errors.address}
           >
             Hello
           </ContainedTextField>
-          <BaseButton primary onClick={handleClick}>
+          <BaseButton
+            primary
+            disabled={loading}
+            type="submit"
+            startIcon={loading && <CircularProgress size={20} />}
+          >
             ORDER NOW!
           </BaseButton>
         </Box>

@@ -19,15 +19,8 @@ import * as Yup from 'yup';
 import RegisterImage from '~/assets/images/register-background.png';
 import { BaseButton } from '~/components/Button/Button';
 import { LineTextField } from '~/components/TextField/TextField';
+import { messages } from '~/utils/messages';
 import styles from './Register.module.scss';
-
-const messages = {
-  email: 'Invalid email format',
-  notMatchPassword: "Retype password doesn't match",
-  requiredField: (value) => `${value} is required`,
-  maxLength: (field, value) => `${field} max length is ${value}`,
-  minLength: (field, value) => `${field} min length is ${value}`,
-};
 
 export default function Register() {
   const [error, setError] = useState('');

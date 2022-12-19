@@ -2,7 +2,7 @@ import { Box, Grid } from '@mui/material';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 import Footer from '~/components/Footer/Footer';
 import Header from '~/components/Header/Header';
-import ScrollToTop from '~/components/scrollToTop/ScrollToTop';
+import ScrollToTop from '~/components/scroll/Scroll';
 import ActiveAccount from '~/pages/activeAccount/ActiveAccount';
 import Admin from '~/pages/admin/Admin';
 import Cart from '~/pages/cart/Cart';

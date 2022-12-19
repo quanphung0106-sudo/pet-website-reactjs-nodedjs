@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import styles from "./Scroll.module.css";
+import styles from "./Scroll.module.scss";
 
 const ScrollToTop = () => {
-  const [showGoToTop, setShowGoToTop] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY >= 500) {
-        setShowGoToTop(true);
+        setVisible(true);
       } else {
-        setShowGoToTop(false);
+        setVisible(false);
       }
     };
 
@@ -25,15 +25,15 @@ const ScrollToTop = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      left: 0,
     });
   };
   return (
     <>
-      {showGoToTop && (
+      {visible && (
         <ArrowBackIosNewIcon
           onClick={scrollToTop}
-          className={styles.scroll}
+          className={styles.Scroll}
           style={{ width: 45, height: 45 }}
         />
       )}
