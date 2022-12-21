@@ -11,22 +11,16 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { BaseButton } from '~/components/Button/Button';
 import { ContainedTextField } from '~/components/TextField/TextField';
 import styles from './NewItem.module.scss';
-// import axios from 'axios';
 import useAxiosPrivate from '~/hooks/useAxiosPrivate';
 import { callApi } from '~/axios/axios';
 
-const Modal = ({ open, setOpen, user }) => {
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+const Modal = ({ open, setOpen, callback }) => {
   const [data, setData] = useState({
     title: '',
     desc: '',
     img: null,
     typeOfOptions: [],
   });
-
   const [extra, setExtra] = useState(null);
   const axiosPrivate = useAxiosPrivate();
 
@@ -40,6 +34,10 @@ const Modal = ({ open, setOpen, user }) => {
         typeOfOptions: [...options],
       };
     });
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const handleChange = (e) => {
@@ -65,12 +63,16 @@ const Modal = ({ open, setOpen, user }) => {
     myData.append('upload_preset', 'pet-websites');
 
     try {
-      const uploadRes = await callApi.post('https://api.cloudinary.com/v1_1/dw0r3ayk2/image/upload', myData);
-      await axiosPrivate.post('/items', {
+      const uploadRes = await callApi.post('https://api.cloudinary.com/v1_1/dw0r3ayk2/image/upload', myData, {
+        'Access-Control-Allow-Credentials': true,
+        withCredentials: false,
+      });
+      const res = await axiosPrivate.post('/items', {
         ...data,
         img: uploadRes.data.url,
       });
       setOpen(false);
+      if (res.status === 201) callback();
     } catch (err) {
       console.log(err);
     }
@@ -94,9 +96,9 @@ const Modal = ({ open, setOpen, user }) => {
         Add new product.
       </DialogTitle>
       <DialogContent>
-        <Grid container className={styles.ContentWrapper}>
-          <Grid container className={styles.Left}>
-            <Grid lg={6}>
+        <Grid container className={styles.ContentWrapper} rowGap={2}>
+          <Grid container className={styles.Left} sm={12} lg={8}>
+            <Grid sm={12} lg={6}>
               <ContainedTextField
                 onChange={handleChange}
                 label="Title"
@@ -116,7 +118,7 @@ const Modal = ({ open, setOpen, user }) => {
                 <input hidden onChange={handleChange} label="Image" name="img" type="file" accept="image/*" />
               </BaseButton>
             </Grid>
-            <Grid lg={6}>
+            <Grid sm={12} lg={6}>
               <Box className={styles.ExtraPrice}>
                 <ContainedTextField
                   onChange={handleChangeExtra}
@@ -133,7 +135,7 @@ const Modal = ({ open, setOpen, user }) => {
                   placeholder="50"
                 />
               </Box>
-              <BaseButton primary onClick={handleExtra}>
+              <BaseButton primary onClick={handleExtra} className={styles.Btn}>
                 Add
               </BaseButton>
               <Box className={styles.ListExtras}>
@@ -158,7 +160,7 @@ const Modal = ({ open, setOpen, user }) => {
               Add product
             </BaseButton>
           </Grid>
-          <Grid className={styles.Right}>
+          <Grid className={styles.Right} sm={12} lg={4}>
             <img src={data.img ? URL.createObjectURL(data.img) : '/img/pets.jpg'} alt="preview" />
             <Typography variant="h1">{data?.title}</Typography>
           </Grid>

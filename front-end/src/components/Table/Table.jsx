@@ -49,18 +49,15 @@ export default function BaseTable(props) {
   };
 
   const handleDeleteItem = (index, data) => {
-      const newArr = dataSource.products.filter((_item, indexItem, array) => {
-        if (indexItem === index) console.log(array[indexItem]);
-        return indexItem !== index;
-      });
-      dispatch(
-        deleteItem({
-          ...dataSource,
-          quantity: newArr.length,
-          products: newArr,
-          total: dataSource.total - data.price * data.quantity,
-        }),
-      );
+    const newArr = dataSource.products.filter((_item, indexItem) => indexItem !== index);
+    dispatch(
+      deleteItem({
+        ...dataSource,
+        quantity: newArr.length,
+        products: newArr,
+        total: dataSource.total - data.price * data.quantity,
+      }),
+    );
   };
 
   return (

@@ -9,14 +9,17 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, IconButton, Paper, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
+import EditIcon from '@mui/icons-material/Edit';
 
 import { BaseButton } from '~/components/Button/Button';
 import Header from '~/components/Header/Header';
 import Footer from '~/components/Footer/Footer';
 import NewItem from '~/components/NewItem/NewItem';
 import styles from './Admin.module.scss';
+import Delete from '~/components/Delete/Delete';
+import { getItems } from '~/axios/axios';
 
 const Admin = () => {
   const [items, setItems] = useState([]);
@@ -25,14 +28,14 @@ const Admin = () => {
 
   const user = useSelector((state) => state.user.user);
   const isAdmin = user !== null && user.isAdmin;
-
   const navigate = useNavigate();
 
+  const getAllItems = async () => {
+    const res = await getItems();
+    setItems(res);
+  };
+
   useEffect(() => {
-    const getAllItems = async () => {
-      const res = await axios.get('http://localhost:8808/api/items');
-      setItems(res.data);
-    };
     getAllItems();
   }, []);
 
@@ -109,7 +112,7 @@ const Admin = () => {
     <>
       {isAdmin ? (
         <>
-          <NewItem open={open} setOpen={setOpen} user={user} />
+          <NewItem open={open} setOpen={setOpen} callback={getAllItems} />
           <Header />
           <Grid container className={styles.Container}>
             <Grid className={styles.Left} lg={6} sx={{ paddingRight: 2 }}>
@@ -161,13 +164,11 @@ const Admin = () => {
                           <TableCell classes={{ root: styles.TableCell }} align="center">
                             ${item.typeOfOptions[0].price}- {item.typeOfOptions[item.typeOfOptions.length - 1].price}
                           </TableCell>
-                          <TableCell classes={{ root: styles.TableCell }} align="center">
-                            <BaseButton primary size="small">
-                              Edit
-                            </BaseButton>
-                            <BaseButton primary size="small">
-                              Delete
-                            </BaseButton>
+                          <TableCell onClick={(e) => e.stopPropagation()} classes={{ root: styles.TableCell }} align="center">
+                            <IconButton>
+                              <EditIcon />
+                            </IconButton>
+                            <Delete id={item._id} callback={getAllItems} />
                           </TableCell>
                         </TableRow>
                       );
@@ -222,12 +223,10 @@ const Admin = () => {
                           {order.method === 0 ? 'Cash' : 'Paid'}
                         </TableCell>
                         <TableCell classes={{ root: styles.TableCell }} align="center">
-                          <BaseButton primary size="small">
-                            Edit
-                          </BaseButton>
-                          <BaseButton primary size="small">
-                            Delete
-                          </BaseButton>
+                          <IconButton>
+                            <EditIcon />
+                          </IconButton>
+                          <Delete />
                         </TableCell>
                       </TableRow>
                     ))}

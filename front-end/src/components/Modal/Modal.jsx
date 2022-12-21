@@ -35,7 +35,7 @@ const Modal = ({ total, setOpen, open }) => {
         customer: Yup.string().max(25, messages.maxLength('Name', 25)).required(messages.requiredField('Name')),
         phoneNumber: Yup.string().required(messages.requiredField('Phone Number')),
         address: Yup.string()
-          .min(25, messages.minLength('Address', 25))
+          .min(20, messages.minLength('Address', 20))
           .max(200, messages.maxLength('Address', 200))
           .required(messages.requiredField('Address')),
       }),
@@ -128,6 +128,7 @@ const Modal = ({ total, setOpen, open }) => {
             type="text"
             placeholder="512 Truong Chinh, Cam Le, Da Nang"
             {...register('address')}
+            spellCheck="false"
             helperText={formState.errors.address?.message}
             error={!!formState.errors.address}
           >
