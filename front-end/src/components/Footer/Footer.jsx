@@ -6,7 +6,14 @@ import styles from './Footer.module.scss';
 const Footer = () => {
   return (
     <Box className={styles.Container}>
-      <Grid container className={styles.Left} lg={4}>
+      <Grid
+        container
+        sx={{
+          display: { xs: 'none', sm: 'none', lg: 'flex' },
+        }}
+        className={styles.Left}
+        lg={4}
+      >
         <Box className={styles.ImgContainer}>
           <img src="/img/footer.jpg" alt="footer" />
         </Box>

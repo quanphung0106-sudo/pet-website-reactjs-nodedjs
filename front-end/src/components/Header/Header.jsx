@@ -37,8 +37,8 @@ const Header = () => {
   };
 
   return (
-    <Box className={styles.Container}>
-      <Grid container className={styles.Item} lg={3}>
+    <Grid container className={styles.Container}>
+      <Grid container className={styles.Item} sm={6} lg={3}>
         <Grid>
           <PhoneEnabledIcon />
         </Grid>
@@ -47,7 +47,13 @@ const Header = () => {
           <Grid className={styles.Text}>0935 123 456</Grid>
         </Grid>
       </Grid>
-      <Grid container className={styles.Item} lg={6}>
+      <Grid
+        className={styles.Item}
+        sx={{
+          display: { xs: 'none', sm: 'none', lg: 'flex' },
+        }}
+        lg={6}
+      >
         <ul>
           <Link to="/">
             <li>Home</li>
@@ -59,14 +65,14 @@ const Header = () => {
             <li>Item</li>
           </Link>
           <Link to="/">
-            <img src="/img/logo.png" alt="logo" />
+            <Box component="img" src="/img/logo.png" alt="logo" />
           </Link>
           <li>Events</li>
           <li>Blog</li>
           <li>Contact</li>
         </ul>
       </Grid>
-      <Grid container className={styles.Item} lg={3}>
+      <Grid container className={styles.Item} sm={6} lg={3}>
         <Link to="/cart">
           <Grid className={styles.Cart}>
             <ShoppingCartIcon className={styles.CartIcon} />
@@ -107,7 +113,7 @@ const Header = () => {
           </BaseButton>
         )}
       </Grid>
-    </Box>
+    </Grid>
   );
 };
 

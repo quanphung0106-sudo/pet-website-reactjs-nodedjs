@@ -71,15 +71,15 @@
     }
 
     .Right {
-      @include flexBox(center, unset) {
-      }
-
       .InputWrapper {
-        height: 100%;
         display: flex;
         flex-direction: column;
         width: 100%;
         padding: 50px;
+
+        & > div {
+          margin-bottom: 0;
+        }
 
         button {
           min-width: 100%;
