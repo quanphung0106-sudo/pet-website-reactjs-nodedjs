@@ -2,7 +2,7 @@ import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import Grid from '@mui/material/Unstable_Grid2';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import styles from './ItemDetail.module.scss';
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -11,11 +11,12 @@ import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { addProduct } from '~/redux/cartSlice';
 import { BaseButton } from '../Button/Button';
+import itemApi from '~/helpers/axios/itemApi';
 
 const ItemDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [check, setCheck] = useState({});
-  const [datas, setDatas] = useState({});
+  const [data, setData] = useState({});
   const [price, setPrice] = useState(0);
   // const [sell, setSell] = useState(0);
   const [blockAdd, setBlockAdd] = useState(true);
@@ -25,15 +26,10 @@ const ItemDetail = () => {
   // Cách 1: Get ID from URL
   const params = useParams();
 
-  //Cách 2:
-  // var url = window.location.pathname;
-  // var id = url.substring(url.lastIndexOf('/') + 1);
-
   useEffect(() => {
     const getItemById = async () => {
-      const res = await axios.get(`http://localhost:8808/api/items/${params.id}`);
-      // const res = await axios.get(`https://pet-website-reactjs-nodejs.herokuapp.com/api/items/${params.id}`);
-      setDatas(res.data);
+      const res = await itemApi.get(params.id);
+      setData(res.data);
     };
     getItemById();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,8 +60,8 @@ const ItemDetail = () => {
   const handleChecked = (option) => {
     setCheck(option);
     setBlockAdd(false);
-    if (datas.sellItem !== 0) {
-      const sellPrice = option.price - (option.price * datas.sellItem) / 100;
+    if (data.sellItem !== 0) {
+      const sellPrice = option.price - (option.price * data.sellItem) / 100;
       // setSell(sellPrice);
       setPrice(sellPrice);
     } else {
@@ -77,7 +73,7 @@ const ItemDetail = () => {
     dispatch(
       addProduct({
         idItem: uuidv4(),
-        ...datas,
+        ...data,
         price,
         quantity,
         check,
@@ -92,22 +88,22 @@ const ItemDetail = () => {
         <BaseButton to="/products" primary startIcon={<ArrowBackOutlinedIcon />}>
           Go back
         </BaseButton>
-        <Box component="img" src={datas.img} alt="detailItem" />
+        <Box component="img" src={data.img} alt="detailItem" />
       </Grid>
       <Grid className={styles.Right} xs={12} sm={6} lg={6}>
         <Box className={styles.Texts}>
-          <Typography variant="h1">{datas.title}</Typography>
+          <Typography variant="h1">{data.title}</Typography>
           <Box className={styles.Prices}>
-            {datas.sellItem !== 0 ? (
+            {data.sellItem !== 0 ? (
               <>
-                <Typography variant="body1">-{datas.sellItem}%</Typography>${price}
+                <Typography variant="body1">-{data.sellItem}%</Typography>${price}
                 <del className={styles.Price}>${price}</del>
               </>
             ) : (
               <>${price}</>
             )}
           </Box>
-          <Typography variant="body1">{datas.desc}</Typography>
+          <Typography variant="body1">{data.desc}</Typography>
           <Box className={styles.Quantity}>
             <button onClick={() => handleQuantity('left')} className={styles.AdjustQuantity}>
               -
@@ -119,7 +115,7 @@ const ItemDetail = () => {
             <Typography variant="body1">20 products are available</Typography>
           </Box>
           <section className={styles.Types}>
-            {datas.typeOfOptions?.map((option) => (
+            {data.typeOfOptions?.map((option) => (
               <Box className={styles.Extras} key={option._id}>
                 <input
                   onChange={() => handleChecked(option)}

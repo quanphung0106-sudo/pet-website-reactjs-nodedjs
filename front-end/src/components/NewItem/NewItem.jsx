@@ -11,8 +11,8 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { BaseButton } from '~/components/Button/Button';
 import { ContainedTextField } from '~/components/TextField/TextField';
 import styles from './NewItem.module.scss';
-import useAxiosPrivate from '~/hooks/useAxiosPrivate';
-import { callApi } from '~/axios/axios';
+import { axiosClient } from '~/helpers/axios/axiosClient';
+import itemApi from '~/helpers/axios/itemApi';
 
 const Modal = ({ open, setOpen, callback }) => {
   const [data, setData] = useState({
@@ -22,7 +22,6 @@ const Modal = ({ open, setOpen, callback }) => {
     typeOfOptions: [],
   });
   const [extra, setExtra] = useState(null);
-  const axiosPrivate = useAxiosPrivate();
 
   const handleDelete = (index) => () => {
     const options = data.typeOfOptions.filter((chips, chipsIndex) => {
@@ -63,11 +62,11 @@ const Modal = ({ open, setOpen, callback }) => {
     myData.append('upload_preset', 'pet-websites');
 
     try {
-      const uploadRes = await callApi.post('https://api.cloudinary.com/v1_1/dw0r3ayk2/image/upload', myData, {
+      const uploadRes = await axiosClient.post('https://api.cloudinary.com/v1_1/dw0r3ayk2/image/upload', myData, {
         'Access-Control-Allow-Credentials': true,
         withCredentials: false,
       });
-      const res = await axiosPrivate.post('/items', {
+      const res = await itemApi.post({
         ...data,
         img: uploadRes.data.url,
       });

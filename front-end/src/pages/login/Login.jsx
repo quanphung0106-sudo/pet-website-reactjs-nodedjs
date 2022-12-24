@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import LoginImage from '~/assets/images/login-background.png';
 import { BaseButton } from '~/components/Button/Button';
 import { LineTextField } from '~/components/TextField/TextField';
+import storage from '~/helpers/localStorage';
 import { loginFail, loginStart, loginSuccess } from '~/redux/userSlice';
 import { messages } from '~/utils/messages';
 import styles from './Login.module.scss';
@@ -45,6 +46,7 @@ export default function Login() {
     try {
       dispatch(loginStart());
       const res = await axios.post('http://localhost:8808/api/auth/login', values);
+      storage.setAccessToken(res.data.accessToken);
       dispatch(loginSuccess(res.data));
       if (res.data.isAdmin === true) {
         navigate('/admin');

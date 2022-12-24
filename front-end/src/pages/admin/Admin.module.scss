@@ -5,56 +5,84 @@ $background_color_hover: #f0919675;
   width: 100%;
   min-height: calc(100vh - 100px);
   padding: 20px;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 
-  h1 {
-    font-size: 3.2rem;
-    font-weight: bold;
-  }
-  .Products {
-    display: flex;
-    margin-bottom: 15px;
-    height: 6rem;
-    max-height: 6rem;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
+  .BottomNavigation {
+    background-color: var(--pink_100);
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    max-width: max-content;
+    border-radius: 0.5rem;
 
-.TableHead {
-  background-color: var(--pink_60);
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-
-  .TableCell {
-    color: var(--white);
-    font-size: 2rem;
-    font-weight: bold;
-  }
-}
-
-.TableBody {
-  .TableRow:nth-child(even) {
-    background-color: $background_color;
-  }
-
-  .TableRow:hover {
-    background-color: $background_color_hover;
-    cursor: pointer;
-  }
-
-  .TableCell {
-    font-weight: 600;
-    font-size: 1.6rem;
-
-    img {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
+    .Mui-selected {
+      background-color: var(--white);
+      color: var(--pink_100);
     }
 
-    &:last-child {
+    
+    button {
+      color: var(--white);
+      &.Selected{
+        background-color: var(--white);
+        color: var(--pink_100);
+      }
+
+      span {
+        font-size: 1.6rem;
+        font-weight: bold;
+      }
+    }
+  }
+  .Products,
+  .Orders,
+  .Users {
+    .Btn {
+      margin-bottom: 10px;
+    }
+    width: 100%;
+  }
+}
+
+.Table {
+  // overflow-y: scroll;
+
+  .TableHead {
+    background-color: var(--pink_60);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    .TableCell {
+      color: var(--white);
+      font-size: 2rem;
       font-weight: bold;
+    }
+  }
+
+  .TableBody {
+    .TableRow:nth-child(even) {
+      background-color: $background_color;
+    }
+
+    .TableRow:hover {
+      background-color: $background_color_hover;
+      cursor: pointer;
+    }
+
+    .TableCell {
+      font-weight: 600;
+      font-size: 1.6rem;
+
+      img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+      }
+
+      &:last-child {
+        font-weight: bold;
+      }
     }
   }
 }

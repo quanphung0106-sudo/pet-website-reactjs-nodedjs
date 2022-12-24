@@ -4,12 +4,11 @@ import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styles from './style.module.scss';
-import useAxiosPrivate from '~/hooks/useAxiosPrivate';
+import itemApi from '~/helpers/axios/itemApi';
 
 const Delete = ({ id, callback }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openPopover = Boolean(anchorEl);
-  const axiosPrivate = useAxiosPrivate();
 
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
@@ -21,7 +20,7 @@ const Delete = ({ id, callback }) => {
 
   const handleDeleteItem = async () => {
     try {
-      const res = await axiosPrivate.delete(`/items/${id}`, id);
+      const res = await itemApi.delete(id);
       if (res.status === 200) callback();
     } catch (err) {
       console.log(err);

@@ -12,7 +12,7 @@ import { BaseButton } from '../Button/Button';
 import { ContainedTextField } from '../TextField/TextField';
 import { messages } from '~/utils/messages';
 import styles from './Modal.module.scss';
-import { callApi } from '~/axios/axios';
+import { axiosClient } from '~/helpers/axios/axiosClient';
 import { useNavigate } from 'react-router-dom';
 import { reset } from '~/redux/cartSlice';
 
@@ -66,7 +66,7 @@ const Modal = ({ total, setOpen, open }) => {
       method: 0,
     };
     try {
-      const res = await callApi.post('/orders', data);
+      const res = await axiosClient.post('/orders', data);
       setError(false);
       if (res.status === 201) {
         dispatch(reset());

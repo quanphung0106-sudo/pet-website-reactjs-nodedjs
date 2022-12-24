@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import storage from '~/helpers/localStorage';
 
 const userSlice = createSlice({
   name: 'user',
@@ -35,6 +36,7 @@ const userSlice = createSlice({
       state.user = null;
       state.isFetching = false;
       state.error = false;
+      storage.clearStorage();
     },
   },
 });

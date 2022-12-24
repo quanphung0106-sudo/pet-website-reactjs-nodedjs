@@ -8,7 +8,7 @@ import { fetchData } from '~/redux/cartSlice';
 import styles from './Item.module.scss';
 import { BaseButton } from '../Button/Button';
 import Loading from '../Loading/Loading';
-import { callApi } from '~/axios/axios';
+import itemApi from '~/helpers/axios/itemApi';
 
 const Item = () => {
   const [data, setData] = useState([]);
@@ -17,7 +17,7 @@ const Item = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await callApi.get(`/items`);
+      const res = await itemApi.getAll();
       if (res.data) setData(res.data);
       dispatch(fetchData());
     };
@@ -53,8 +53,12 @@ const Item = () => {
                     <del variant="body2" className={styles.Price}>
                       ${data.typeOfOptions[0].price} - {data.typeOfOptions[data.typeOfOptions.length - 1].price}
                     </del>
-                    ${data.typeOfOptions[0].price - (data.typeOfOptions[data.typeOfOptions.length - 1].price * data.sellItem) / 100}-
-                    {data.typeOfOptions[1].price - (data.typeOfOptions[data.typeOfOptions.length - 1].price * data.sellItem) / 100}
+                    $
+                    {data.typeOfOptions[0].price -
+                      (data.typeOfOptions[data.typeOfOptions.length - 1].price * data.sellItem) / 100}
+                    -
+                    {data.typeOfOptions[1].price -
+                      (data.typeOfOptions[data.typeOfOptions.length - 1].price * data.sellItem) / 100}
                   </>
                 ) : (
                   `$${data.typeOfOptions[0].price}`

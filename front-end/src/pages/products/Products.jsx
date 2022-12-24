@@ -17,7 +17,7 @@ const Products = () => {
         <Grid lg={2} className={styles.Search}>
           <Search />
         </Grid>
-        <Grid wrap='wrap' container lg={10} className={styles.Items}>
+        <Grid wrap="wrap" container lg={10} className={styles.Items}>
           <Item />
         </Grid>
       </Grid>
