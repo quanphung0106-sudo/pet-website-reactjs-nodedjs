@@ -1,4 +1,5 @@
 import { Box, createTheme, ThemeProvider, Typography, useMediaQuery } from '@mui/material';
+import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
 import { routes } from '~/routes';
@@ -23,6 +24,10 @@ function App() {
       },
     },
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="App">

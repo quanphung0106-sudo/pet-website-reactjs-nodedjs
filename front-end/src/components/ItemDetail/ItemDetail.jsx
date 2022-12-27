@@ -1,29 +1,26 @@
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import Grid from '@mui/material/Unstable_Grid2';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styles from './ItemDetail.module.scss';
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Box, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+import itemApi from '~/helpers/axios/itemApi';
 import { addProduct } from '~/redux/cartSlice';
 import { BaseButton } from '../Button/Button';
-import itemApi from '~/helpers/axios/itemApi';
 
 const ItemDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [check, setCheck] = useState({});
   const [data, setData] = useState({});
   const [price, setPrice] = useState(0);
-  // const [sell, setSell] = useState(0);
   const [blockAdd, setBlockAdd] = useState(true);
 
   const dispatch = useDispatch();
 
-  // Cách 1: Get ID from URL
   const params = useParams();
 
   useEffect(() => {
@@ -32,8 +29,7 @@ const ItemDetail = () => {
       setData(res.data);
     };
     getItemById();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [params.id]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -62,7 +58,6 @@ const ItemDetail = () => {
     setBlockAdd(false);
     if (data.sellItem !== 0) {
       const sellPrice = option.price - (option.price * data.sellItem) / 100;
-      // setSell(sellPrice);
       setPrice(sellPrice);
     } else {
       setPrice(option.price);

@@ -1,5 +1,5 @@
 .ContentWrapper {
-  height: 440px;
+  height: 44rem;
   padding-top: 25px;
 
   button {
@@ -10,7 +10,6 @@
     display: flex;
     justify-content: space-around;
 
-
     & > div:first-of-type,
     & > div:nth-of-type(2) {
       padding: 0 15px;
@@ -20,7 +19,6 @@
     }
 
     & > div:nth-of-type(2) {
-
       .Btn {
         margin-bottom: 10px;
       }
@@ -78,5 +76,11 @@
         font-weight: 600;
       }
     }
+  }
+}
+
+@media (min-width: 46.25em) and (max-width: 63.9375em) {
+  .ContentWrapper {
+    height: 80rem;
   }
 }

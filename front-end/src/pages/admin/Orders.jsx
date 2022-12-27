@@ -41,7 +41,9 @@ const Orders = ({ handleAlign, orders }) => {
     navigate(`/orders/${id}`);
   };
 
-  if(!orders) return <Loading />
+  console.log('orders');
+
+  if (orders.length === 0) return <Loading />;
   return (
     <Box className={styles.Orders}>
       <TableContainer component={Paper} className={styles.Table}>
@@ -81,7 +83,7 @@ const Orders = ({ handleAlign, orders }) => {
                 <TableCell classes={{ root: styles.TableCell }} align="center">
                   {order.method === 0 ? 'Cash' : 'Paid'}
                 </TableCell>
-                <TableCell classes={{ root: styles.TableCell }} align="center">
+                <TableCell onClick={(e) => e.stopPropagation()} classes={{ root: styles.TableCell }} align="center">
                   <IconButton>
                     <EditIcon />
                   </IconButton>

@@ -2,7 +2,7 @@ import { axiosClient } from './axiosClient';
 
 const axiosRequest = axiosClient()
 
-const itemApi = {
+const orderApi = {
   getAll(params) {
     const url = '/orders';
     return axiosRequest.get(url, { params });
@@ -21,4 +21,4 @@ const itemApi = {
   },
 };
 
-export default itemApi;
+export default orderApi;

@@ -1,6 +1,6 @@
-import { axiosClient } from './axiosClient';
+import baseAxios, { axiosClient } from './axiosClient';
 
-const axiosRequest = axiosClient()
+const axiosRequest = axiosClient();
 
 const userApi = {
   getAll(params) {
@@ -18,6 +18,14 @@ const userApi = {
   delete(id) {
     const url = `/users/${id}`;
     return axiosRequest.delete(url, id);
+  },
+  logout() {
+    const url = '/auth/logout';
+    return baseAxios.post(url);
+  },
+  active(token) {
+    const url = '/auth/token';
+    return baseAxios.post(url, { token });
   },
 };
 

@@ -11,8 +11,7 @@ import BaseTable from '~/components/Table/Table';
 import { reset } from '~/redux/cartSlice';
 import styles from './Cart.module.scss';
 
-const Cart = (props) => {
-  // const cart = useSelector((state) => state.cart);
+const Cart = () => {
   const items = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 

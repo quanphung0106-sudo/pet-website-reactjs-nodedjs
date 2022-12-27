@@ -7,6 +7,7 @@ import { BaseButton } from '~/components/Button/Button';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
+import userApi from '~/helpers/axios/userApi';
 
 const ActiveAccount = () => {
   const [searchParam, setSearchParams] = useSearchParams();
@@ -14,7 +15,8 @@ const ActiveAccount = () => {
 
   useEffect(() => {
     const activeAccount = async () => {
-      await axios.post('http://localhost:8808/api/auth/token', { token });
+      // await axios.post('http://localhost:8808/api/auth/token', { token });
+      await userApi.active(token);
     };
     activeAccount();
   }, [token]);

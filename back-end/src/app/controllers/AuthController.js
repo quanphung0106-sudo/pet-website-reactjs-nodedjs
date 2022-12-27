@@ -37,6 +37,9 @@ const refreshToken = async (req, res) => {
   try {
     // check refreshToken cookies === refreshToken cookie db
     const refreshToken = req.cookies.refresh_token;
+
+    console.log('refreshToken from request:', refreshToken);
+
     if (!refreshToken) return res.status(404).json('Token is not exist.');
 
     jwt.verify(refreshToken, process.env.JWT_REFRESH_TOKEN, async (err, user) => {
@@ -75,6 +78,7 @@ const refreshToken = async (req, res) => {
       }
     });
   } catch (err) {
+    console.log(err);
     return res.status(500).json(err);
   }
 };

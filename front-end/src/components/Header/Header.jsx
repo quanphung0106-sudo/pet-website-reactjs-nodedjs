@@ -10,7 +10,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import styles from './Header.module.scss';
 import { logout } from '~/redux/userSlice';
 import { BaseButton } from '../Button/Button';
-import axios from 'axios';
+import userApi from '~/helpers/axios/userApi';
 
 const Header = () => {
   const quantity = useSelector((state) => state.cart.quantity);
@@ -26,12 +26,12 @@ const Header = () => {
 
   const navigateToAdminPage = () => {
     if (isAdmin === true) {
-      navigate('/admin');
+      navigate('/admin/products');
     }
   };
 
   const handleLogout = async () => {
-    await axios.post('http://localhost:8808/api/auth/logout');
+    await userApi.logout();
     dispatch(logout());
     navigate('/');
   };

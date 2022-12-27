@@ -10,15 +10,18 @@ import Orders from './Orders';
 import Products from './Products';
 import Users from './Users';
 import orderApi from '~/helpers/axios/orderApi';
+import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
   const [orders, setOrders] = useState([]);
   const user = useSelector((state) => state.user.user);
   const isAdmin = user !== null && user.isAdmin;
+  const navigate = useNavigate();
 
   const handleCallOrders = async () => {
     const res = await orderApi.getAll();
     setOrders(res.data);
+    navigate('/admin/orders');
   };
 
   const handleAlign = (index, align) => {
@@ -46,9 +49,9 @@ const Admin = () => {
           }}
           className={styles.BottomNavigation}
         >
-          <BottomNavigationAction label="Products" classes={{ selected: styles.Selected }} />
+          <BottomNavigationAction label="Products" onClick={() => navigate('/admin/products')} classes={{ selected: styles.Selected }} />
           <BottomNavigationAction label="Orders" onClick={handleCallOrders} classes={{ selected: styles.Selected }} />
-          <BottomNavigationAction label="Users" classes={{ selected: styles.Selected }} />
+          <BottomNavigationAction label="Users" onClick={() => navigate('/admin/users')} classes={{ selected: styles.Selected }} />
         </BottomNavigation>
         {value === 0 && <Products handleAlign={handleAlign} />}
         {value === 1 && <Orders handleAlign={handleAlign} orders={orders} />}

@@ -57,7 +57,7 @@ const Item = () => {
                   -
                   {data.typeOfOptions[1].price -
                     (data.typeOfOptions[data.typeOfOptions.length - 1].price * data.sellItem) / 100}
-                  <Typography variant="body2" classes={{ body2: styles.Body2 }}>
+                  <Typography component="span" variant="body2" classes={{ body2: styles.Body2 }}>
                     (-{data.sellItem}%)
                   </Typography>
                 </>

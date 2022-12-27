@@ -1,3 +1,4 @@
+import EditIcon from '@mui/icons-material/Edit';
 import { Box, IconButton, Paper } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,14 +8,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import EditIcon from '@mui/icons-material/Edit';
 
-import itemApi from '~/helpers/axios/itemApi';
 import { BaseButton } from '~/components/Button/Button';
 import Delete from '~/components/Delete/Delete';
-import NewItem from '~/components/NewItem/NewItem';
-import styles from './Admin.module.scss';
 import Loading from '~/components/Loading/Loading';
+import NewItem from '~/components/NewItem/NewItem';
+import itemApi from '~/helpers/axios/itemApi';
+import styles from './Admin.module.scss';
 
 const Products = ({ handleAlign }) => {
   const [items, setItems] = useState([]);
@@ -60,7 +60,12 @@ const Products = ({ handleAlign }) => {
     setOpen(true);
   };
 
-  if (!items) return <Loading />;
+  const handleEdit = (id) => {
+    navigate(`edit/${id}`);
+    setOpen(true);
+  };
+
+  if (items.length === 0) return <Loading />;
   return (
     <Box>
       <NewItem open={open} setOpen={setOpen} callback={getAllItems} />
@@ -111,7 +116,7 @@ const Products = ({ handleAlign }) => {
                       ${item.typeOfOptions[0].price}- {item.typeOfOptions[item.typeOfOptions.length - 1].price}
                     </TableCell>
                     <TableCell onClick={(e) => e.stopPropagation()} classes={{ root: styles.TableCell }} align="center">
-                      <IconButton>
+                      <IconButton onClick={() => handleEdit(item._id)}>
                         <EditIcon />
                       </IconButton>
                       <Delete id={item._id} callback={getAllItems} />

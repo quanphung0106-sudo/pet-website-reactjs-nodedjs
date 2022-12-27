@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, IconButton, Paper } from '@mui/material';
 import Table from '@mui/material/Table';
@@ -7,18 +6,17 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { useEffect, useState } from 'react';
 
 import { BaseButton } from '~/components/Button/Button';
 import Delete from '~/components/Delete/Delete';
 import { formatDate } from '~/components/FormatDate/FormatDate';
-import NewItem from '~/components/NewItem/NewItem';
+import Loading from '~/components/Loading/Loading';
 import userApi from '~/helpers/axios/userApi';
 import styles from './Admin.module.scss';
-import Loading from '~/components/Loading/Loading';
 
 const Users = ({ handleAlign }) => {
   const [user, setUser] = useState([]);
-  const [open, setOpen] = useState(false);
 
   const column = [
     {
@@ -47,22 +45,19 @@ const Users = ({ handleAlign }) => {
   ];
 
   useEffect(() => {
-    (async () => {
+    const getData = async () => {
       const res = await userApi.getAll();
       if (res.data) setUser(res.data);
-    })();
+    };
+    getData();
   }, []);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
-  if(!user) return <Loading/>
+  if (user.length === 0) return <Loading />;
   return (
     <Box>
-      <NewItem open={open} setOpen={setOpen} />
       <Box className={styles.Users}>
-        <BaseButton primary size="large" className={styles.Btn} onClick={handleClickOpen}>
+        <BaseButton primary size="large" className={styles.Btn}>
           Add new User
         </BaseButton>
         <TableContainer component={Paper} className={styles.Table}>

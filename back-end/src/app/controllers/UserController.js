@@ -16,7 +16,7 @@ const createUser = async (req, res) => {
 const getAllUsers = async (req, res) => {
   try {
     const user = await User.find();
-    res.status(201).json(user);
+    res.status(200).json(user);
   } catch (err) {
     res.status(500).json(err);
   }

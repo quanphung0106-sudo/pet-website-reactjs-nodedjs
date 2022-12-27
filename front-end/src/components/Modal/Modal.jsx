@@ -1,20 +1,20 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import CloseIcon from '@mui/icons-material/Close';
 import { Alert, Box, CircularProgress, Dialog, IconButton } from '@mui/material';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
+import { useNavigate } from 'react-router-dom';
+import orderApi from '~/helpers/axios/orderApi';
+import { reset } from '~/redux/cartSlice';
+import { messages } from '~/utils/messages';
 import { BaseButton } from '../Button/Button';
 import { ContainedTextField } from '../TextField/TextField';
-import { messages } from '~/utils/messages';
 import styles from './Modal.module.scss';
-import { axiosClient } from '~/helpers/axios/axiosClient';
-import { useNavigate } from 'react-router-dom';
-import { reset } from '~/redux/cartSlice';
 
 const Modal = ({ total, setOpen, open }) => {
   const [error, setError] = useState('');
@@ -66,7 +66,7 @@ const Modal = ({ total, setOpen, open }) => {
       method: 0,
     };
     try {
-      const res = await axiosClient.post('/orders', data);
+      const res = await orderApi.post(data);
       setError(false);
       if (res.status === 201) {
         dispatch(reset());

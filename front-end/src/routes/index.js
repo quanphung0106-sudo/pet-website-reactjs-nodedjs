@@ -86,8 +86,13 @@ export const routes = createBrowserRouter([
     element: <ActiveAccount />,
   },
   {
-    path: '/admin',
-    element: <Admin />,
+    path: '/admin/*',
+    element: (
+      <>
+        <Admin />,
+        <ScrollToTop />
+      </>
+    ),
     errorElement: <Error />,
   },
 ]);

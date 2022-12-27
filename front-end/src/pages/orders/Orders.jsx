@@ -1,9 +1,8 @@
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Bake from '~/assets/images/bake.png';
@@ -14,30 +13,25 @@ import Paid from '~/assets/images/paid.png';
 import { BaseButton } from '~/components/Button/Button';
 import Loading from '~/components/Loading/Loading';
 import BaseTable from '~/components/Table/Table';
-import { reset } from '~/redux/cartSlice';
+import orderApi from '~/helpers/axios/orderApi';
 import styles from './Order.module.scss';
 
 const Orders = () => {
   const [data, setData] = useState({});
 
   const params = useParams();
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  // const cart = useSelector((state) => state.cart);
-  // const amount = cart.total;
   const status = data.status;
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const getItemById = async () => {
-      const res = await axios.get(`http://localhost:8808/api/orders/${params.id}`);
-      // const res = await axios.get(`https://pet-website-reactjs-nodejs.herokuapp.com/api/orders/${params.id}`);
-      setData(res.data);
+      const res = await orderApi.get(params.id);
+      if (res.data) setData(res.data);
     };
     getItemById();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [params.id]);
 
   const statusClass = (index) => {
     if (index - status < 1) return styles.done;

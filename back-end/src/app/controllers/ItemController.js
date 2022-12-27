@@ -5,7 +5,7 @@ const Item = require('../models/Item');
 const createItem = async (req, res) => {
   try {
     const products = await Item.create(req.body);
-    console.log("created new item: ", products);
+    console.log('created new item: ', products);
     res.status(201).json(products);
   } catch (err) {
     res.status(500).json(err);
@@ -38,6 +38,25 @@ const getItem = async (req, res) => {
   }
 };
 
+//update an item
+//[PUT]: /api/item/:id
+const updateItem = async (req, res) => {
+  try {
+    const item = await Item.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: req.body,
+      },
+      {
+        new: true,
+      },
+    );
+    res.status(200).json(item);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 //delete all items
 //[DELETE]: /api/items
 const deleteAllItems = async (req, res) => {
@@ -63,6 +82,7 @@ const deleteItem = async (req, res) => {
 module.exports = {
   createItem,
   getItems,
+  updateItem,
   deleteAllItems,
   getItem,
   deleteItem,

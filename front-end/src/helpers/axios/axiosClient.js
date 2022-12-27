@@ -2,6 +2,10 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import storage from '../localStorage';
 
+const baseAxios = axios.create({
+  baseURL: process.env.REACT_APP_SERVER,
+});
+
 export const axiosClient = () => {
   const accessToken = storage.getAccessToken();
 
@@ -12,11 +16,12 @@ export const axiosClient = () => {
 
   const refresh = async () => {
     try {
-      const response = await axios.post('/auth/refresh-token', null, {
+      const response = await axios.post(`${process.env.REACT_APP_SERVER}/auth/refresh-token`, null, {
         withCredentials: true,
       });
-      return response.data;
+      if (response) return response.data;
     } catch (err) {
+      window.location.pathname = '/signin';
       console.log('Client: Error refresh token: ', err);
     }
   };
@@ -40,7 +45,7 @@ export const axiosClient = () => {
       const decodeToken = jwt_decode(accessToken);
       if (decodeToken.exp < date.getTime() / 1000) {
         const data = await refresh();
-        if (data?.newAccessToken) {
+        if (data?.newAccessToken && data) {
           storage.setAccessToken(data.newAccessToken);
           config.headers['Authorization'] = data.newAccessToken;
         }
@@ -54,3 +59,5 @@ export const axiosClient = () => {
 
   return axiosJWT;
 };
+
+export default baseAxios;

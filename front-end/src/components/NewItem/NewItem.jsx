@@ -1,27 +1,56 @@
-import React from 'react';
-import { useState } from 'react';
-import { Box, Typography, Dialog, IconButton, ListItem } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import CloseIcon from '@mui/icons-material/Close';
+import { Box, Dialog, IconButton, ListItem, Typography } from '@mui/material';
+import Chip from '@mui/material/Chip';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import Chip from '@mui/material/Chip';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import Grid from '@mui/material/Unstable_Grid2';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 import { BaseButton } from '~/components/Button/Button';
 import { ContainedTextField } from '~/components/TextField/TextField';
-import styles from './NewItem.module.scss';
-import { axiosClient } from '~/helpers/axios/axiosClient';
 import itemApi from '~/helpers/axios/itemApi';
+import styles from './NewItem.module.scss';
+
+const initialState = {
+  title: '',
+  desc: '',
+  img: null,
+  typeOfOptions: [],
+};
 
 const Modal = ({ open, setOpen, callback }) => {
-  const [data, setData] = useState({
-    title: '',
-    desc: '',
-    img: null,
-    typeOfOptions: [],
-  });
+  const [data, setData] = useState(initialState);
   const [extra, setExtra] = useState(null);
+  const location = useLocation();
+
+  function getDetailId() {
+    if (typeof location === 'undefined' || location.pathname.includes('/add')) return null;
+    if (location.pathname.includes('/edit')) {
+      const id = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
+      return id;
+    }
+  }
+
+  const id = getDetailId();
+  const title = id ? 'Update Item' : 'Create New Item';
+
+  useEffect(() => {
+    const getItemById = async () => {
+      try {
+        if (id) {
+          const res = await itemApi.get(id);
+          if (res.data) return setData(res.data);
+        }
+        setData(initialState);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getItemById();
+  }, [id]);
 
   const handleDelete = (index) => () => {
     const options = data.typeOfOptions.filter((chips, chipsIndex) => {
@@ -56,22 +85,45 @@ const Modal = ({ open, setOpen, callback }) => {
     });
   };
 
+  const renderImg = () => {
+    if (data.img) {
+      if (typeof data.img === 'string') return data.img;
+      return URL.createObjectURL(data.img);
+    }
+    return '/img/pets.jpg';
+  };
+
+  const handlePost = async (imgRes, id) => {
+    if (id) {
+      const res = await itemApi.update(id, {
+        ...data,
+        img: imgRes.data.url,
+      });
+      if (res.data) return res;
+    } else {
+      const res = await itemApi.post({
+        ...data,
+        img: imgRes.data.url,
+      });
+      if (res.data) return res;
+    }
+  };
+
   const handleCreate = async () => {
     const myData = new FormData();
     myData.append('file', data.img);
     myData.append('upload_preset', 'pet-websites');
 
     try {
-      const uploadRes = await axiosClient.post('https://api.cloudinary.com/v1_1/dw0r3ayk2/image/upload', myData, {
+      const uploadRes = await axios.post('https://api.cloudinary.com/v1_1/dw0r3ayk2/image/upload', myData, {
         'Access-Control-Allow-Credentials': true,
         withCredentials: false,
       });
-      const res = await itemApi.post({
-        ...data,
-        img: uploadRes.data.url,
-      });
+      const res = id ? await handlePost(uploadRes, id) : await handlePost(uploadRes);
+      if ([200, 201].includes(res.status) && res.data) {
+        callback();
+      }
       setOpen(false);
-      if (res.status === 201) callback();
     } catch (err) {
       console.log(err);
     }
@@ -92,7 +144,7 @@ const Modal = ({ open, setOpen, callback }) => {
         >
           <CloseIcon />
         </IconButton>
-        Add new product.
+        {title}
       </DialogTitle>
       <DialogContent>
         <Grid container className={styles.ContentWrapper} rowGap={2}>
@@ -104,6 +156,7 @@ const Modal = ({ open, setOpen, callback }) => {
                 name="title"
                 type="text"
                 placeholder="Siberian Husky"
+                value={data?.title ? data.title : ''}
               />
               <ContainedTextField
                 onChange={handleChange}
@@ -111,6 +164,7 @@ const Modal = ({ open, setOpen, callback }) => {
                 name="desc"
                 type="text"
                 placeholder="The Siberian Husky is a medium-sized ..."
+                value={data?.desc ? data.desc : ''}
               />
               <BaseButton primary size="large" component="label" endIcon={<CameraAltIcon />}>
                 Upload
@@ -156,11 +210,11 @@ const Modal = ({ open, setOpen, callback }) => {
               </Box>
             </Grid>
             <BaseButton primary size="large" onClick={handleCreate}>
-              Add product
+              {id ? ' Update Item ' : 'Add product'}
             </BaseButton>
           </Grid>
           <Grid className={styles.Right} sm={12} lg={4}>
-            <img src={data.img ? URL.createObjectURL(data.img) : '/img/pets.jpg'} alt="preview" />
+            <img src={renderImg()} alt="preview" />
             <Typography variant="h1">{data?.title}</Typography>
           </Grid>
         </Grid>
@@ -168,5 +222,4 @@ const Modal = ({ open, setOpen, callback }) => {
     </Dialog>
   );
 };
-
 export default Modal;
