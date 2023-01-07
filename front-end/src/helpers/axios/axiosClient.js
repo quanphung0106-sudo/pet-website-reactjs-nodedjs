@@ -9,6 +9,8 @@ const baseAxios = axios.create({
 export const axiosClient = () => {
   const accessToken = storage.getAccessToken();
 
+  console.log(accessToken);
+
   const axiosJWT = axios.create({
     baseURL: process.env.REACT_APP_SERVER,
     headers: { Authorization: accessToken },

@@ -46,12 +46,15 @@ const Users = ({ handleAlign }) => {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await userApi.getAll();
-      if (res.data) setUser(res.data);
+      try {
+        const res = await userApi.getAll();
+        if (res.data) setUser(res.data);
+      } catch (err) {
+        console.log(err);
+      }
     };
     getData();
   }, []);
-
 
   if (user.length === 0) return <Loading />;
   return (

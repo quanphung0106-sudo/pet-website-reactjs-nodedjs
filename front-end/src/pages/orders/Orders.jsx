@@ -27,8 +27,12 @@ const Orders = () => {
 
   useEffect(() => {
     const getItemById = async () => {
-      const res = await orderApi.get(params.id);
-      if (res.data) setData(res.data);
+      try {
+        const res = await orderApi.get(params.id);
+        if (res.data) setData(res.data);
+      } catch (err) {
+        console.log(err);
+      }
     };
     getItemById();
   }, [params.id]);
