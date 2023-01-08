@@ -27,13 +27,8 @@ const Orders = () => {
   useEffect(() => {
     const getItemById = async () => {
       try {
-        if (!user) {
-          const res = await orderApi.getNoUser(params.id);
-          if (res.data) setData(res.data);
-        } else {
-          const res = await orderApi.get(params.id);
-          if (res.data) setData(res.data);
-        }
+        const res = user ? await orderApi.get(params.id) : await orderApi.getNoUser(params.id);
+        if (res.data) setData(res.data);
       } catch (err) {
         console.log(err);
       }

@@ -24,8 +24,6 @@ const Modal = ({ total, setOpen, open }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(user);
-
   const { register, formState, handleSubmit } = useForm({
     defaultValues: {
       customer: '',
@@ -69,13 +67,11 @@ const Modal = ({ total, setOpen, open }) => {
       method: 0,
     };
     try {
-      if (!user) {
-        const res = await orderApi.postNoUser(data);
-        setError(false);
-        if (res.status === 201) {
-          dispatch(reset());
-          navigate(`/orders/${res.data._id}`);
-        }
+      const res = user ? await orderApi.post(data) : await orderApi.postNoUser(data);
+      setError(false);
+      if (res.status === 201) {
+        dispatch(reset());
+        navigate(`/orders/${res.data._id}`);
       }
     } catch (err) {
       setError(err?.response?.data);
