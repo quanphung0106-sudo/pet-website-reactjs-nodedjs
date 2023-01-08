@@ -20,8 +20,11 @@ const Modal = ({ total, setOpen, open }) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const cartProducts = useSelector((state) => state.cart.products);
+  const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  console.log(user);
 
   const { register, formState, handleSubmit } = useForm({
     defaultValues: {
@@ -66,11 +69,13 @@ const Modal = ({ total, setOpen, open }) => {
       method: 0,
     };
     try {
-      const res = await orderApi.post(data);
-      setError(false);
-      if (res.status === 201) {
-        dispatch(reset());
-        navigate(`/orders/${res.data._id}`);
+      if (!user) {
+        const res = await orderApi.postNoUser(data);
+        setError(false);
+        if (res.status === 201) {
+          dispatch(reset());
+          navigate(`/orders/${res.data._id}`);
+        }
       }
     } catch (err) {
       setError(err?.response?.data);
@@ -134,12 +139,7 @@ const Modal = ({ total, setOpen, open }) => {
           >
             Hello
           </ContainedTextField>
-          <BaseButton
-            primary
-            disabled={loading}
-            type="submit"
-            startIcon={loading && <CircularProgress size={20} />}
-          >
+          <BaseButton primary disabled={loading} type="submit" startIcon={loading && <CircularProgress size={20} />}>
             ORDER NOW!
           </BaseButton>
         </Box>

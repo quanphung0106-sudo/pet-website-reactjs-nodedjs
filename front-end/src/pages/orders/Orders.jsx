@@ -18,9 +18,8 @@ import styles from './Order.module.scss';
 
 const Orders = () => {
   const [data, setData] = useState({});
-
-  const params = useParams();
   const user = useSelector((state) => state.user.user);
+  const params = useParams();
   const status = data.status;
 
   const navigate = useNavigate();
@@ -28,14 +27,19 @@ const Orders = () => {
   useEffect(() => {
     const getItemById = async () => {
       try {
-        const res = await orderApi.get(params.id);
-        if (res.data) setData(res.data);
+        if (!user) {
+          const res = await orderApi.getNoUser(params.id);
+          if (res.data) setData(res.data);
+        } else {
+          const res = await orderApi.get(params.id);
+          if (res.data) setData(res.data);
+        }
       } catch (err) {
         console.log(err);
       }
     };
     getItemById();
-  }, [params.id]);
+  }, [params.id, user]);
 
   const statusClass = (index) => {
     if (index - status < 1) return styles.done;

@@ -3,6 +3,14 @@ import baseAxios, { axiosClient } from './axiosClient';
 const axiosRequest = axiosClient();
 
 const userApi = {
+  login(data) {
+    const url = '/auth/login';
+    return axiosRequest.post(url, data);
+  },
+  register(data) {
+    const url = '/auth/register';
+    return axiosRequest.post(url, data);
+  },
   getAll(params) {
     const url = '/users';
     return axiosRequest.get(url, { params });

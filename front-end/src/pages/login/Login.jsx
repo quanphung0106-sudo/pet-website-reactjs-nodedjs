@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import LoginImage from '~/assets/images/login-background.png';
 import { BaseButton } from '~/components/Button/Button';
 import { LineTextField } from '~/components/TextField/TextField';
+import userApi from '~/helpers/axios/userApi';
 import storage from '~/helpers/localStorage';
 import { loginFail, loginStart, loginSuccess } from '~/redux/userSlice';
 import { messages } from '~/utils/messages';
@@ -45,7 +46,9 @@ export default function Login() {
     setLoading(true);
     try {
       dispatch(loginStart());
-      const res = await axios.post('http://localhost:8808/api/auth/login', values);
+      // const res = await axios.post('http://localhost:8808/api/auth/login', values);
+      // const res = await axios.post(`${process.env.REACT_APP_SERVER}/auth/login`, values);
+      const res = await userApi.login(values);
       storage.setAccessToken(res.data.accessToken);
       dispatch(loginSuccess(res.data));
       if (res.data.isAdmin === true) {
@@ -57,7 +60,7 @@ export default function Login() {
       console.log(err);
       if (err.status !== 200) {
         setError(err?.response?.data);
-        dispatch(loginFail(err));
+        dispatch(loginFail());
       }
     } finally {
       setLoading(false);

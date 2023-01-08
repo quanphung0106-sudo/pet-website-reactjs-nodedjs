@@ -19,6 +19,7 @@ import * as Yup from 'yup';
 import RegisterImage from '~/assets/images/register-background.png';
 import { BaseButton } from '~/components/Button/Button';
 import { LineTextField } from '~/components/TextField/TextField';
+import userApi from '~/helpers/axios/userApi';
 import { messages } from '~/utils/messages';
 import styles from './Register.module.scss';
 
@@ -59,7 +60,8 @@ export default function Register() {
     const { username, email, password } = values;
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:8808/api/auth/register', { username, email, password });
+      // const res = await axios.post('http://localhost:8808/api/auth/register', { username, email, password });
+      const res = await userApi.register({ username, email, password });
       setError(false);
       if (res.status === 200) return setSuccess(true);
     } catch (err) {

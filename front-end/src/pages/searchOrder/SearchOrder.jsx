@@ -1,6 +1,5 @@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Box, InputAdornment, Paper, Typography } from '@mui/material';
-import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Table from '@mui/material/Table';
@@ -13,26 +12,18 @@ import TableRow from '@mui/material/TableRow';
 import { ContainedTextField } from '~/components/TextField/TextField';
 import { formatDate } from '~/components/FormatDate/FormatDate';
 import styles from './SearchOrder.module.scss';
+import orderApi from '~/helpers/axios/orderApi';
+import Loading from '~/components/Loading/Loading';
 
 const SearchOrder = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState({});
   const [id, setId] = useState('');
-  // const [localStorageItems, setLocalStorageItems] = useState({});
-
-  // useEffect(() => {
-  //   const getItem = JSON.parse(localStorage.getItem('item'));
-  //   if (getItem) setLocalStorageItems(getItem);
-  // }, []);
-
-  // console.log(localStorageItems);
-
   const getItemById = async () => {
     try {
-      const res = await axios.get(`http://localhost:8808/api/orders/${id}`);
-      // const res = await axios.get(`https://pet-website-reactjs-nodejs.herokuapp.com/api/orders/${id}`);
-      setData(res.data);
+      const res = await orderApi.getNoUser(id);
+      if (res.data) setData(res.data);
     } catch (err) {
       console.log(err);
     }

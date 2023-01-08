@@ -9,7 +9,7 @@ const baseAxios = axios.create({
 export const axiosClient = () => {
   const accessToken = storage.getAccessToken();
 
-  console.log(accessToken);
+  console.log("accessToken: ", accessToken);
 
   const axiosJWT = axios.create({
     baseURL: process.env.REACT_APP_SERVER,
@@ -43,6 +43,7 @@ export const axiosClient = () => {
 
   axiosJWT.interceptors.request.use(
     async (config) => {
+      console.log("config:", config);
       let date = new Date();
       const decodeToken = jwt_decode(accessToken);
       if (decodeToken.exp < date.getTime() / 1000) {
